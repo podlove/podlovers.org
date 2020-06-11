@@ -11,6 +11,8 @@ import { reducer as chapters } from '@podlove/player-state/chapters'
 import { reducer as quantiles } from '@podlove/player-state/quantiles'
 import { setVolume } from '@podlove/player-actions/audio'
 import { setRate } from '@podlove/player-actions/audio'
+import { simulatePlaytime } from '@podlove/player-actions/timepiece'
+import { enableGhost, disableGhost } from '@podlove/player-actions/progress'
 
 import selectors from "./selectors";
 
@@ -31,7 +33,10 @@ const actions = {
   ...player.actions,
   ...playbar.actions,
   setVolume,
-  setRate
+  setRate,
+  simulatePlaytime,
+  disableGhost,
+  enableGhost
 };
 
 export { selectors, actions, reducers };

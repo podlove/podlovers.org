@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <div class="w-full shadow-lg px-8 py-20 bg-gray-900 flex items-center justify-center relative">
+    <div class="episode-header w-full px-8 py-40 bg-gray-900 flex items-center justify-center relative shadow">
       <div class="w-app flex font-light items-center flex-col">
         <div class="flex">
           <div class="h-48 w-48 mr-8 relative">
@@ -31,8 +31,12 @@
             </div>
           </div>
         </div>
+        <div class="episode-header-bottom left"></div>
+        <div class="episode-header-bottom shadow left"></div>
+        <div class="episode-header-bottom right"></div>
+        <div class="episode-header-bottom shadow right"></div>
         <div
-          class="absolute bg-gray-900 text-white bottom-0 h-20 flex justify-center items-center -mb-10 rounded shadow-lg py-4 px-8"
+          class="absolute text-white bottom-0 h-20 flex justify-center items-center py-4 px-8"
         >
           <!-- Discuss -->
           <button class="mx-4 font-thin flex items-center">
@@ -74,6 +78,16 @@
         </div>
       </div>
     </div>
+    <div class="w-full flex justify-center pt-20">
+      <div class="w-app">
+        <div class="font-light border-gray-400 border-b mb-12 pt-6 pb-12 px-12">{{ $page.episode.summary }}</div>
+        <h3 class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-2">Timeline</h3>
+        <timeline class="font-light border-gray-400 border-b mb-12 pb-12 px-12" :id="$page.episode.id" :chapters="$page.episode.chapters" :duration="$page.episode.duration"/>
+
+        <h3 class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-2">Shownotes</h3>
+        <div class="font-light episode-content border-gray-400 border-b mb-12 pb-12 px-12" v-html="$page.episode.content"></div>
+      </div>
+    </div>
   </Layout>
 </template>
 
@@ -86,6 +100,7 @@ query ($id: ID!) {
     publicationDate,
     poster,
     duration,
+    content,
     show {
       poster,
       title,
@@ -100,6 +115,7 @@ query ($id: ID!) {
     },
     chapters {
       start,
+      end,
       title,
       href,
       image
@@ -114,23 +130,31 @@ query ($id: ID!) {
 </page-query>
 
 <script>
+import { mapActions, mapState } from 'redux-vuex'
 import { compose, path } from "ramda";
 import Icon from "@podlove/components/icons";
 import { toPlayerTime, toHumanTime } from "@podlove/utils/time";
 
+import { selectors } from '~/store/reducers'
 import PlayButton from "~/components/PlayButton";
 import Contributor from "~/components/Contributor";
+import Timeline from "~/components/Timeline";
 
 export default {
-  components: { PlayButton, Contributor, Icon },
+  data: mapState({
+    episode: selectors.current.episode
+  }),
+
+  components: { Timeline, PlayButton, Contributor, Icon },
 
   computed: {
     id() {
       return path(["episode", "id"], this.$page);
-    }
+    },
   },
 
   methods: {
+    ...mapActions('playEpisode'),
     date(date) {
       return new Date(date).toLocaleDateString();
     },
@@ -141,3 +165,52 @@ export default {
   }
 };
 </script>
+
+<style>
+.episode-header {
+  background-image: url('/bg-pattern.png')
+}
+
+.episode-content ul {
+  list-style-type: disc !important;
+}
+
+.episode-content li {
+  margin-bottom: 0.5em;
+}
+
+.episode-content a {
+  border-bottom: 1px solid rgba(203, 213, 224);
+  padding-bottom: 1px;
+}
+
+.episode-header-bottom {
+  position: absolute;
+  background: white;
+  width: calc(50% - 250px);
+}
+
+.episode-header-bottom.left {
+  left: 0;
+  bottom: -1em;
+  height: 4em;
+}
+
+.episode-header-bottom.right {
+  right: 0;
+  bottom: -1em;
+  height: 4em;
+}
+
+.episode-header-bottom.shadow.left {
+  height: 1px;
+  bottom: 3em;
+  margin-top: -1px;
+}
+
+.episode-header-bottom.shadow.right {
+  height: 1px;
+  bottom: 3em;
+  margin-top: -1px;
+}
+</style>

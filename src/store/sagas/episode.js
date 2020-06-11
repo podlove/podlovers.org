@@ -1,9 +1,10 @@
 import { fetch } from "gridsome";
 import { delay } from 'redux-saga/effects'
-import { isEmpty, path } from "ramda";
+import { isEmpty, path, isNil } from "ramda";
 import { put, takeEvery, select } from "redux-saga/effects";
 import { READY, BACKEND_LOADING_START } from "@podlove/player-actions/types";
 import { requestPlay, requestPause } from "@podlove/player-actions/play";
+import { requestPlaytime } from "@podlove/player-actions/timepiece";
 import { takeOnce } from "@podlove/player-sagas/helper";
 import { setRate, setVolume, mute, unmute } from "@podlove/player-actions/audio";
 
@@ -47,22 +48,30 @@ export default ({ selectEpisode, selectRate, selectVolume, selectMuted, selectCu
     yield takeOnce(BACKEND_LOADING_START, resetMeta);
   }
 
-  function* playEpisode({ payload }) {
+  function* playEpisode({ payload: { id, playtime } }) {
     const currentEpisode = yield select(selectCurrentEpisode);
     const playing = yield select(selectPlaying);
 
-    if (currentEpisode === payload && playing) {
+    if (currentEpisode === id && playing) {
+      if (!isNil(playtime)) {
+        yield put(requestPlaytime(playtime))
+      }
+
       return;
     }
 
-    yield put(player.actions.selectEpisode(payload));
+    yield put(player.actions.selectEpisode(id));
 
-    const episode = yield loadEpisode(payload)
+    const episode = yield loadEpisode(id)
 
-    if (currentEpisode !== payload) {
+    if (currentEpisode !== id) {
       yield injectEpisode(episode)
     } else {
       yield put(requestPlay());
+    }
+
+    if (playtime) {
+      yield put(requestPlaytime(playtime))
     }
   }
 

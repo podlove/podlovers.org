@@ -47,7 +47,7 @@ export default {
     play({ type }) {
       switch (type) {
         case REQUEST_PLAY:
-          this.playEpisode(this.id);
+          this.playEpisode({ id: this.id });
           break;
         case REQUEST_PAUSE:
           this.pauseEpisode();

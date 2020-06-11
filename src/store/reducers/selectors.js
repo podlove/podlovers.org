@@ -90,6 +90,7 @@ export default {
       ),
     title: episodeTitle,
     poster: episodePoster,
+    loaded: id => state => currentEpisode(state) === id,
     playing: id => state => currentEpisode(state) === id && playing(state)
   },
   show: {
