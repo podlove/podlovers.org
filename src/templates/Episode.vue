@@ -1,11 +1,13 @@
 <template>
-  <Layout>
-    <div class="episode-header w-full px-8 py-40 bg-gray-900 flex items-center justify-center relative shadow">
+  <Layout class="mb-24">
+    <div class="episode-header w-full px-8 pt-24 pb-40 bg-gray-900 flex items-center justify-center relative shadow">
       <div class="w-app flex font-light items-center flex-col">
         <div class="flex">
           <div class="h-48 w-48 mr-8 relative">
             <g-image :src="$page.episode.poster" class="rounded shadow-lg" />
-            <div class="absolute h-48 w-48 inset-0 flex items-center justify-center opacity-25 hover:opacity-100 transition ease-in duration-100">
+            <div
+              class="absolute h-48 w-48 inset-0 flex items-center justify-center opacity-25 hover:opacity-100 transition ease-in duration-100"
+            >
               <play-button :size="150" color="rgba(255, 255, 255)" background="rgba(44, 82, 130, 0.5)" :id="id" />
             </div>
           </div>
@@ -35,9 +37,7 @@
         <div class="episode-header-bottom shadow left"></div>
         <div class="episode-header-bottom right"></div>
         <div class="episode-header-bottom shadow right"></div>
-        <div
-          class="absolute text-white bottom-0 h-20 flex justify-center items-center py-4 px-8"
-        >
+        <div class="absolute text-white bottom-0 h-20 flex justify-center items-center py-4 px-8">
           <!-- Discuss -->
           <button class="mx-4 font-thin flex items-center">
             <svg
@@ -80,12 +80,20 @@
     </div>
     <div class="w-full flex justify-center pt-20">
       <div class="w-app">
+        <h3 class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-2">Subscribe</h3>
+        <subscribe class="font-light border-gray-400 border-b mb-12 pb-12 px-12" />
+        <h3 class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-2">Summary</h3>
         <div class="font-light border-gray-400 border-b mb-12 pt-6 pb-12 px-12">{{ $page.episode.summary }}</div>
         <h3 class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-2">Timeline</h3>
-        <timeline class="font-light border-gray-400 border-b mb-12 pb-12 px-12" :id="$page.episode.id" :chapters="$page.episode.chapters" :duration="$page.episode.duration"/>
+        <timeline
+          class="font-light border-gray-400 border-b mb-12 pb-12 px-12"
+          :id="$page.episode.id"
+          :timeline="$page.episode.timeline"
+        />
 
         <h3 class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-2">Shownotes</h3>
-        <div class="font-light episode-content border-gray-400 border-b mb-12 pb-12 px-12" v-html="$page.episode.content"></div>
+        <!-- <div class="font-light episode-content border-gray-400 border-b mb-12 pb-12 px-12" v-html="$page.episode.content"></div> -->
+        <h3 class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-2">Comments</h3>
       </div>
     </div>
   </Layout>
@@ -124,40 +132,91 @@ query ($id: ID!) {
       id,
       name
       avatar
+    },
+    timeline {
+      node,
+      title,
+      type,
+      start,
+      end,
+      texts {
+        start,
+        end,
+        text
+      },
+      speaker {
+        avatar,
+        name
+      }
     }
   }
 }
 </page-query>
 
 <script>
-import { mapActions, mapState } from 'redux-vuex'
+import { throttle } from "throttle-debounce";
+import scrollIntoView from "scroll-into-view-if-needed";
+import { mapActions, mapState } from "redux-vuex";
 import { compose, path } from "ramda";
 import Icon from "@podlove/components/icons";
 import { toPlayerTime, toHumanTime } from "@podlove/utils/time";
 
-import { selectors } from '~/store/reducers'
+import { selectors } from "~/store/reducers";
 import PlayButton from "~/components/PlayButton";
 import Contributor from "~/components/Contributor";
 import Timeline from "~/components/Timeline";
+import Subscribe from "~/components/Subscribe";
 
 export default {
   data: mapState({
-    episode: selectors.current.episode
+    episode: selectors.current.episode,
+    playtime: selectors.player.playtime,
+    ghost: selectors.player.ghost.time,
+    followContent: selectors.playbar.followContent
   }),
 
-  components: { Timeline, PlayButton, Contributor, Icon },
+  components: { Subscribe, Timeline, PlayButton, Contributor, Icon },
 
   computed: {
     id() {
       return path(["episode", "id"], this.$page);
     },
+    follow() {
+      return this.followContent && this.episode === this.id;
+    }
+  },
+
+  watch: {
+    playtime() {
+      this.scroll()
+    },
+    ghost() {
+      this.scroll()
+    },
+    followContent() {
+      this.followContent && this.scroll()
+    }
   },
 
   methods: {
-    ...mapActions('playEpisode'),
+    ...mapActions("playEpisode"),
     date(date) {
       return new Date(date).toLocaleDateString();
     },
+    scroll() {
+      if (!this.follow) {
+        return;
+      }
+
+      this.scrollIntoView();
+    },
+    scrollIntoView: throttle(500, () => {
+      const node = document.getElementById("transcript-ghost-active") || document.getElementById("transcript-active");
+
+      return (
+        node && scrollIntoView(node, { behavior: "smooth", scrollMode: "always", block: "center", inline: "center" })
+      );
+    }),
     duration: compose(
       toHumanTime,
       toPlayerTime
@@ -168,7 +227,7 @@ export default {
 
 <style>
 .episode-header {
-  background-image: url('/bg-pattern.png')
+  background-image: url("/bg-pattern.png");
 }
 
 .episode-content ul {

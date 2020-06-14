@@ -16,6 +16,6 @@ module.exports = {
     }
   ],
   templates: {
-    Episode: '/episode/:id',
+    Episode: '/episode/:id'
   }
 };

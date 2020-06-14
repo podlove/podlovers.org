@@ -11,7 +11,7 @@
     <a @click="play" class="block uppercase font-normal cursor-pointer px-2">
       {{ title }}
     </a>
-    <div class="text-gray-600 ml-auto">{{ duration(time) }}</div>
+    <div class="text-gray-600 ml-auto">{{ duration(start) }}</div>
   </div>
 </template>
 
@@ -29,6 +29,10 @@ export default {
   },
 
   props: {
+    id: {
+      type: String,
+      default: null
+    },
     data: {
       type: Object,
       default: () => ({})
@@ -40,20 +44,20 @@ export default {
       return propOr("", "title", this.data);
     },
 
-    time() {
-      return propOr("", "time", this.data);
+    start() {
+      return propOr("", "start", this.data);
     },
 
-    type() {
-      return propOr("start", "type", this.data);
+    node() {
+      return prop("node", this.data);
     },
 
     top() {
-      return this.type !== "start";
+      return this.node !== "start";
     },
 
     bottom() {
-      return this.type !== "end";
+      return this.node !== "end";
     }
   },
 
@@ -64,7 +68,7 @@ export default {
       toPlayerTime
     ),
     play() {
-      this.playEpisode({ id: this.$page.episode.id, playtime: toPlayerTime(this.time) });
+      this.playEpisode({ id: this.id, playtime: toPlayerTime(this.start) });
     }
   }
 };

@@ -23,7 +23,7 @@ query {
 
 <script>
 import PlayBar from '~/components/PlayBar'
-import Logo from '~/components/icon/logo'
+import Logo from '~/components/icon/Logo'
 
 export default {
   components: { PlayBar, Logo }

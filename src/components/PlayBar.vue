@@ -56,6 +56,9 @@
         </div>
         <div class="flex justify-center items-end w-1/3 flex-col">
           <div class="flex items-center">
+            <button v-if="followContentButton" @click="toggleFollowContent" class="mx-2">
+              <lock class="mr-2" color="rgba(255, 255, 255)" title="Follow Transcripts" :active="followContent" />
+            </button>
             <button @click="toggleMute" class="mx-2"><icon color="rgba(255, 255, 255)" :type="volumeIcon" /></button>
             <div class="w-40 mx-2">
               <input-slider
@@ -79,7 +82,7 @@
 </template>
 
 <script>
-import store from "~/store";
+import { path } from "ramda";
 import { mapState, mapActions } from "redux-vuex";
 import PlayButton from "@podlove/components/play-button";
 import ProgressBar from "@podlove/components/progress-bar";
@@ -88,6 +91,8 @@ import ChapterButton from "@podlove/components/chapter-button";
 import InputSlider from "@podlove/components/input-slider";
 import Timer from "@podlove/components/timer";
 import Icon from "@podlove/components/icons";
+
+import Lock from "~/components/icon/Lock";
 
 import { selectors } from "~/store/reducers";
 
@@ -107,10 +112,16 @@ export default {
     volumeIcon: selectors.playbar.volume,
     volumeSlider: selectors.playbar.volumeSlider,
     volume: selectors.player.audio.volume,
-    rateIcon: selectors.playbar.rate
+    rateIcon: selectors.playbar.rate,
+    followContent: selectors.playbar.followContent
   }),
-  components: { InputSlider, PlayButton, ProgressBar, Timer, StepperButton, ChapterButton, Icon },
-  methods: mapActions("setVolume", "setRate", "nextRate", "toggleMute")
+  components: { InputSlider, PlayButton, ProgressBar, Timer, StepperButton, ChapterButton, Icon, Lock },
+  methods: mapActions("setVolume", "setRate", "nextRate", "toggleMute", "toggleFollowContent"),
+  computed: {
+    followContentButton() {
+      return path(["$page", "episode", "id"], this) === this.episode;
+    }
+  }
 };
 </script>
 

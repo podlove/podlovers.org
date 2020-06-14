@@ -173,6 +173,10 @@ export default {
       playbar.volumeSlider,
       slices.playbar
     ),
+    followContent: compose(
+      playbar.followContent,
+      slices.playbar
+    ),
     volume: state => {
       if (muted(state)) {
         return 'speaker-0'

@@ -7,7 +7,8 @@ export const types = {
   PLAYBAR_LOADING: "PLAYBAR_LOADING",
   PLAYBAR_RESTART: "PLAYBAR_RESTART",
   TOGGLE_MUTE: "TOGGLE_MUTE",
-  NEXT_RATE: "NEXT_RATE"
+  NEXT_RATE: "NEXT_RATE",
+  FOLLOW_CONTENT: "FOLLOW_CONTENT"
 };
 
 export const reducer = handleActions({
@@ -27,11 +28,13 @@ export const reducer = handleActions({
     ...state,
     button: 'restart'
   }),
-  TOGGLE_MUTE: state => ({
-    ...state
+  FOLLOW_CONTENT: state => ({
+    ...state,
+    followContent: !state.followContent
   })
 }, {
-  button: 'play'
+  button: 'play',
+  followContent: false
 })
 
 export const actions = {
@@ -40,10 +43,12 @@ export const actions = {
   loading: createAction(types.PLAYBAR_LOADING),
   restart: createAction(types.PLAYBAR_RESTART),
   toggleMute: createAction(types.TOGGLE_MUTE),
-  nextRate: createAction(types.NEXT_RATE)
+  nextRate: createAction(types.NEXT_RATE),
+  toggleFollowContent: createAction(types.FOLLOW_CONTENT)
 };
 
 export const selectors = {
   button: prop('button'),
-  volumeSlider: prop('volumeSlider')
+  volumeSlider: prop('volumeSlider'),
+  followContent: prop('followContent')
 };

@@ -1,12 +1,14 @@
 <template>
-  <div class="flex items-center mb-2 p-2 rounded" :class="{ 'bg-gray-300': ghostChapter, 'bg-gray-500': activeChapter }" @mouseover="simulateChapter" @mouseout="disableGhost">
+  <div class="flex items-center mb-2 px-2" @mouseover="simulateChapter" @mouseout="disableGhost">
     <bullet :top="true" :bottom="true" :time="start"
       ><icon type="chapter" :size="25" color="rgba(255, 255, 255)"
     /></bullet>
-    <a @click="play" class="block uppercase font-normal cursor-pointer px-2">
-      {{ title }}
-    </a>
-    <div class="ml-auto" :class="{ 'text-gray-600 ': !activeChapter }">{{ toHumanTime(start) }}</div>
+    <div class="flex w-full items-center p-2 -mx-2 rounded" :class="{ 'bg-gray-300': ghostChapter, 'bg-blue-700 text-white': activeChapter }">
+      <a @click="play" class="block uppercase font-normal cursor-pointer px-2 py-1 rounded">
+        {{ title }}
+      </a>
+      <div class="ml-auto" :class="{ 'text-white': activeChapter, 'text-gray-600': !activeChapter }">{{ toHumanTime(start) }}</div>
+    </div>
   </div>
 </template>
 
@@ -22,6 +24,10 @@ import Bullet from "./Bullet";
 export default {
   components: { Bullet, Icon },
   props: {
+    id: {
+      type: String,
+      default: null
+    },
     data: {
       type: Object,
       default: () => ({})
@@ -52,20 +58,16 @@ export default {
       return prop("href", this.data);
     },
 
-    id() {
-       return prop("id", this.data);
-    },
-
     active() {
-      return this.current === this.id
+      return this.current === this.id;
     },
 
     ghostChapter() {
-      return this.active && !this.activeChapter && this.hovered && this.ghost >= this.start && this.ghost < this.end
+      return this.active && !this.activeChapter && this.hovered && this.ghost >= this.start && this.ghost < this.end;
     },
 
     activeChapter() {
-      return this.active && this.playtime >= this.start && this.playtime < this.end
+      return this.active && this.playtime >= this.start && this.playtime < this.end;
     }
   },
   methods: {
@@ -76,11 +78,11 @@ export default {
     },
     simulateChapter() {
       if (!this.active) {
-        return
+        return;
       }
 
-      this.enableGhost()
-      this.simulatePlaytime(this.start)
+      this.enableGhost();
+      this.simulatePlaytime(this.start);
     }
   }
 };
