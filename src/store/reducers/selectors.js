@@ -13,6 +13,7 @@ import { selectors as quantiles } from '@podlove/player-state/quantiles'
 import { selectors as episodes } from "./episodes";
 import { selectors as player } from "./player";
 import { selectors as playbar } from "./playbar";
+import { selectors as subscribeButton } from "./subscribe-button";
 
 const slices = {
   player: propOr({}, "player"),
@@ -223,5 +224,8 @@ export default {
 
       return 'speed-200'
     }
+  },
+  subscribeButton: {
+    visible: compose(subscribeButton.visible, propOr(false, 'subscribeButton'))
   }
 };

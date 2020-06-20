@@ -25,8 +25,8 @@
         <div class="flex w-1/3">
           <g-image v-if="poster" :src="poster" class="w-16 h-16 mr-2 border rounded border-white shadow-md" />
           <div class="overflow-hidden">
-            <h4 class="text-lg text-white uppercase truncate">{{ title }}</h4>
-            <span class="block w-full text-gray-400 text-sm truncate">{{ currentChapter.title }}</span>
+            <g-link :to="episode.path"><h4 class="text-lg text-white uppercase truncate">{{ title }}</h4></g-link>
+            <span v-if="currentChapter.index" class="block w-full text-gray-400 text-sm truncate">{{ currentChapter.title }}</span>
           </div>
         </div>
         <div class="w-1/3 flex items-center justify-center">

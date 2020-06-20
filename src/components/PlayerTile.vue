@@ -16,22 +16,24 @@
           :key="`contributor-${contributor.id}`"
         />
         <span class="text-gray-500 mx-1" v-if="episode.contributors.length > 0">・</span>
-        <span class="block font-light text-gray-500" v-if="episode.duration">{{ duration(episode.duration) }}</span>
+        <span class="block font-light text-gray-500" v-if="episode.duration">{{ toHumanTime(episode.duration) }}</span>
         <span class="text-gray-500 mx-1" v-if="episode.duration">・</span>
         <span class="block font-light text-gray-500 text-base" v-if="episode.publicationDate">{{
           date(episode.publicationDate)
         }}</span>
       </div>
-      <p class="summary font-light" v-if="episode.summary" v-html="episode.summary"></p>
+      <p class="summary font-light" v-if="summary" v-html="summary"></p>
     </div>
   </div>
 </template>
 
 <script>
-import { compose } from "ramda";
-import { toPlayerTime, toHumanTime } from "@podlove/utils/time";
+import { compose, pathOr } from "ramda";
+import { toHumanTime } from "@podlove/utils/time";
+import truncate from 'trunc-text';
 
 import { selectors } from "~/store/reducers";
+
 import Contributor from "./Contributor";
 import PlayButton from "./PlayButton";
 
@@ -59,14 +61,17 @@ export default {
     }
   },
 
+  computed: {
+    summary() {
+      return truncate(pathOr('', ['episode', 'summary'], this), 400);
+    }
+  },
+
   methods: {
     date(date) {
       return new Date(date).toLocaleDateString();
     },
-    duration: compose(
-      toHumanTime,
-      toPlayerTime
-    )
+    toHumanTime
   }
 };
 </script>

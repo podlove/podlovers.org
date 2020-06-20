@@ -20,18 +20,21 @@ import * as action from "./action";
 import * as episodes from "./episodes";
 import * as player from "./player";
 import * as playbar from "./playbar";
+import * as subscribeButton from "./subscribe-button"
 
 const reducers = combineReducers({
   action: action.reducer,
   episodes: episodes.reducer,
   player: combineReducers({ quantiles, chapters, ghost, network, driver, show, media, timepiece, episode, audio, current: player.reducer }),
-  playbar: playbar.reducer
+  playbar: playbar.reducer,
+  subscribeButton: subscribeButton.reducer
 });
 
 const actions = {
   ...episodes.actions,
   ...player.actions,
   ...playbar.actions,
+  ...subscribeButton.actions,
   setVolume,
   setRate,
   simulatePlaytime,

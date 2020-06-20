@@ -20,7 +20,10 @@
     "redux-saga": "1.1.3",
     "ramda": "0.27.0",
     "throttle-debounce": "2.2.1",
-    "scroll-into-view-if-needed": "2.2.25"
+    "scroll-into-view-if-needed": "2.2.25",
+    "vue-observe-visibility": "0.4.6",
+    "vue-scroll": "2.1.13",
+    "trunc-text": "1.0.2"
   },
   "devDependencies": {
     "gridsome-plugin-tailwindcss": "2.2.48",
