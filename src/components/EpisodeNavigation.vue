@@ -40,11 +40,11 @@
 </template>
 
 <script>
-import Icon from "@podlove/components/icons";
 import { throttle } from "throttle-debounce";
 import scrollIntoView from "scroll-into-view-if-needed";
 
 import { selectors } from "~/store/reducers";
+import { Icon } from "~/components/Externals";
 import DiscussIcon from "~/components/icon/Discuss";
 import TimelineIcon from "~/components/icon/Timeline";
 import SummaryIcon from "~/components/icon/Summary";

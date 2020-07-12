@@ -1,5 +1,5 @@
 <template>
-  <Layout class="mb-24">
+  <Layout>
     <episode-header
       :id="id"
       :title="$page.episode.title"
@@ -21,8 +21,9 @@
         />
 
         <h3 id="shownotes" class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-2">Shownotes</h3>
-        <!-- <div class="font-light episode-content border-gray-400 border-b mb-12 pb-12 px-12" v-html="$page.episode.content"></div> -->
-        <h3 id="discuss" class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-2">Discuss</h3>
+        <div class="font-light episode-content border-gray-400 border-b mb-12 pb-12 px-12"></div>
+        <!--  v-html="$page.episode.content" -->
+        <discuss class="border-gray-400 border-b mb-12" />
       </div>
     </div>
   </Layout>
@@ -32,6 +33,7 @@
 query ($id: ID!) {
   episode(id: $id) {
     id,
+    path,
     title,
     summary,
     publicationDate,
@@ -88,7 +90,6 @@ import scrollIntoView from "scroll-into-view-if-needed";
 import { mapActions, mapState } from "redux-vuex";
 import { compose, path } from "ramda";
 import { toPlayerTime, toHumanTime } from "@podlove/utils/time";
-import Icon from "@podlove/components/icons";
 
 import { selectors } from "~/store/reducers";
 import Contributor from "~/components/Contributor";
@@ -96,6 +97,8 @@ import Timeline from "~/components/Timeline";
 import Subscribe from "~/components/Subscribe";
 import EpisodeNavigation from "~/components/EpisodeNavigation";
 import EpisodeHeader from "~/components/EpisodeHeader";
+import Discuss from "~/components/Discuss";
+import Icon from "~/components/Externals";
 
 export default {
   data: mapState({
@@ -105,7 +108,7 @@ export default {
     followContent: selectors.playbar.followContent
   }),
 
-  components: { Subscribe, Timeline, EpisodeHeader, EpisodeNavigation },
+  components: { Subscribe, Timeline, EpisodeHeader, EpisodeNavigation, Discuss },
 
   computed: {
     id() {
@@ -148,6 +151,30 @@ export default {
       toHumanTime,
       toPlayerTime
     )
+  },
+
+  metaInfo() {
+    const authors = this.$page.episode.contributors
+
+    return {
+      title: this.$page.episode.title,
+      meta: [
+        // @TODO: Remove once online
+        {
+          name: 'robots',
+          content: 'noindex'
+        },
+        {
+          name: 'description',
+          content: this.$page.episode.summary
+        },
+        ...authors.map(author => ({
+          name: 'author',
+          content: author.name
+        }))
+      ]
+      // description: this.$page.episode.summary
+    }
   }
 };
 </script>

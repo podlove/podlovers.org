@@ -13,9 +13,23 @@ module.exports = {
       options: {
         config: './tailwind.config.js'
       }
+    },
+    {
+      use: '@gridsome/source-wordpress',
+      options: {
+        baseUrl: 'https://forschergeist.de', // required
+        apiBase: 'wp-json',
+        typeName: 'WordPress',
+        perPage: 100,
+        concurrent: 10
+      }
     }
   ],
   templates: {
-    Episode: '/episode/:id'
+    Episode: '/episode/:id',
+    WordPressPage: [{
+      path: '/page/:slug',
+      component: './src/templates/Page.vue'
+    }]
   }
 };

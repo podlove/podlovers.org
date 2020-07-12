@@ -63,6 +63,11 @@ const currentEpisode = compose(
   propOr({}, "current"),
   slices.player
 );
+const episodePath = compose(
+  propOr('', "path"),
+  slices.player
+)
+
 const volume = compose(
   audio.volume,
   propOr({}, "audio"),
@@ -166,6 +171,14 @@ export default {
     }
   },
   playbar: {
+    active: compose(
+      playbar.active,
+      slices.playbar
+    ),
+    path: compose(
+      playbar.path,
+      slices.playbar
+    ),
     button: compose(
       playbar.button,
       slices.playbar

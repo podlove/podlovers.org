@@ -16,11 +16,11 @@
 </template>
 
 <script>
-import Icon from "@podlove/components/icons";
 import { mapActions } from "redux-vuex";
 import { compose, propOr, prop } from "ramda";
 import { toPlayerTime, toHumanTime } from "@podlove/utils/time";
 
+import Icon from "~/components/Externals";
 import Bullet from "./Bullet";
 
 export default {

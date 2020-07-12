@@ -1,5 +1,7 @@
+import { READY } from '@podlove/player-actions/types'
 import { handleActions, createAction } from "redux-actions";
-import { prop } from "ramda";
+import { prop, propOr } from "ramda";
+import * as player from './player'
 
 export const types = {
   PLAYBAR_PLAY: "PLAYBAR_PLAY",
@@ -31,10 +33,20 @@ export const reducer = handleActions({
   FOLLOW_CONTENT: state => ({
     ...state,
     followContent: !state.followContent
+  }),
+  [READY]: (state, { payload }) => ({
+    ...state,
+    path:  propOr('', 'path', payload)
+  }),
+  [player.types.EPISODE_SELECT]: (state) => ({
+    ...state,
+    active: true
   })
 }, {
+  active: false,
   button: 'play',
-  followContent: false
+  followContent: false,
+  path: ''
 })
 
 export const actions = {
@@ -48,7 +60,9 @@ export const actions = {
 };
 
 export const selectors = {
+  active: prop('active'),
   button: prop('button'),
   volumeSlider: prop('volumeSlider'),
-  followContent: prop('followContent')
+  followContent: prop('followContent'),
+  path: prop('path')
 };

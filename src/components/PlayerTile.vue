@@ -16,11 +16,11 @@
           :key="`contributor-${contributor.id}`"
         />
         <span class="text-gray-500 mx-1" v-if="episode.contributors.length > 0">・</span>
-        <span class="block font-light text-gray-500" v-if="episode.duration">{{ toHumanTime(episode.duration) }}</span>
-        <span class="text-gray-500 mx-1" v-if="episode.duration">・</span>
         <span class="block font-light text-gray-500 text-base" v-if="episode.publicationDate">{{
           date(episode.publicationDate)
         }}</span>
+        <span class="text-gray-500 mx-1" v-if="episode.duration">・</span>
+        <span class="block font-light text-gray-500" v-if="episode.duration">{{ toHumanTime(episode.duration) }}</span>
       </div>
       <p class="summary font-light" v-if="summary" v-html="summary"></p>
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <Layout class="mb-24">
+  <Layout>
     <episode-header
       class="mb-4"
       :id="latest.node.id"

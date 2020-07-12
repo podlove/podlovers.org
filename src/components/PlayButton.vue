@@ -1,12 +1,20 @@
 <template>
-  <play-button :size="size" :color="color" :background="background" @click="play" :type="playing ? 'pause' : 'play'" />
-
+  <ClientOnly>
+    <play-button
+      :size="size"
+      :color="color"
+      :background="background"
+      @click="play"
+      :type="playing ? 'pause' : 'play'"
+    />
+  </ClientOnly>
 </template>
 
 <script>
 import { mapActions } from "redux-vuex";
-import { PlayButton } from "@podlove/components";
 import { REQUEST_PLAY, REQUEST_PAUSE } from "@podlove/player-actions/types";
+
+import { PlayButton } from "./Externals";
 import { selectors } from "~/store/reducers";
 
 export default {

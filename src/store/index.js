@@ -1,12 +1,11 @@
-import sagas from "@podlove/player-sagas";
+import sagasEngine from "@podlove/player-sagas";
 import { createStore as createReduxStore, applyMiddleware, compose } from "redux";
 import { connect } from "redux-vuex";
-import { playerSaga } from "@podlove/player-sagas/player";
-import { quantilesSaga } from '@podlove/player-sagas/quantiles'
-import { chaptersSaga } from '@podlove/player-sagas/chapters'
+import { quantilesSaga } from "@podlove/player-sagas/quantiles";
+import { chaptersSaga } from "@podlove/player-sagas/chapters";
 
 import episodeSaga from "./sagas/episode";
-import playbarSaga from './sagas/playbar'
+import playbarSaga from "./sagas/playbar";
 
 import { reducers, actions, selectors } from "./reducers";
 
@@ -17,17 +16,11 @@ export function createStore(Vue, { isClient }) {
     composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   }
 
-  const store = createReduxStore(reducers, composeEnhancers(applyMiddleware(sagas.middleware)));
+  const store = createReduxStore(reducers, composeEnhancers(applyMiddleware(sagasEngine.middleware)));
 
   connect({ Vue, store, actions });
 
-  sagas.run(
-    playerSaga({
-      selectMedia: selectors.player.media,
-      selectPlaytime: selectors.player.playtime,
-      selectPoster: selectors.player.image,
-      selectTitle: selectors.player.title
-    }),
+  const sagas = [
     episodeSaga({
       selectEpisode: selectors.episode.data,
       selectMuted: selectors.player.audio.muted,
@@ -47,7 +40,22 @@ export function createStore(Vue, { isClient }) {
       selectMuted: selectors.player.audio.muted
     }),
     quantilesSaga
-  );
+  ];
+
+  if (isClient) {
+    const { playerSaga } = require("@podlove/player-sagas/player");
+
+    sagas.push(
+      playerSaga({
+        selectMedia: selectors.player.media,
+        selectPlaytime: selectors.player.playtime,
+        selectPoster: selectors.player.image,
+        selectTitle: selectors.player.title
+      })
+    );
+  }
+
+  sagasEngine.run.apply(this, sagas);
 
   return store;
 }

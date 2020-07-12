@@ -1,37 +1,32 @@
 <template>
   <div>
-    <header class="flex h-12 bg-blue-800 text-white font-light justify-center items-center px-16 border-b border-gray-600 top-0 w-full">
-      <nav class="flex w-app items-center">
-        <g-link class="mr-4 w-24 -mt-1" to="/" :title="$static.metadata.siteName"><logo :size="90" /></g-link>
-        <a class="mt-2 mr-4 font-medium cursor-pointer" @click="toggleSubscribeOverlay">Subscribe</a>
-        <g-link class="mt-2 font-medium" to="/about/">About</g-link>
-      </nav>
-    </header>
-    <main>
+    <page-header />
+    <main class="main">
       <slot/>
     </main>
     <play-bar />
     <subscribe />
+    <page-footer />
   </div>
 </template>
 
-<static-query>
-query {
-  metadata {
-    siteName
-  }
-}
-</static-query>
 
 <script>
+import { pathOr } from 'ramda'
 import { mapActions } from 'redux-vuex'
 
-import PlayBar from '~/components/PlayBar'
+import PageHeader from '~/components/Header'
+import PageFooter from '~/components/Footer'
 import Subscribe from '~/components/Subscribe'
-import Logo from '~/components/icon/Logo'
+import PlayBar from '~/components/PlayBar'
 
 export default {
-  components: { PlayBar, Logo, Subscribe },
-  methods: mapActions('toggleSubscribeOverlay')
+  components: { PageHeader, PageFooter, PlayBar, Subscribe },
 }
 </script>
+
+<style>
+.main {
+  min-height: calc(110vh - 100px);
+}
+</style>

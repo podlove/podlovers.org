@@ -1,13 +1,18 @@
 <template>
   <div class="flex items-center mb-2 px-2" @mouseover="simulateChapter" @mouseout="disableGhost">
     <bullet :top="true" :bottom="true" :time="start"
-      ><icon type="chapter" :size="25" color="rgba(255, 255, 255)"
-    /></bullet>
-    <div class="flex w-full items-center p-2 -mx-2 rounded" :class="{ 'bg-gray-300': ghostChapter, 'bg-blue-700 text-white': activeChapter }">
+      ><ClientOnly><icon type="chapter" :size="25" color="rgba(255, 255, 255)"/></ClientOnly
+    ></bullet>
+    <div
+      class="flex w-full items-center p-2 -mx-2 rounded"
+      :class="{ 'bg-gray-300': ghostChapter, 'bg-blue-700 text-white': activeChapter }"
+    >
       <a @click="play" class="block uppercase font-normal cursor-pointer px-2 py-1 rounded">
         {{ title }}
       </a>
-      <div class="ml-auto" :class="{ 'text-white': activeChapter, 'text-gray-600': !activeChapter }">{{ toHumanTime(start) }}</div>
+      <div class="ml-auto" :class="{ 'text-white': activeChapter, 'text-gray-600': !activeChapter }">
+        {{ toHumanTime(start) }}
+      </div>
     </div>
   </div>
 </template>
@@ -15,10 +20,10 @@
 <script>
 import { compose, propOr, prop } from "ramda";
 import { toPlayerTime, toHumanTime } from "@podlove/utils/time";
-import Icon from "@podlove/components/icons";
 import { mapActions } from "redux-vuex";
 
 import { selectors } from "~/store/reducers";
+import { Icon } from "~/components/Externals";
 import Bullet from "./Bullet";
 
 export default {

@@ -1,9 +1,11 @@
 <template>
-  <transition name="fade">
+  <custom-transition type="fade">
     <div v-if="visible" class="fixed inset-0 w-screen h-screen bg-gray-900 bg-opacity-75 p-4">
       <div class="flex w-full h-full items-center justify-center" v-click-outside="toggleSubscribeOverlay">
         <div class="relative bg-white max-w-4xl w-full rounded shadow-lg p-8 mt-8">
-          <button class="absolute right-0 top-0 mr-2 -mt-16" @click="toggleSubscribeOverlay"><icon color="rgba(255, 255, 255, 0.8)" :size="40" type="close" /></button>
+          <button class="absolute right-0 top-0 mr-2 -mt-16" @click="toggleSubscribeOverlay">
+            <ClientOnly><icon color="rgba(255, 255, 255, 0.8)" :size="40" type="close" /></ClientOnly>
+          </button>
           <h2 class="absolute font-thin text-3xl text-white top-0 left-0 ml-5 -mt-16">Subscribe</h2>
           <h3 class="font-mono inline-block border-gray-400 border-b-2 mb-6">Podcast Clients</h3>
           <div class="flex justify-between flex-wrap">
@@ -32,7 +34,7 @@
         </div>
       </div>
     </div>
-  </transition>
+  </custom-transition>
 </template>
 
 <static-query>
@@ -58,12 +60,13 @@ import { pathOr, path, prop } from "ramda";
 import getClients from "@podlove/clients";
 import { type, platform } from "@podlove/clients/types";
 import { getPlatform } from "@podlove/utils/useragent";
-import Icon from "@podlove/components/icons";
+import { Icon } from "~/components/Externals";
 
+import CustomTransition from '~/components/CustomTransition'
 import { selectors } from '~/store/reducers'
 
 export default {
-  components: { Icon },
+  components: { Icon, CustomTransition },
 
   data: mapState({
     visible: selectors.subscribeButton.visible
@@ -119,11 +122,4 @@ export default {
   filter: invert(28%) sepia(15%) saturate(2122%) hue-rotate(174deg) brightness(97%) contrast(90%);
 }
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
-}
 </style>
