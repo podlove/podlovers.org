@@ -10,8 +10,8 @@
       :contributors="latest.node.contributors"
       :path="latest.node.path"
     />
-    <div class="flex py-8 px-16 justify-center">
-      <div class="w-app">
+    <div class="flex justify-center">
+      <div class="w-app p-8">
         <player-tile
           :class="{ 'pt-0': index === 0, 'border-b': index < list.length - 1 }"
           class="py-8 border-gray-400 border-dashed"

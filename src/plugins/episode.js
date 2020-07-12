@@ -3,7 +3,7 @@ const axios = require("axios");
 const sequential = require("promise-sequential");
 
 const endpoint = (...path) => `https://forschergeist.de/${path.join("/")}`;
-// https://forschergeist.de/podcast/fg081-wissenschaftskommunikation-in-krisen/?podlove_action=pwp4_config
+
 const timeRegex = new RegExp(/^(?:(\d{1,2}):)?(?:(\d{1,2}):)?(\d{1,2})(?:\.(\d{1,3}))?$/);
 const toPlayerTime = (time = "0") => {
   const matches = timeRegex.exec(time);
@@ -100,7 +100,6 @@ module.exports = async store => {
     data.role ? roles.addNode(data.role) : null
     data.group ? groups.addNode(data.group) : null
     contributors.addNode({ id: data.id, name: data.name, avatar: data.avatar, role: data.role ? store.createReference("Role", data.role.id) : null, group: data.group ? store.createReference('Group', data.group.id): null })
-    console.log('👩‍ ', `[${data.id}]`, data.name)
     return store.createReference("Contributor", data.id)
   }
 

@@ -4,10 +4,12 @@
   "scripts": {
     "build": "gridsome build",
     "dev": "gridsome develop",
-    "explore": "gridsome explore"
+    "explore": "gridsome explore",
+    "predeploy": "echo 'Insert Build Here!'",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
-    "gridsome": "^0.7.0",
+    "gridsome": "0.7.19",
     "redux": "4.0.5",
     "redux-vuex": "0.3.2",
     "redux-actions": "2.6.5",
@@ -25,12 +27,12 @@
     "vue-scroll": "2.1.13",
     "trunc-text": "1.0.2",
     "lodash.kebabcase": "4.1.1",
-    "query-string": "6.13.1",
-    "@gridsome/source-wordpress": "0.5.3"
+    "query-string": "6.13.1"
   },
   "devDependencies": {
-    "gridsome-plugin-tailwindcss": "2.2.48",
+    "gridsome-plugin-tailwindcss": "3.0.1",
     "@gridsome/source-wordpress": "0.5.3",
-    "promise-sequential": "1.1.1"
+    "promise-sequential": "1.1.1",
+    "gh-pages": "3.1.0"
   }
 }
