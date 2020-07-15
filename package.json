@@ -5,7 +5,7 @@
     "build": "gridsome build",
     "dev": "gridsome develop",
     "explore": "gridsome explore",
-    "predeploy": "echo 'Insert Build Here!'",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {

@@ -11,7 +11,7 @@
       :path="latest.node.path"
     />
     <div class="flex justify-center">
-      <div class="w-app p-8">
+      <div class="w-app p-8" v-if="list.length > 1">
         <player-tile
           :class="{ 'pt-0': index === 0, 'border-b': index < list.length - 1 }"
           class="py-8 border-gray-400 border-dashed"
@@ -19,6 +19,11 @@
           :key="edge.node.id"
           :episode="edge.node"
         />
+      </div>
+      <div class="w-app py-32 flex justify-center items-center" v-else>
+        <span class="italic font-thin text-xl">
+          here be dragons
+        </span>
       </div>
     </div>
   </Layout>

@@ -5,7 +5,7 @@
       class="w-screen fixed bottom-0 play-bar mb-0"
     >
       <div class="w-full absolute progress-bar px-4">
-        <div class="flex justify-between text-xs -mt-4 font-bold">
+        <div class="font-shadow flex justify-between text-xs -mt-4 font-bold">
           <timer :time="ghost ? ghost : playtime" />
           <timer :time="duration - (ghost ? ghost : playtime)" :remaining="true" />
         </div>
@@ -24,9 +24,9 @@
           :quantiles="quantiles"
         />
       </div>
-      <div class="justify-center px-4 py-2 pt-8">
+      <div class="px-4 py-2 pt-8">
         <div class="flex w-full h-16">
-          <div class="flex w-1/3">
+          <div class="flex w-3/4 sm:w-1/2 md:w-1/3">
             <g-image v-if="poster" :src="poster" class="w-16 h-16 mr-2 border rounded border-white shadow-md" />
             <div class="overflow-hidden">
               <g-link :to="episodeLink"
@@ -40,15 +40,15 @@
               >
             </div>
           </div>
-          <div class="w-1/3 flex items-center justify-center">
+          <div class="w-1/4 sm:w-1/2 md:w-1/3 flex items-center justify-center">
             <chapter-button
               v-if="chapters.length > 0"
               type="previous"
               color="rgba(255, 255, 255)"
-              class="mx-2"
+              class="mx-2 hidden sm:block"
               @click="store.dispatch"
             />
-            <stepper-button type="backwards" class="mx-2" @click="store.dispatch" />
+            <stepper-button type="backwards" class="mx-2 hidden sm:block" @click="store.dispatch" />
             <play-button
               color="rgba(44, 82, 130)"
               background="rgba(255, 255, 255)"
@@ -56,16 +56,16 @@
               :type="buttonType"
               @click="store.dispatch"
             />
-            <stepper-button type="forward" class="mx-2" @click="store.dispatch" />
+            <stepper-button type="forward" class="mx-2 hidden sm:block" @click="store.dispatch" />
             <chapter-button
               v-if="chapters.length > 0"
               type="next"
               color="rgba(255, 255, 255)"
-              class="mx-2"
+              class="mx-2 hidden sm:block"
               @click="store.dispatch"
             />
           </div>
-          <div class="flex justify-center items-end w-1/3 flex-col">
+          <div class="justify-center items-end w-1/3 flex-col hidden md:flex">
             <div class="flex items-center">
               <button v-if="followContentButton" @click="toggleFollowContent" class="mx-2">
                 <lock class="mr-2" color="rgba(255, 255, 255)" title="Follow Transcripts" :active="followContent" />
@@ -161,5 +161,9 @@ export default {
 
 .progress-bar {
   margin-top: -10px;
+}
+
+.font-shadow {
+  text-shadow: 0 0 3px white;
 }
 </style>

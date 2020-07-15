@@ -21,8 +21,7 @@
         />
 
         <h3 id="shownotes" class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-2">Shownotes</h3>
-        <div class="font-light episode-content border-gray-400 border-b mb-12 pb-12 px-12"></div>
-        <!--  v-html="$page.episode.content" -->
+        <div class="font-light episode-content border-gray-400 border-b mb-12 pb-12 px-12" v-html="$page.episode.content"></div>
         <discuss class="border-gray-400 border-b mb-12" />
       </div>
     </div>
@@ -69,6 +68,19 @@ query ($id: ID!) {
       title,
       type,
       start,
+      end
+    }
+  }
+}
+</page-query>
+
+<script>
+/**
+ * timeline {
+      node,
+      title,
+      type,
+      start,
       end,
       texts {
         start,
@@ -80,11 +92,8 @@ query ($id: ID!) {
         name
       }
     }
-  }
-}
-</page-query>
+ */
 
-<script>
 import { throttle } from "throttle-debounce";
 import scrollIntoView from "scroll-into-view-if-needed";
 import { mapActions, mapState } from "redux-vuex";
@@ -159,11 +168,6 @@ export default {
     return {
       title: this.$page.episode.title,
       meta: [
-        // @TODO: Remove once online
-        {
-          name: 'robots',
-          content: 'noindex'
-        },
         {
           name: 'description',
           content: this.$page.episode.summary
@@ -173,7 +177,6 @@ export default {
           content: author.name
         }))
       ]
-      // description: this.$page.episode.summary
     }
   }
 };
@@ -182,11 +185,32 @@ export default {
 <style>
 .episode-content ul {
   list-style-type: disc !important;
+  margin-bottom: 2em;
 }
 
 .episode-content li {
   margin-bottom: 0.5em;
 }
+
+.episode-content h1{
+  font-weight: bold;
+  font-size: 1.5em;
+  margin-left: 1em;
+  margin-bottom: 1em;
+}
+
+.episode-content h2 {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.episode-content h3 {
+  font-weight: bold;
+  font-size: 1em;
+  margin-left: -1.5em;
+  margin-bottom: 0.75em;
+}
+
 
 .episode-content a {
   border-bottom: 1px solid rgba(203, 213, 224);

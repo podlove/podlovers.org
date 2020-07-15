@@ -1,7 +1,7 @@
 <template>
   <Layout>
     <div class="page w-full flex justify-center pt-10">
-      <div class="w-app">
+      <div class="w-app px-8">
         <h1 class="font-bold text-3xl mb-6">{{ title }}</h1>
         <div class="page-content" v-html="content"></div>
       </div>

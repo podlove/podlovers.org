@@ -2,7 +2,7 @@ const { prop, propOr, reduce, sortBy, last, path, endsWith } = require("ramda");
 const axios = require("axios");
 const sequential = require("promise-sequential");
 
-const endpoint = (...path) => `https://forschergeist.de/${path.join("/")}`;
+const endpoint = (...path) => `https://backend.podlovers.org/${path.join("/")}`;
 
 const timeRegex = new RegExp(/^(?:(\d{1,2}):)?(?:(\d{1,2}):)?(\d{1,2})(?:\.(\d{1,3}))?$/);
 const toPlayerTime = (time = "0") => {
@@ -129,14 +129,14 @@ module.exports = async store => {
   await sequential(
     publisher.map(({ id, slug, content }) => () =>
       axios
-        .get(endpoint("podcast", slug, "?podlove_action=pwp4_config"))
+        .get(endpoint('wp-json', 'podlove-web-player', 'shortcode', 'publisher', id))
         .then(({ data }) => ({
           ...data,
           id: slug,
           duration: toPlayerTime(data.duration),
           content,
-          contributors: (data.contributors || []).map(createContributor),
-          chapters: (data.chapters || []).reduce(transformChapters(toPlayerTime(data.duration)), [])
+          contributors: propOr([], 'contributors', data).map(createContributor),
+          chapters: propOr([], 'chapters', data).reduce(transformChapters(toPlayerTime(data.duration)), [])
         }))
         .then(async data => ({
             ...data,

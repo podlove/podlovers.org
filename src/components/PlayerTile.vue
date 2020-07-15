@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <div class="play-button w-20 h-20 mr-4 relative flex-shrink-0 mt-1">
+    <div class="player-tile-button w-20 h-20 mr-4 relative flex-shrink-0 mt-1">
       <g-image v-if="episode.poster" :src="episode.poster" class="rounded w-20 h-20" />
       <div class="absolute flex opacity-0 hover:opacity-100 items-center justify-center w-20 h-20 inset-0">
         <play-button color="rgba(255, 255, 255)" background="rgba(44, 82, 130)" :size="50" :id="episode.id" />
@@ -89,7 +89,7 @@ export default {
   hyphens: auto;
 }
 
-.play-button {
+.player-tile-button {
   width: 85px;
   height: 85px;
 }

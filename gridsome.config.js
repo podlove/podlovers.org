@@ -6,7 +6,7 @@
 
 module.exports = {
   siteName: "Podlovers",
-  siteUrl: 'https://podcast.podlove.org',
+  siteUrl: 'https://podlovers.org',
   plugins: [
     {
       use: "gridsome-plugin-tailwindcss",
@@ -17,7 +17,7 @@ module.exports = {
     {
       use: '@gridsome/source-wordpress',
       options: {
-        baseUrl: 'https://forschergeist.de/', // required
+        baseUrl: 'https://backend.podlovers.org', // required
         apiBase: 'wp-json',
         typeName: 'WordPress',
         perPage: 100,

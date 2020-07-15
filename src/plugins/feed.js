@@ -1,20 +1,20 @@
-const feed = 'https://forschergeist.de/feed/m4a/'
+const feed = 'https://feeds.podlovers.org/mp3'
 
 const podcastClients = [
-  {
-    id: "apple-podcasts",
-    service: "id934797989"
-  },
+  // {
+  //   id: "apple-podcasts",
+  //   service: "id934797989"
+  // },
   {
     id: "antenna-pod"
   },
   {
     id: "beyond-pod"
   },
-  {
-    id: "castbox",
-    service: "castbox-id"
-  },
+  // {
+  //   id: "castbox",
+  //   service: "castbox-id"
+  // },
   {
     id: "castro"
   },
@@ -24,10 +24,10 @@ const podcastClients = [
   {
     id: "downcast"
   },
-  {
-    id: "google-podcasts",
-    service: feed
-  },
+  // {
+  //   id: "google-podcasts",
+  //   service: feed
+  // },
   {
     id: "itunes"
   },
@@ -39,9 +39,6 @@ const podcastClients = [
   },
   {
     id: "player-fm"
-  },
-  {
-    id: "pocket-casts"
   },
   {
     id: "pocket-casts",
