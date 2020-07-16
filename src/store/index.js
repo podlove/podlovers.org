@@ -3,6 +3,7 @@ import { createStore as createReduxStore, applyMiddleware, compose } from "redux
 import { connect } from "redux-vuex";
 import { quantilesSaga } from "@podlove/player-sagas/quantiles";
 import { chaptersSaga } from "@podlove/player-sagas/chapters";
+import { stepperSaga } from "@podlove/player-sagas/stepper";
 
 import episodeSaga from "./sagas/episode";
 import playbarSaga from "./sagas/playbar";
@@ -35,11 +36,15 @@ export function createStore(Vue, { isClient }) {
       selectCurrentChapter: selectors.player.chapters.current,
       selectChapterList: selectors.player.chapters.list
     }),
+    stepperSaga({
+      selectDuration: selectors.player.duration,
+      selectPlaytime: selectors.player.playtime
+    }),
+    quantilesSaga,
     playbarSaga({
       selectRate: selectors.player.audio.rate,
       selectMuted: selectors.player.audio.muted
-    }),
-    quantilesSaga
+    })
   ];
 
   if (isClient) {

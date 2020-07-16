@@ -4,32 +4,34 @@
       <div class="flex w-full h-full items-center justify-center" v-click-outside="toggleSubscribeOverlay">
         <div class="relative bg-white max-w-4xl w-full rounded shadow-lg p-8 mt-8">
           <button class="absolute right-0 top-0 mr-2 -mt-16" @click="toggleSubscribeOverlay">
-            <ClientOnly><icon color="rgba(255, 255, 255, 0.8)" :size="40" type="close" /></ClientOnly>
+            <ClientOnly><icon color="rgba(255, 255, 255, 0.8)" :size="40" type="close"/></ClientOnly>
           </button>
           <h2 class="absolute font-thin text-3xl text-white top-0 left-0 ml-5 -mt-16">Subscribe</h2>
-          <h3 class="font-mono inline-block border-gray-400 border-b-2 mb-6">Podcast Clients</h3>
-          <div class="flex justify-between flex-wrap">
-            <div class="w-40 mb-8" v-for="client in items" :key="client.id">
-              <a
-                class="flex items-center flex-col border-2 rounded p-4 pt-5 whitespace-no-wrap border-gray-400 mx-2 overflow-hidden hover:border-blue-800 hover:shadow bg-blue-100"
-                :href="client.link"
-                target="_blank"
-                rel="noopener noreferrer"
-                ><g-image :src="client.icon" class="w-10 mb-2 client-image" /><span
-                  class="font-light text-lg truncate px-2 text-blue-800"
-                  >{{ client.title }}</span
-                ></a
-              >
+          <div class="overflow-y-auto">
+            <h3 class="font-mono inline-block border-gray-400 border-b-2 mb-6">Podcast Clients</h3>
+            <div class="subscribe-clients flex justify-between flex-col mb-4 sm:flex-wrap sm:flex-row">
+              <div class="w-full mb-4 sm:w-40 sm:mb-8" v-for="client in items" :key="client.id">
+                <a
+                  class="flex items-center flex-row sm:flex-col border-2 rounded p-4 sm:pt-5 whitespace-no-wrap border-gray-400 mx-2 overflow-hidden hover:border-blue-800 hover:shadow bg-blue-100"
+                  :href="client.link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><g-image :src="client.icon" class="w-8 mb-0 sm:w-10 sm:mb-2 client-image" /><span
+                    class="font-light text-lg truncate px-2 text-blue-800"
+                    >{{ client.title }}</span
+                  ></a
+                >
+              </div>
             </div>
-          </div>
-          <h3 class="font-mono inline-block border-gray-400 border-b-2 mb-6">RSS Feed</h3>
-          <div class="mx-2 mb-4">
-            <input
-              :value="feed"
-              readonly
-              class="block rounded h-10 w-full border-gray-400 border-2 text-blue-800 hover:border-blue-800 focus:border-blue-800 px-2 font-light cursor-pointer truncate bg-blue-100"
-              @focus="$event.target.select()"
-            />
+            <h3 class="font-mono inline-block border-gray-400 border-b-2 mb-6">RSS Feed</h3>
+            <div class="mx-2 mb-4">
+              <input
+                :value="feed"
+                readonly
+                class="block rounded h-10 w-full border-gray-400 border-2 text-blue-800 hover:border-blue-800 focus:border-blue-800 px-2 font-light cursor-pointer truncate bg-blue-100"
+                @focus="$event.target.select()"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -62,8 +64,8 @@ import { type, platform } from "@podlove/clients/types";
 import { getPlatform } from "@podlove/utils/useragent";
 import { Icon } from "~/components/Externals";
 
-import CustomTransition from '~/components/CustomTransition'
-import { selectors } from '~/store/reducers'
+import CustomTransition from "~/components/CustomTransition";
+import { selectors } from "~/store/reducers";
 
 export default {
   components: { Icon, CustomTransition },
@@ -73,15 +75,15 @@ export default {
   }),
 
   directives: {
-    'click-outside': {
+    "click-outside": {
       bind(el, { value: fn }) {
-        el.addEventListener('click', evt => {
+        el.addEventListener("click", evt => {
           if (evt.target !== el) {
-            return
+            return;
           }
 
-          fn()
-        })
+          fn();
+        });
       }
     }
   },
@@ -113,7 +115,7 @@ export default {
     }
   },
 
-  methods: mapActions('toggleSubscribeOverlay')
+  methods: mapActions("toggleSubscribeOverlay")
 };
 </script>
 
@@ -122,4 +124,8 @@ export default {
   filter: invert(28%) sepia(15%) saturate(2122%) hue-rotate(174deg) brightness(97%) contrast(90%);
 }
 
+.subscribe-clients {
+  max-height: calc(100vh - 400px);
+  overflow-y: auto;
+}
 </style>

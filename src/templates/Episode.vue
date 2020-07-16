@@ -11,18 +11,28 @@
     /></episode-header>
     <div class="w-full flex justify-center pt-20">
       <div class="w-app">
-        <h3 id="summary" class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-2">Summary</h3>
-        <div class="font-light border-gray-400 border-b mb-12 pt-6 pb-12 px-12">{{ $page.episode.summary }}</div>
-        <h3 id="timeline" class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-2">Timeline</h3>
-        <timeline
-          class="font-light border-gray-400 border-b mb-12 pb-12 px-12"
-          :id="$page.episode.id"
-          :timeline="$page.episode.timeline"
-        />
+        <section id="summary">
+          <h3 class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-2">Summary</h3>
+          <div class="font-light border-gray-400 border-b mb-12 pt-6 pb-12 px-12">{{ $page.episode.summary }}</div>
+        </section>
 
-        <h3 id="shownotes" class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-2">Shownotes</h3>
-        <div class="font-light episode-content border-gray-400 border-b mb-12 pb-12 px-12" v-html="$page.episode.content"></div>
-        <discuss class="border-gray-400 border-b mb-12" />
+        <section id="timeline">
+          <h3 class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-2">Timeline</h3>
+          <timeline
+            class="font-light border-gray-400 border-b mb-12 pb-12 px-12"
+            :id="$page.episode.id"
+            :timeline="$page.episode.timeline"
+          />
+        </section>
+
+        <section id="shownotes">
+          <h3 class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-2">Shownotes</h3>
+          <div class="font-light episode-content border-gray-400 border-b mb-12 pb-12 px-12" v-html="$page.episode.content"></div>
+        </section>
+
+        <section id="discuss">
+          <discuss class="mb-12 px-2" />
+        </section>
       </div>
     </div>
   </Layout>

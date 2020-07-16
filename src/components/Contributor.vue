@@ -1,7 +1,7 @@
 <template>
-  <g-link :title="contributor.name">
+  <span :title="contributor.name">
     <g-image class="rounded" :src="contributor.avatar" />
-  </g-link>
+  </span>
 </template>
 
 <script>

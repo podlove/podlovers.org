@@ -12,24 +12,24 @@
       :class="{ 'bg-gray-900 shadow rounded-b docked-bg': docked }"
     >
       <!-- Discuss -->
-      <button class="mx-4 font-thin flex items-center" @click="scrollTo('header')">
+      <button class="mx-4 font-thin flex items-center overflow-visible" @click="scrollTo('header')">
         <summary-icon class="mr-3" />
-        <span class="uppercase">Summary</span>
+        <span class="uppercase hidden md:block">Summary</span>
       </button>
       <!-- Subscribe -->
-      <button class="mx-4 font-thin flex items-center" @click="scrollTo('timeline')">
+      <button class="mx-4 font-thin flex items-center overflow-visible" @click="scrollTo('timeline')">
         <timeline-icon class="mr-3" />
-        <span class="uppercase">Timeline</span>
+        <span class="uppercase hidden md:block">Timeline</span>
       </button>
       <!-- Share -->
-      <button class="mx-4 font-thin flex items-center" @click="scrollTo('shownotes')">
+      <button class="mx-4 font-thin flex items-center overflow-visible" @click="scrollTo('shownotes')">
         <shownotes-icon class="mr-3" />
-        <span class="uppercase">Shownotes</span>
+        <span class="uppercase hidden md:block">Shownotes</span>
       </button>
       <!-- Discuss -->
-      <button class="mx-4 font-thin flex items-center" @click="scrollTo('discuss')">
+      <button class="mx-4 font-thin flex items-center overflow-visible" @click="scrollTo('discuss')">
         <discuss-icon class="mr-3" />
-        <span class="uppercase">Discuss</span>
+        <span class="uppercase hidden md:block">Discuss</span>
       </button>
     </div>
 

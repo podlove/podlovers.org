@@ -1,5 +1,5 @@
 <template>
-  <div id='discourse-comments'></div>
+  <div id="discourse-comments"></div>
 </template>
 
 <script>
