@@ -1,20 +1,20 @@
 const feed = 'https://feeds.podlovers.org/mp3'
 
 const podcastClients = [
-  // {
-  //   id: "apple-podcasts",
-  //   service: "id934797989"
-  // },
+  {
+    id: "apple-podcasts",
+    service: "id1523714548"
+  },
   {
     id: "antenna-pod"
   },
   {
     id: "beyond-pod"
   },
-  // {
-  //   id: "castbox",
-  //   service: "castbox-id"
-  // },
+  {
+    id: "castbox",
+    service: "Podlovers-id3117097"
+  },
   {
     id: "castro"
   },
@@ -24,10 +24,10 @@ const podcastClients = [
   {
     id: "downcast"
   },
-  // {
-  //   id: "google-podcasts",
-  //   service: feed
-  // },
+  {
+    id: "google-podcasts",
+    service: feed
+  },
   {
     id: "itunes"
   },
