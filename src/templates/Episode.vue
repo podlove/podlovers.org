@@ -78,19 +78,6 @@ query ($id: ID!) {
       title,
       type,
       start,
-      end
-    }
-  }
-}
-</page-query>
-
-<script>
-/**
- * timeline {
-      node,
-      title,
-      type,
-      start,
       end,
       texts {
         start,
@@ -102,8 +89,11 @@ query ($id: ID!) {
         name
       }
     }
- */
+  }
+}
+</page-query>
 
+<script>
 import { throttle } from "throttle-debounce";
 import scrollIntoView from "scroll-into-view-if-needed";
 import { mapActions, mapState } from "redux-vuex";
