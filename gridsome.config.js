@@ -31,5 +31,8 @@ module.exports = {
       path: '/page/:slug',
       component: './src/templates/Page.vue'
     }]
-  }
+  },
+  chainWebpack: config => {
+    config.resolve.alias.set('@images', '@/assets/images')
+  },
 };

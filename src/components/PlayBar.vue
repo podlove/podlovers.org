@@ -27,7 +27,7 @@
       <div class="px-4 py-2 pt-8">
         <div class="flex w-full h-16">
           <div class="flex w-3/4 sm:w-1/2 md:w-1/3">
-            <g-image v-if="poster" :src="poster" class="w-16 h-16 mr-2 border rounded border-white shadow-md" />
+            <g-image v-if="poster" :src="require(`!!assets-loader?width=100&height=100!@images/${poster}`)" class="w-16 h-16 mr-2 border rounded border-white shadow-md" />
             <div class="overflow-hidden">
               <g-link :to="episodeLink"
                 ><h4 class="text-lg text-white uppercase truncate">{{ title }}</h4></g-link

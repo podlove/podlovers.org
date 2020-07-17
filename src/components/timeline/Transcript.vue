@@ -2,7 +2,7 @@
   <div class="p-2">
     <div class="flex items-center mb-2">
       <bullet :top="true" :bottom="true" :time="start">
-        <g-image :src="speaker.avatar" />
+        <g-image :src="require(`!!assets-loader?width=48&height=48!@images/${speaker.avatar}`)" />
       </bullet>
       <a class="block uppercase font-normal cursor-pointer px-2">
         {{ speaker.name }}

@@ -7,7 +7,7 @@
       class="flex w-full items-center p-2 -mx-2 rounded"
       :class="{ 'bg-gray-300': ghostChapter, 'bg-blue-700 text-white': activeChapter }"
     >
-      <a @click="play" class="block uppercase font-normal cursor-pointer px-2 py-1 rounded">
+      <a @click="play" class="block uppercase font-normal cursor-pointer px-2 py-1 rounded whitespace-no-wrap truncate w-5/6">
         {{ title }}
       </a>
       <div class="ml-auto" :class="{ 'text-white': activeChapter, 'text-gray-600': !activeChapter }">
@@ -87,7 +87,7 @@ export default {
       }
 
       this.enableGhost();
-      this.simulatePlaytime(this.start);
+      this.simulatePlaytime(this.start + 1);
     }
   }
 };

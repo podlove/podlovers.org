@@ -1,7 +1,7 @@
 <template>
   <div class="flex">
     <div class="player-tile-button w-20 h-20 mr-4 relative flex-shrink-0 mt-1">
-      <g-image v-if="episode.poster" :src="episode.poster" class="rounded w-20 h-20" />
+      <g-image v-if="episode.poster" :src="require(`!!assets-loader?width=100&height=100!@images/${episode.poster}`)" class="rounded w-20 h-20" />
       <div class="absolute flex opacity-0 hover:opacity-100 items-center justify-center w-20 h-20 inset-0">
         <play-button color="rgba(255, 255, 255)" background="rgba(44, 82, 130)" :size="50" :id="episode.id" />
       </div>
