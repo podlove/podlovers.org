@@ -10,7 +10,7 @@
       <a @click="play" class="block uppercase font-normal cursor-pointer px-2 py-1 rounded whitespace-no-wrap truncate w-5/6">
         {{ title }}
       </a>
-      <div class="ml-auto" :class="{ 'text-white': activeChapter, 'text-gray-600': !activeChapter }">
+      <div class="ml-auto font-mono" :class="{ 'text-white': activeChapter, 'text-gray-500': !activeChapter }">
         {{ toHumanTime(start) }}
       </div>
     </div>

@@ -11,7 +11,7 @@
     <a @click="play" class="block uppercase font-normal cursor-pointer px-2">
       {{ title }}
     </a>
-    <div class="text-gray-600 ml-auto">{{ duration(start) }}</div>
+    <div class="text-gray-500 ml-auto font-mono">{{ duration(start) }}</div>
   </div>
 </template>
 

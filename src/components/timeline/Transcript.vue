@@ -7,7 +7,7 @@
       <a class="block uppercase font-normal cursor-pointer px-2">
         {{ speaker.name }}
       </a>
-      <div class="ml-auto text-gray-600">{{ toHumanTime(start) }}</div>
+      <div class="ml-auto text-gray-500 font-mono">{{ toHumanTime(start) }}</div>
     </div>
     <div class="flex">
       <div class="w-10 mr-4 flex-shrink-0 relative">

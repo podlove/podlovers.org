@@ -32,13 +32,14 @@ const cacheImage = async url =>
       url,
       dest: resolve(__dirname, "..", "assets", "images")
     })
-    .then(async ({ filename }) => await
-        hash
+    .then(
+      async ({ filename }) =>
+        await hash
           .fromFile(filename, { algorithm: "md5" })
           .then(fileHash => resolve(dirname(filename), `${fileHash}${extname(filename)}`))
           .then(async dest => {
-            await fs.move(filename, dest, { overwrite: true })
-            return basename(dest)
+            await fs.move(filename, dest, { overwrite: true });
+            return basename(dest);
           })
     )
     .catch(err => console.error(`Error downloading ${url}`, err));
@@ -148,6 +149,15 @@ module.exports = async store => {
     return sortBy(prop("start"), timeline);
   };
 
+  const createShow = async (data = {}) => {
+    store.addMetadata('show', data)
+
+    return {
+      ...data,
+      poster: data.poster ? await cacheImage(data.poster) : ''
+    }
+  }
+
   const publisher = await axios
     .get(endpoint("wp-json", "wp", "v2", "episodes"))
     .then(({ data = [] }) => data.map(({ id, slug, content: { rendered } }) => ({ id, slug, content: rendered })));
@@ -157,21 +167,23 @@ module.exports = async store => {
       axios
         .get(endpoint("wp-json", "podlove-web-player", "shortcode", "publisher", id))
         .then(async ({ data }) => ({
-          ...data,
-          id: slug,
-          duration: toPlayerTime(data.duration),
-          content,
-          contributors: await Promise.all(propOr([], "contributors", data).map(createContributor)),
-          chapters: await Promise.all(propOr([], "chapters", data).reduce(transformChapters(toPlayerTime(data.duration)), []).map(async chapter => ({
-            ...chapter,
-            image: chapter.image ? await cacheImage(chapter.image) : ''
-          }))),
-          show: {
-            ...data.show,
-            poster: await cacheImage(data.show.poster)
-          },
-          poster: await cacheImage(data.poster)
-        }))
+            ...data,
+            id: slug,
+            duration: toPlayerTime(data.duration),
+            content,
+            contributors: await Promise.all(propOr([], "contributors", data).map(createContributor)),
+            chapters: await Promise.all(
+              propOr([], "chapters", data)
+                .reduce(transformChapters(toPlayerTime(data.duration)), [])
+                .map(async chapter => ({
+                  ...chapter,
+                  image: chapter.image ? await cacheImage(chapter.image) : ""
+                }))
+            ),
+            show: await createShow(data.show),
+            poster: await cacheImage(data.poster)
+          })
+        )
         .then(async data => ({
           ...data,
           timeline: await createTimeline(data)

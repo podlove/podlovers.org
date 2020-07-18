@@ -72,7 +72,7 @@ export default {
 
     scrollTo(id) {
       const node = document.getElementById(id)
-      node && scrollIntoView(node, { behavior: "smooth", scrollMode: "always" })
+      node && scrollIntoView(node, { behavior: "smooth", scrollMode: "always", block: "start" })
     }
   }
 };

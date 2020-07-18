@@ -52,6 +52,18 @@ query {
 }
 </page-query>
 
+<static-query>
+query {
+  metadata {
+    show {
+      title,
+      subtitle,
+      summary
+    }
+  }
+}
+</static-query>
+
 <script>
 import { pathOr, slice, head } from "ramda";
 
@@ -72,6 +84,18 @@ export default {
 
     list() {
       return slice(1, this.episodes.length - 1, this.episodes);
+    }
+  },
+
+  metaInfo() {
+    return {
+      title: `${this.$static.metadata.show.title} - ${this.$static.metadata.show.subtitle}`,
+      meta: [
+        {
+          name: 'description',
+          content: this.$static.metadata.show.summary
+        }
+      ]
     }
   }
 };
