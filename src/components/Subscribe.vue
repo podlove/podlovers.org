@@ -10,7 +10,7 @@
           <div class="overflow-y-auto">
             <h3 class="font-mono inline-block border-gray-400 border-b-2 mb-6">Podcast Clients</h3>
             <div class="subscribe-clients flex justify-between flex-col mb-4 sm:flex-wrap sm:flex-row">
-              <div class="w-full mb-4 sm:w-40 sm:mb-8" v-for="client in items" :key="client.id">
+              <div class="w-full mb-4 sm:w-40" v-for="client in items" :key="client.id">
                 <a
                   class="flex items-center flex-row sm:flex-col border-2 rounded p-4 sm:pt-5 whitespace-no-wrap border-gray-400 mx-2 overflow-hidden hover:border-blue-800 hover:shadow bg-blue-100"
                   :href="client.link"

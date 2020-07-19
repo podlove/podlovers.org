@@ -93,11 +93,23 @@ query ($id: ID!) {
 }
 </page-query>
 
+<static-query>
+query {
+  metadata {
+    siteUrl,
+    show {
+      title,
+      poster
+    }
+  }
+}
+</static-query>
+
 <script>
 import { throttle } from "throttle-debounce";
 import scrollIntoView from "scroll-into-view-if-needed";
 import { mapActions, mapState } from "redux-vuex";
-import { compose, path } from "ramda";
+import { compose, path, pathOr, propOr, prop, flatten } from "ramda";
 import { toPlayerTime, toHumanTime } from "@podlove/utils/time";
 
 import { selectors } from "~/store/reducers";
@@ -163,24 +175,62 @@ export default {
   },
 
   metaInfo() {
-    const authors = this.$page.episode.contributors
+    const episode = path(['$page', 'episode'], this)
+    const metadata = path(['$static', 'metadata'], this)
+    const authors = propOr([], 'contributors', this)
+    const audio = propOr([], 'audio', episode)
+    const poster = prop('poster', episode) || path(['show', 'poster'], episode)
 
     return {
-      title: this.$page.episode.title,
+      title: prop('title', episode),
       meta: [
         {
           name: 'description',
-          content: this.$page.episode.summary
+          content: prop('summary', episode)
         },
+        // Authors
         ...authors.map(author => ({
           name: 'author',
-          content: author.name
-        }))
+          content: prop('name', author)
+        })),
+        // Open Graph
+        {
+          property: 'og:type',
+          content: 'website'
+        },
+        {
+          property: 'og:site_name',
+          content: path(['show', 'title'], metadata)
+        },
+        {
+          property: 'og:title',
+          content: prop('title', episode)
+        },
+        {
+          property: 'og:url',
+          content: `${prop('siteUrl', metadata)}${prop('path', episode)}`
+        },
+        {
+          property: 'og:description',
+          content: prop('summary', episode)
+        },
+        {
+          property: 'og:image',
+          content: prop('siteUrl', metadata) + require(`!!assets-loader!@images/${poster}`).src
+        },
+        ...flatten(audio.map(src => [{
+          property: 'og:audio:type',
+          content: src.mimeType
+        }, {
+          property: 'og:audio',
+          content: src.url
+        }]))
       ]
     }
   }
 };
 </script>
+
 
 <style>
 .episode-content ul {

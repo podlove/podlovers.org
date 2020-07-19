@@ -55,17 +55,20 @@ query {
 <static-query>
 query {
   metadata {
+    siteUrl,
+    siteName,
     show {
       title,
       subtitle,
-      summary
+      summary,
+      poster
     }
   }
 }
 </static-query>
 
 <script>
-import { pathOr, slice, head } from "ramda";
+import { path, pathOr, slice, head, prop, propOr } from "ramda";
 
 import PlayerTile from "~/components/PlayerTile";
 import EpisodeHeader from "~/components/EpisodeHeader";
@@ -88,13 +91,42 @@ export default {
   },
 
   metaInfo() {
+    const metadata = pathOr({}, ['$static', 'metadata'], this)
+    const show = propOr({}, 'show', metadata)
+    const poster = prop('poster', show)
+
     return {
-      title: `${this.$static.metadata.show.title} - ${this.$static.metadata.show.subtitle}`,
+      title: `${prop('title', show)} - ${prop('subtitle', show)}`,
       meta: [
         {
           name: 'description',
-          content: this.$static.metadata.show.summary
-        }
+          content: prop('summary', show)
+        },
+        // Open Graph
+        {
+          property: 'og:type',
+          content: 'website'
+        },
+        {
+          property: 'og:site_name',
+          content: prop('siteName', metadata)
+        },
+        {
+          property: 'og:title',
+          content: prop('title', show)
+        },
+        {
+          property: 'og:url',
+          content: prop('siteUrl', metadata),
+        },
+        {
+          property: 'og:description',
+          content: prop('summary', show)
+        },
+        {
+          property: 'og:image',
+          content: prop('siteUrl', metadata) + require(`!!assets-loader!@images/${poster}`).src
+        },
       ]
     }
   }

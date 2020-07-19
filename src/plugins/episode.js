@@ -150,12 +150,14 @@ module.exports = async store => {
   };
 
   const createShow = async (data = {}) => {
-    store.addMetadata('show', data)
-
-    return {
+    const show = {
       ...data,
       poster: data.poster ? await cacheImage(data.poster) : ''
     }
+
+    store.addMetadata('show', show)
+
+    return show
   }
 
   const publisher = await axios

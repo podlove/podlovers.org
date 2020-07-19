@@ -42,7 +42,7 @@ const podcastClients = [
   },
   {
     id: "pocket-casts",
-    service: feed
+    service: '194w03r3'
   },
   {
     id: "pod-grasp"
