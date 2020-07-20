@@ -28,7 +28,7 @@
               <input
                 :value="feed"
                 readonly
-                class="block rounded h-10 w-full border-gray-400 border-2 text-blue-800 hover:border-blue-800 focus:border-blue-800 px-2 font-light cursor-pointer truncate bg-blue-100"
+                class="block rounded h-10 w-full border-gray-400 border-2 text-blue-800 hover:border-blue-800 focus:border-blue-800 px-2 font-light cursor-pointer truncate bg-blue-100 appearance-none"
                 @focus="$event.target.select()"
               />
             </div>
@@ -57,6 +57,7 @@
 </static-query>
 
 <script>
+import noScroll from "no-scroll";
 import { mapState, mapActions } from "redux-vuex";
 import { pathOr, path, prop } from "ramda";
 import getClients from "@podlove/clients";
@@ -115,7 +116,13 @@ export default {
     }
   },
 
-  methods: mapActions("toggleSubscribeOverlay")
+  methods: mapActions("toggleSubscribeOverlay"),
+
+  watch: {
+    visible(val) {
+      val ? noScroll.on() : noScroll.off()
+    }
+  }
 };
 </script>
 
@@ -125,7 +132,7 @@ export default {
 }
 
 .subscribe-clients {
-  max-height: calc(100vh - 400px);
+  max-height: calc(100vh - 450px);
   overflow-y: auto;
 }
 </style>

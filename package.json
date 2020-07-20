@@ -13,12 +13,12 @@
     "redux": "4.0.5",
     "redux-vuex": "0.3.2",
     "redux-actions": "2.6.5",
-    "@podlove/player-state": "5.1.11",
-    "@podlove/player-actions": "5.1.11",
-    "@podlove/player-sagas": "5.1.11",
+    "@podlove/player-state": "5.1.12",
+    "@podlove/player-actions": "5.1.12",
+    "@podlove/player-sagas": "5.1.12",
     "@podlove/components": "5.1.11",
-    "@podlove/utils": "5.1.11",
-    "@podlove/clients": "5.1.11",
+    "@podlove/utils": "5.1.12",
+    "@podlove/clients": "5.1.12",
     "redux-saga": "1.1.3",
     "ramda": "0.27.0",
     "throttle-debounce": "2.2.1",
@@ -27,7 +27,8 @@
     "vue-scroll": "2.1.13",
     "trunc-text": "1.0.2",
     "lodash.kebabcase": "4.1.1",
-    "query-string": "6.13.1"
+    "query-string": "6.13.1",
+    "no-scroll": "2.1.1"
   },
   "devDependencies": {
     "gridsome-plugin-tailwindcss": "3.0.1",

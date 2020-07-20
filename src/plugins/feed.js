@@ -16,7 +16,8 @@ const podcastClients = [
     service: "Podlovers-id3117097"
   },
   {
-    id: "castro"
+    id: "castro",
+    service: "id1523714548"
   },
   {
     id: "clementine"

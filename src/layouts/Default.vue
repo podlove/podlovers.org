@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ 'overflow-hidden max-h-screen': noScroll }">
+  <div>
     <page-header />
     <main class="main">
       <slot/>
@@ -23,14 +23,6 @@ import PlayBar from '~/components/PlayBar'
 
 export default {
   components: { PageHeader, PageFooter, PlayBar, Subscribe },
-  data: mapState({
-    subscribeButtonVisible: selectors.subscribeButton.visible
-  }),
-  computed: {
-    noScroll() {
-      return this.subscribeButtonVisible
-    }
-  }
 }
 </script>
 
