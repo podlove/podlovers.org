@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full bg-gray-800 p-6 mt-16 text-white font-thin text-sm flex justify-center">
+  <div class="w-full bg-gray-800 p-6 mt-16 text-gray-100 font-thin text-sm flex justify-center">
     <div class="w-full lg:w-app px-8 block lg:flex">
       <ul class="flex flex-wrap mb-6 w-full md:w-1/2 lg:w-2/3">
         <li v-for="page in pages" :key="page.node.id" class="whitespace-no-wrap w-1/2 sm:w-full md:w-1/3 truncate pr-2">

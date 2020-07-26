@@ -21,7 +21,7 @@
             <span class="text-gray-500 font-mono text-sm">{{ toHumanTime(duration) }}</span>
           </div>
           <g-link :to="path" class="text-center md:text-left">
-            <h1 v-if="title" class="text-white text-3xl mb-5" v-html="title" />
+            <h1 v-if="title" class="text-gray-100 text-3xl mb-5" v-html="title" />
           </g-link>
           <div class="w-full flex justify-center md:justify-start">
             <div

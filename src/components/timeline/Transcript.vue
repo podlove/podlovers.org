@@ -16,7 +16,7 @@
       <div class="px-2">
         <span
           :id="transcriptId(text.start, text.end)"
-          :class="{ 'bg-gray-400': ghostTranscript(text.start, text.end), 'bg-blue-700 text-white': activeTranscript(text.start, text.end), '-ml-1': index === 0 }"
+          :class="{ 'bg-podlove-blue-200': ghostTranscript(text.start, text.end), 'bg-podlove-blue-700 text-gray-100': activeTranscript(text.start, text.end), '-ml-1': index === 0 }"
           class="p-1 break-words cursor-pointer rounded"
           @click="play(text.start)"
           @mouseover="simulateSection(text.start, text.end)" @mouseout="disableGhost"

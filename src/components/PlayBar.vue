@@ -2,6 +2,7 @@
   <custom-transition type="playbar">
     <div
       v-if="active && !scrolledToBottom"
+      :style="playbarStyle"
       class="w-screen fixed bottom-0 play-bar mb-0"
     >
       <div class="w-full absolute progress-bar px-4">
@@ -13,9 +14,9 @@
           @input="store.dispatch"
           @simulate="store.dispatch"
           @ghost="store.dispatch"
-          progressColor="rgba(42, 67, 101)"
+          :progressColor="colors.blue[100]"
           thumbColor="rgba(255, 255, 255)"
-          highlightColor="rgba(44, 82, 130)"
+          :highlightColor="colors.blue[700]"
           :duration="duration"
           :time="playtime"
           :ghost="ghost"
@@ -27,14 +28,14 @@
       <div class="px-4 py-2 pt-8">
         <div class="flex w-full h-16">
           <div class="flex w-3/4 sm:w-1/2 md:w-1/3">
-            <g-image v-if="poster" :src="require(`!!assets-loader?width=100&height=100!@images/${poster}`)" class="w-16 h-16 mr-2 border rounded border-white shadow-md" />
+            <g-image v-if="poster" :src="require(`!!assets-loader?width=100&height=100!@images/${poster}`)" class="w-16 h-16 mr-2 rounded shadow-md" />
             <div class="overflow-hidden">
               <g-link :to="episodeLink"
-                ><h4 class="text-lg text-white uppercase truncate">{{ title }}</h4></g-link
+                ><h4 class="text-lg text-gray-100 uppercase truncate">{{ title }}</h4></g-link
               >
               <g-link
                 :to="episodeLink"
-                class="block w-full text-gray-400 text-sm truncate"
+                class="block w-full text-gray-300 text-sm truncate"
                 v-if="currentChapter && currentChapter.index"
                 >{{ currentChapter.title }}</g-link
               >
@@ -50,7 +51,7 @@
             />
             <stepper-button type="backwards" class="mx-2 hidden sm:block" @click="store.dispatch" />
             <play-button
-              color="rgba(44, 82, 130)"
+              :color="colors.blue[700]"
               background="rgba(255, 255, 255)"
               class="mx-2 rounded-full shadow-none hover:shadow-md"
               :type="buttonType"
@@ -80,6 +81,7 @@
                   :step="0.001"
                   background="rgba(255, 255, 255)"
                   borderColor="rgba(255, 255, 255)"
+
                 />
               </div>
               <button class="mx-2" @click="nextRate" @dblclick="setRate(1)">
@@ -100,17 +102,19 @@ import queryString from "query-string";
 import urlify from "lodash.kebabcase";
 import { mapState, mapActions } from "redux-vuex";
 
+
 import { Icon, PlayButton, ProgressBar, StepperButton, ChapterButton, InputSlider, Timer } from "~/components/Externals";
-
-import CustomTransition from "~/components/CustomTransition";
-import Lock from "~/components/icon/Lock";
-
 import { selectors } from "~/store/reducers";
+
+import CustomTransition from "./CustomTransition";
+import Lock from "./icon/Lock";
+import colors from '~/colors'
 
 export default {
   data() {
     return {
       scrolledToBottom: false,
+      colors,
       ...this.mapState({
         active: selectors.playbar.active,
         episode: selectors.current.episode,
@@ -145,7 +149,12 @@ export default {
   computed: {
     followContentButton() {
       return path(["$page", "episode", "id"], this) === this.episode;
-    }
+    },
+    playbarStyle() {
+      return {
+        background: `${colors.blue[700]}E6`
+      }
+    },
   },
   mounted() {
     const scrollListener = throttle(100, this.scroll.bind(this));
@@ -155,10 +164,6 @@ export default {
 </script>
 
 <style scoped>
-.play-bar {
-  background: rgba(44, 82, 130, 0.92);
-}
-
 .progress-bar {
   margin-top: -10px;
 }

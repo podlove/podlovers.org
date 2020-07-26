@@ -5,12 +5,12 @@
     ></bullet>
     <div
       class="flex w-full items-center p-2 -mx-2 rounded"
-      :class="{ 'bg-gray-300': ghostChapter, 'bg-blue-700 text-white': activeChapter }"
+      :class="{ 'bg-podlove-blue-300': ghostChapter, 'bg-podlove-blue-700 text-gray-100': activeChapter }"
     >
       <a @click="play" class="block uppercase font-normal cursor-pointer px-2 py-1 rounded whitespace-no-wrap truncate w-5/6">
         {{ title }}
       </a>
-      <div class="ml-auto font-mono" :class="{ 'text-white': activeChapter, 'text-gray-500': !activeChapter }">
+      <div class="ml-auto font-mono" :class="{ 'text-gray-100': activeChapter, 'text-gray-500': !activeChapter }">
         {{ toHumanTime(start) }}
       </div>
     </div>
