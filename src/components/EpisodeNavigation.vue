@@ -9,7 +9,7 @@
 
     <div
       class="text-gray-100 h-16 flex justify-center items-center py-4 px-8 w-full"
-      :class="{ 'bg-gray-900 shadow rounded-b docked-bg': docked }"
+      :class="{ 'bg-podlove-blue-900 shadow rounded-b docked-bg': docked }"
     >
       <!-- Discuss -->
       <button class="mx-4 font-thin flex items-center overflow-visible" @click="scrollTo('header')">

@@ -1,7 +1,7 @@
 <template>
   <div
     id="header"
-    class="episode-header w-full px-8 pt-20 pb-32 bg-gray-900 flex items-center justify-center relative shadow"
+    class="episode-header w-full px-8 pt-20 pb-32 bg-podlove-blue-900 flex items-center justify-center relative shadow"
     :class="{ 'pb-40': expanded }"
   >
     <div class="w-app flex font-light items-center flex-col mt-6">
