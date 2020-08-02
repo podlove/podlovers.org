@@ -11,7 +11,7 @@
       :path="latest.node.path"
     />
     <div class="flex justify-center">
-      <div class="w-app p-8" v-if="list.length > 1">
+      <div class="w-app p-8" v-if="list.length > 0">
         <player-tile
           :class="{ 'pt-0': index === 0, 'border-b': index < list.length - 1 }"
           class="py-8 border-gray-400 border-dashed"
@@ -86,7 +86,7 @@ export default {
     },
 
     list() {
-      return slice(1, this.episodes.length - 1, this.episodes);
+      return slice(1, this.episodes.length, this.episodes);
     }
   },
 
