@@ -7,7 +7,7 @@
     <div class="w-app flex font-light items-center flex-col mt-6">
       <div class="flex flex-col items-center md:items-start md:flex-row">
         <div class="episode-poster relative mb-4 md:mb-0 md:mr-8">
-          <g-image v-if="poster" :src="require(`!!assets-loader?width=180&height=180!@images/${poster}`)" class="rounded shadow-lg" />
+          <g-image v-if="poster" :src="require(`!!assets-loader?width=180&height=180!@images/${poster}`)" class="rounded shadow-lg border border-podlove-blue-700" />
           <div
             class="absolute w-full h-full inset-0 flex items-center justify-center opacity-25 hover:opacity-100 transition ease-in duration-100"
           >

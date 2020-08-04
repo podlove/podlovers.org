@@ -2,7 +2,7 @@
   <div class="p-2">
     <div class="flex items-center mb-2">
       <bullet :top="true" :bottom="true" :time="start">
-        <g-image :src="require(`!!assets-loader?width=48&height=48!@images/${speaker.avatar}`)" />
+        <g-image v-if="speaker.avatar" :src="require(`!!assets-loader?width=48&height=48!@images/${speaker.avatar}`)" />
       </bullet>
       <a class="block uppercase font-normal cursor-pointer px-2">
         {{ speaker.name }}
@@ -16,8 +16,8 @@
       <div class="px-2">
         <span
           :id="transcriptId(text.start, text.end)"
-          :class="{ 'bg-podlove-blue-200': ghostTranscript(text.start, text.end), 'bg-podlove-blue-700 text-gray-100': activeTranscript(text.start, text.end), '-ml-1': index === 0 }"
-          class="p-1 break-words cursor-pointer rounded"
+          :class="{ 'border-b-2 border-podlove-blue-200': ghostTranscript(text.start, text.end), 'border-b-2 border-podlove-blue-700': activeTranscript(text.start, text.end), 'ml-0': index === 0 }"
+          class="m-1 break-words cursor-pointer"
           @click="play(text.start)"
           @mouseover="simulateSection(text.start, text.end)" @mouseout="disableGhost"
           v-for="(text, index) in texts"

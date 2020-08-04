@@ -3,6 +3,9 @@
 import { createStore } from './store'
 import DefaultLayout from '~/layouts/Default.vue'
 
+// Roboto font
+require('typeface-roboto')
+
 
 export default function (Vue, { isClient, router, head }) {
 

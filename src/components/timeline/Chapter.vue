@@ -87,7 +87,7 @@ export default {
       }
 
       this.enableGhost();
-      this.simulatePlaytime(this.start + 1);
+      this.simulatePlaytime(this.start > 0 ? this.start + 1 : 0);
     }
   }
 };

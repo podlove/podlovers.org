@@ -7,7 +7,7 @@
     >
       <div class="w-full absolute progress-bar px-4">
         <div class="font-shadow flex justify-between text-xs -mt-4 font-bold">
-          <timer :time="ghost ? ghost : playtime" />
+          <timer :time="isNumber(ghost) ? ghost : playtime" />
           <timer :time="duration - (ghost ? ghost : playtime)" :remaining="true" />
         </div>
         <progress-bar
@@ -96,12 +96,11 @@
 </template>
 
 <script>
-import { path, max } from "ramda";
+import { path, max, is } from "ramda";
 import { throttle } from "throttle-debounce";
 import queryString from "query-string";
 import urlify from "lodash.kebabcase";
 import { mapState, mapActions } from "redux-vuex";
-
 
 import { Icon, PlayButton, ProgressBar, StepperButton, ChapterButton, InputSlider, Timer } from "~/components/Externals";
 import { selectors } from "~/store/reducers";
@@ -144,7 +143,8 @@ export default {
       this.scrolledToBottom =
         max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight + 5 >
         document.documentElement.offsetHeight;
-    }
+    },
+    isNumber: is(Number)
   },
   computed: {
     followContentButton() {

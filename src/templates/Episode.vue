@@ -9,8 +9,8 @@
       :contributors="$page.episode.contributors"
       ><episode-navigation
     /></episode-header>
-    <div class="w-full flex justify-center pt-20">
-      <div class="w-app">
+    <div class="lg:w-full lg:flex lg:justify-center pt-20">
+      <div class="lg:w-app">
         <section id="summary">
           <h2 class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-8 sm:mx-2">Summary</h2>
           <div class="font-light border-gray-400 border-b mb-12 pt-6 pb-12 px-12">{{ $page.episode.summary }}</div>
