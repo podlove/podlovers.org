@@ -11,21 +11,25 @@
         <g-link :to="episode.path" v-if="episode.title" class="leading-tight sm:leading block text-xl mb-1 uppercase">{{
           episode.title
         }}</g-link>
-        <div class="flex mb-2 items-center">
-          <contributor
-            class="mr-1 w-6"
-            v-for="contributor in episode.contributors"
-            :contributor="contributor"
-            :key="`contributor-${contributor.id}`"
-          />
-          <span class="text-gray-500 mx-1" v-if="episode.contributors.length > 0">・</span>
-          <span class="block font-light text-gray-500 text-base" v-if="episode.publicationDate">{{
-            date(episode.publicationDate)
-          }}</span>
-          <span class="text-gray-500 mx-1" v-if="episode.duration">・</span>
-          <span class="block font-light text-gray-500" v-if="episode.duration">{{
-            toHumanTime(episode.duration)
-          }}</span>
+        <div class="block md:flex mb-2">
+          <div class="flex mb-2 md:mb-0">
+            <contributor
+              class="mr-1 w-6"
+              v-for="contributor in episode.contributors"
+              :contributor="contributor"
+              :key="`contributor-${contributor.id}`"
+            />
+          </div>
+          <div class="flex">
+            <span class="text-gray-500 mx-1 hidden md:inline" v-if="episode.contributors.length > 0">・</span>
+            <span class="block font-light text-gray-500 text-base" v-if="episode.publicationDate">{{
+              date(episode.publicationDate)
+            }}</span>
+            <span class="text-gray-500 mx-1" v-if="episode.duration">・</span>
+            <span class="block font-light text-gray-500" v-if="episode.duration">{{
+              toHumanTime(episode.duration)
+            }}</span>
+          </div>
         </div>
       </div>
       <div class="summary font-light -ml-24 sm:ml-0" v-if="summary" v-html="summary"></div>
