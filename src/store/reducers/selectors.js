@@ -236,7 +236,8 @@ export default {
       }
 
       return 'speed-200'
-    }
+    },
+    chapters: compose(playbar.chapters, slices.playbar)
   },
   subscribeButton: {
     visible: compose(subscribeButton.visible, propOr(false, 'subscribeButton'))

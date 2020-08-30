@@ -10,33 +10,38 @@ export const types = {
   PLAYBAR_RESTART: "PLAYBAR_RESTART",
   TOGGLE_MUTE: "TOGGLE_MUTE",
   NEXT_RATE: "NEXT_RATE",
-  FOLLOW_CONTENT: "FOLLOW_CONTENT"
+  FOLLOW_CONTENT: "FOLLOW_CONTENT",
+  TOGGLE_CHAPTERS: "TOGGLE_CHAPTERS"
 };
 
 export const reducer = handleActions({
-  PLAYBAR_PLAY: state => ({
+  [types.PLAYBAR_PLAY]: state => ({
     ...state,
     button: 'pause'
   }),
-  PLAYBAR_PAUSE: state => ({
+  [types.PLAYBAR_PAUSE]: state => ({
     ...state,
     button: 'play'
   }),
-  PLAYBAR_LOADING: state => ({
+  [types.PLAYBAR_LOADING]: state => ({
     ...state,
     button: 'loading'
   }),
-  PLAYBAR_RESTART: state => ({
+  [types.PLAYBAR_RESTART]: state => ({
     ...state,
     button: 'restart'
   }),
-  FOLLOW_CONTENT: state => ({
+  [types.FOLLOW_CONTENT]: state => ({
     ...state,
     followContent: !state.followContent
   }),
   [READY]: (state, { payload }) => ({
     ...state,
     path:  propOr('', 'path', payload)
+  }),
+  [types.TOGGLE_CHAPTERS]: state => ({
+    ...state,
+    chapters: !state.chapters
   }),
   [player.types.EPISODE_SELECT]: (state) => ({
     ...state,
@@ -46,6 +51,7 @@ export const reducer = handleActions({
   active: false,
   button: 'play',
   followContent: false,
+  chapters: false,
   path: ''
 })
 
@@ -56,7 +62,8 @@ export const actions = {
   restart: createAction(types.PLAYBAR_RESTART),
   toggleMute: createAction(types.TOGGLE_MUTE),
   nextRate: createAction(types.NEXT_RATE),
-  toggleFollowContent: createAction(types.FOLLOW_CONTENT)
+  toggleFollowContent: createAction(types.FOLLOW_CONTENT),
+  toggleChaptersOverlay: createAction(types.TOGGLE_CHAPTERS)
 };
 
 export const selectors = {
@@ -64,5 +71,6 @@ export const selectors = {
   button: prop('button'),
   volumeSlider: prop('volumeSlider'),
   followContent: prop('followContent'),
-  path: prop('path')
+  path: prop('path'),
+  chapters: prop('chapters')
 };

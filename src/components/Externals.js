@@ -5,3 +5,4 @@ export const StepperButton = () => import("@podlove/components/stepper-button").
 export const ChapterButton = () => import("@podlove/components/chapter-button").catch();
 export const InputSlider = () => import("@podlove/components/input-slider").catch();
 export const Timer = () => import("@podlove/components/timer").catch();
+export const ChapterProgress = () => import("@podlove/components/chapter-progress").catch();

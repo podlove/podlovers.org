@@ -1,98 +1,151 @@
 <template>
-  <custom-transition type="playbar">
-    <div
-      v-if="active && !scrolledToBottom"
-      :style="playbarStyle"
-      class="w-screen fixed bottom-0 play-bar mb-0"
-    >
-      <div class="w-full absolute progress-bar px-4">
-        <div class="font-shadow flex justify-between text-xs -mt-4 font-bold">
-          <timer :time="isNumber(ghost) ? ghost : playtime" />
-          <timer :time="duration - (ghost ? ghost : playtime)" :remaining="true" />
+  <div class="w-full">
+    <custom-transition type="playbar">
+      <div
+        v-if="active && !scrolledToBottom"
+        :style="playbarStyle"
+        class="w-screen fixed bottom-0 play-bar mb-0 z-50"
+      >
+        <div class="w-full absolute progress-bar px-4">
+          <div class="font-shadow flex justify-between text-xs -mt-4 font-bold">
+            <timer :time="isNumber(ghost) ? ghost : playtime" />
+            <timer :time="duration - (ghost ? ghost : playtime)" :remaining="true" />
+          </div>
+          <progress-bar
+            @input="store.dispatch"
+            @simulate="store.dispatch"
+            @ghost="store.dispatch"
+            :progressColor="colors.blue[100]"
+            thumbColor="rgba(255, 255, 255)"
+            :highlightColor="colors.blue[700]"
+            :duration="duration"
+            :time="playtime"
+            :ghost="ghost"
+            :buffer="buffer"
+            :chapters="chapters"
+            :quantiles="quantiles"
+          />
         </div>
-        <progress-bar
-          @input="store.dispatch"
-          @simulate="store.dispatch"
-          @ghost="store.dispatch"
-          :progressColor="colors.blue[100]"
-          thumbColor="rgba(255, 255, 255)"
-          :highlightColor="colors.blue[700]"
-          :duration="duration"
-          :time="playtime"
-          :ghost="ghost"
-          :buffer="buffer"
-          :chapters="chapters"
-          :quantiles="quantiles"
-        />
-      </div>
-      <div class="px-4 py-2 pt-8">
-        <div class="flex w-full h-16">
-          <div class="flex w-3/4 sm:w-1/2 md:w-1/3">
-            <g-image v-if="poster" :src="require(`!!assets-loader?width=100&height=100!@images/${poster}`)" class="w-16 h-16 mr-2 rounded shadow-md" />
-            <div class="overflow-hidden">
-              <g-link :to="episodeLink"
-                ><h4 class="text-lg text-gray-100 uppercase truncate">{{ title }}</h4></g-link
-              >
-              <g-link
-                :to="episodeLink"
-                class="block w-full text-gray-300 text-sm truncate"
-                v-if="currentChapter && currentChapter.index"
-                >{{ currentChapter.title }}</g-link
-              >
-            </div>
-          </div>
-          <div class="w-1/4 sm:w-1/2 md:w-1/3 flex items-center justify-center">
-            <chapter-button
-              v-if="chapters.length > 0"
-              type="previous"
-              color="rgba(255, 255, 255)"
-              class="mx-2 hidden sm:block"
-              @click="store.dispatch"
-            />
-            <stepper-button type="backwards" class="mx-2 hidden sm:block" @click="store.dispatch" />
-            <play-button
-              :color="colors.blue[700]"
-              background="rgba(255, 255, 255)"
-              class="mx-2 rounded-full shadow-none hover:shadow-md"
-              :type="buttonType"
-              @click="store.dispatch"
-            />
-            <stepper-button type="forward" class="mx-2 hidden sm:block" @click="store.dispatch" />
-            <chapter-button
-              v-if="chapters.length > 0"
-              type="next"
-              color="rgba(255, 255, 255)"
-              class="mx-2 hidden sm:block"
-              @click="store.dispatch"
-            />
-          </div>
-          <div class="justify-center items-end w-1/3 flex-col hidden md:flex">
-            <div class="flex items-center">
-              <button v-if="followContentButton" @click="toggleFollowContent" class="mx-2">
-                <lock class="mr-2" color="rgba(255, 255, 255)" title="Follow Transcripts" :active="followContent" />
-              </button>
-              <button @click="toggleMute" class="mx-2"><icon color="rgba(255, 255, 255)" :type="volumeIcon" /></button>
-              <div class="w-40 mx-2">
-                <input-slider
-                  :min="0"
-                  :max="1"
-                  :value="volume"
-                  @input="setVolume"
-                  :step="0.001"
-                  background="rgba(255, 255, 255)"
-                  borderColor="rgba(255, 255, 255)"
-
-                />
+        <div class="px-4 py-2 pt-8">
+          <div class="flex w-full h-16">
+            <div class="flex w-3/4 sm:w-1/2 md:w-1/3">
+              <g-image
+                v-if="poster"
+                :src="require(`!!assets-loader?width=100&height=100!@images/${poster}`)"
+                class="w-16 h-16 mr-2 rounded shadow-md"
+              />
+              <div class="overflow-hidden">
+                <g-link :to="episodeLink">
+                  <h4 class="text-lg text-gray-100 uppercase truncate">{{ title }}</h4>
+                </g-link>
+                <g-link
+                  :to="episodeLink"
+                  class="block w-full text-gray-300 text-sm truncate"
+                  v-if="currentChapter && currentChapter.index"
+                >{{ currentChapter.title }}</g-link>
               </div>
-              <button class="mx-2" @click="nextRate" @dblclick="setRate(1)">
-                <ClientOnly><icon color="rgba(255, 255, 255)" :type="rateIcon" /></ClientOnly>
-              </button>
+            </div>
+            <div class="w-1/4 sm:w-1/2 md:w-1/3 flex items-center justify-center">
+              <chapter-button
+                v-if="chapters.length > 0"
+                type="previous"
+                color="rgba(255, 255, 255)"
+                class="mx-2 hidden sm:block"
+                @click="store.dispatch"
+              />
+              <stepper-button
+                type="backwards"
+                class="mx-2 hidden sm:block"
+                @click="store.dispatch"
+              />
+              <play-button
+                :color="colors.blue[700]"
+                background="rgba(255, 255, 255)"
+                class="mx-2 rounded-full shadow-none hover:shadow-md"
+                :type="buttonType"
+                @click="store.dispatch"
+              />
+              <stepper-button type="forward" class="mx-2 hidden sm:block" @click="store.dispatch" />
+              <chapter-button
+                v-if="chapters.length > 0"
+                type="next"
+                color="rgba(255, 255, 255)"
+                class="mx-2 hidden sm:block"
+                @click="store.dispatch"
+              />
+            </div>
+            <div class="justify-center items-end w-1/3 flex-col hidden md:flex">
+              <div class="flex items-center">
+                <button
+                  class="flex justify-center items-center mx-2 border border-gray-100 rounded h-8 w-10"
+                  v-if="chapters.length > 0"
+                  @click="toggleChaptersOverlay"
+                  :class="{ 'bg-gray-100': chaptersOverlay }"
+                >
+                  <icon
+                    :color="chaptersOverlay ? colors.blue[700] : 'rgba(255, 255, 255)'"
+                    type="chapter"
+                  />
+                </button>
+                <button
+                  v-if="followContentButton"
+                  @click="toggleFollowContent"
+                  class="flex justify-center items-center mx-2 h-8 w-10 rounded border border-gray-100"
+                  :class="{ 'bg-gray-100': followContent }"
+                >
+                  <lock
+                    :color="followContent ? colors.blue[700] : 'rgba(255, 255, 255)'"
+                    title="Follow Transcripts"
+                  />
+                </button>
+                <button @click="toggleMute" class="mx-2 ml-4">
+                  <icon color="rgba(255, 255, 255)" :type="volumeIcon" />
+                </button>
+                <div class="w-40 mx-2 mr-4">
+                  <input-slider
+                    :min="0"
+                    :max="1"
+                    :value="volume"
+                    @input="setVolume"
+                    :step="0.001"
+                    background="rgba(255, 255, 255)"
+                    bordercolor="rgba(255, 255, 255)"
+                  />
+                </div>
+                <button class="mx-2" @click="nextRate" @dblclick="setRate(1)">
+                  <ClientOnly>
+                    <icon color="rgba(255, 255, 255)" :type="rateIcon" />
+                  </ClientOnly>
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </custom-transition>
+    </custom-transition>
+    <custom-transition type="chapters">
+      <div
+        v-if="chaptersOverlay"
+        class="fixed z-10 chapters-overlay rounded-t text-left font-light text-gray-100"
+        :style="playbarStyle"
+      >
+        <div class="w-full px-4 py-3 border-b border-gray-100 flex justify-between items-center">
+          <h3 class="uppercase text-lg font-normal leading-none">Chapters</h3>
+          <button @click="toggleChaptersOverlay">
+            <icon type="close" color="rgba(255, 255, 255)" />
+          </button>
+        </div>
+        <div class="w-full p-2 chapters-list">
+          <chapter
+            v-for="(chapter, index) in chapters"
+            :chapter="chapter"
+            :index="index"
+            :key="`chapter-${index}`"
+          />
+        </div>
+      </div>
+    </custom-transition>
+  </div>
 </template>
 
 <script>
@@ -102,12 +155,21 @@ import queryString from "query-string";
 import urlify from "lodash.kebabcase";
 import { mapState, mapActions } from "redux-vuex";
 
-import { Icon, PlayButton, ProgressBar, StepperButton, ChapterButton, InputSlider, Timer } from "~/components/Externals";
+import {
+  Icon,
+  PlayButton,
+  ProgressBar,
+  StepperButton,
+  ChapterButton,
+  InputSlider,
+  Timer,
+} from "~/components/Externals";
 import { selectors } from "~/store/reducers";
 
+import colors from "~/colors";
 import CustomTransition from "./CustomTransition";
 import Lock from "./icon/Lock";
-import colors from '~/colors'
+import Chapter from "./Chapter";
 
 export default {
   data() {
@@ -132,19 +194,44 @@ export default {
         volume: selectors.player.audio.volume,
         rateIcon: selectors.playbar.rate,
         followContent: selectors.playbar.followContent,
-        episodeLink: selectors.playbar.path
-      })
+        episodeLink: selectors.playbar.path,
+        chaptersOverlay: selectors.playbar.chapters,
+      }),
     };
   },
-  components: { InputSlider, PlayButton, ProgressBar, Timer, StepperButton, ChapterButton, Icon, Lock, CustomTransition },
+  components: {
+    Chapter,
+    InputSlider,
+    PlayButton,
+    ProgressBar,
+    Timer,
+    StepperButton,
+    ChapterButton,
+    Icon,
+    Lock,
+    CustomTransition,
+  },
   methods: {
-    ...mapActions("setVolume", "setRate", "nextRate", "toggleMute", "toggleFollowContent"),
+    ...mapActions(
+      "setVolume",
+      "setRate",
+      "nextRate",
+      "toggleMute",
+      "toggleFollowContent",
+      "toggleChaptersOverlay"
+    ),
     scroll() {
       this.scrolledToBottom =
-        max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight + 5 >
+        max(
+          window.pageYOffset,
+          document.documentElement.scrollTop,
+          document.body.scrollTop
+        ) +
+          window.innerHeight +
+          5 >
         document.documentElement.offsetHeight;
     },
-    isNumber: is(Number)
+    isNumber: is(Number),
   },
   computed: {
     followContentButton() {
@@ -152,14 +239,14 @@ export default {
     },
     playbarStyle() {
       return {
-        background: `${colors.blue[700]}E6`
-      }
+        background: `${colors.blue[700]}E6`,
+      };
     },
   },
   mounted() {
     const scrollListener = throttle(100, this.scroll.bind(this));
     document.addEventListener("scroll", scrollListener);
-  }
+  },
 };
 </script>
 
@@ -170,5 +257,16 @@ export default {
 
 .font-shadow {
   text-shadow: 0 0 3px white;
+}
+
+.chapters-overlay {
+  width: 450px;
+  bottom: 104px;
+  right: 100px;
+}
+
+.chapters-list {
+  max-height: calc(100vh - 250px);
+  overflow-x: auto;
 }
 </style>
