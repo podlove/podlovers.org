@@ -16,15 +16,15 @@
         <summary-icon class="mr-3" />
         <span class="uppercase hidden md:block">Summary</span>
       </button>
+      <!-- Shownotes -->
+      <button class="mx-4 font-thin flex items-center overflow-visible" @click="scrollTo('shownotes')">
+        <shownotes-icon class="mr-3" />
+        <span class="uppercase hidden md:block">Shownotes</span>
+      </button>
       <!-- Subscribe -->
       <button class="mx-4 font-thin flex items-center overflow-visible" @click="scrollTo('timeline')">
         <timeline-icon class="mr-3" />
         <span class="uppercase hidden md:block">Timeline</span>
-      </button>
-      <!-- Share -->
-      <button class="mx-4 font-thin flex items-center overflow-visible" @click="scrollTo('shownotes')">
-        <shownotes-icon class="mr-3" />
-        <span class="uppercase hidden md:block">Shownotes</span>
       </button>
       <!-- Discuss -->
       <button class="mx-4 font-thin flex items-center overflow-visible" @click="scrollTo('discuss')">

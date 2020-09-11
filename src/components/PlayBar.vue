@@ -77,31 +77,31 @@
             <div class="justify-center items-end w-1/3 flex-col hidden md:flex">
               <div class="flex items-center">
                 <button
-                  class="flex justify-center items-center mx-2 border border-gray-100 rounded h-8 w-10"
+                  class="flex justify-center items-center mx-2 rounded h-8 w-10 border-transparent"
                   v-if="chapters.length > 0"
                   @click="toggleChaptersOverlay"
-                  :class="{ 'bg-gray-100': chaptersOverlay }"
+                  :class="{ 'border-gray-100 border': chaptersOverlay }"
                 >
                   <icon
-                    :color="chaptersOverlay ? colors.blue[700] : 'rgba(255, 255, 255)'"
+                    color="rgba(255, 255, 255)"
                     type="chapter"
                   />
                 </button>
                 <button
                   v-if="followContentButton"
                   @click="toggleFollowContent"
-                  class="flex justify-center items-center mx-2 h-8 w-10 rounded border border-gray-100"
-                  :class="{ 'bg-gray-100': followContent }"
+                  class="flex justify-center items-center mx-2 h-8 w-10 rounded"
+                  :class="{ 'border-gray-100 border': followContent }"
                 >
                   <lock
-                    :color="followContent ? colors.blue[700] : 'rgba(255, 255, 255)'"
+                    color="rgba(255, 255, 255)"
                     title="Follow Transcripts"
                   />
                 </button>
                 <button @click="toggleMute" class="mx-2 ml-4">
                   <icon color="rgba(255, 255, 255)" :type="volumeIcon" />
                 </button>
-                <div class="w-40 mx-2 mr-4">
+                <div class="w-40 mx-2 mr-4 hidden lg:flex">
                   <input-slider
                     :min="0"
                     :max="1"
@@ -113,9 +113,7 @@
                   />
                 </div>
                 <button class="mx-2" @click="nextRate" @dblclick="setRate(1)">
-                  <ClientOnly>
-                    <icon color="rgba(255, 255, 255)" :type="rateIcon" />
-                  </ClientOnly>
+                  <icon color="rgba(255, 255, 255)" :type="rateIcon" />
                 </button>
               </div>
             </div>

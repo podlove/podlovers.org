@@ -11,9 +11,15 @@
     /></episode-header>
     <div class="lg:w-full lg:flex lg:justify-center pt-20">
       <div class="lg:w-app">
+
         <section id="summary">
           <h2 class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-8 sm:mx-2">Summary</h2>
           <div class="font-light border-gray-400 border-b mb-12 pt-6 pb-12 px-12">{{ $page.episode.summary }}</div>
+        </section>
+
+        <section id="shownotes">
+          <h2 class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-8 sm:mx-2">Shownotes</h2>
+          <div class="font-light episode-content border-gray-400 border-b mb-12 pb-12 px-12" v-html="$page.episode.content"></div>
         </section>
 
         <section id="timeline">
@@ -23,11 +29,6 @@
             :id="$page.episode.id"
             :timeline="$page.episode.timeline"
           />
-        </section>
-
-        <section id="shownotes">
-          <h2 class="font-mono inline-block border-gray-400 border-b-2 mb-6  mx-8 sm:mx-">Shownotes</h2>
-          <div class="font-light episode-content border-gray-400 border-b mb-12 pb-12 px-12" v-html="$page.episode.content"></div>
         </section>
 
         <section id="discuss">
