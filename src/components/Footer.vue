@@ -8,7 +8,7 @@
       </ul>
       <div class="w-full md:w-1/2 lg:w-1/3 whitespace-no-wrap">
         Made with
-        <g-link class="hover:underline" href="https://github.org/podlove" target="_blank" rel="nofollow noopener"
+        <g-link class="hover:underline" href="https://podlove.org" target="_blank" rel="nofollow noopener"
           >Podlove</g-link
         >,
         <g-link class="hover:underline" href="https://ultraschall.fm" target="_blank" rel="nofollow noopener"
