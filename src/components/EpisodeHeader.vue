@@ -23,7 +23,7 @@
           <g-link :to="path" class="text-center md:text-left">
             <h1 v-if="title" class="text-gray-100 text-3xl mb-5" v-html="title" />
           </g-link>
-          <div class="w-full flex justify-center md:justify-start">
+          <div class="w-full flex flex-wrap justify-center md:justify-start">
             <div
               class="text-center flex flex-col items-center mx-2 mb-2 w-16"
               :class="{ 'ml-0': index === 0 }"

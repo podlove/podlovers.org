@@ -82,9 +82,8 @@
                   @click="toggleChaptersOverlay"
                   :class="{ 'border-gray-100 border': chaptersOverlay }"
                 >
-                  <icon
+                  <chapter-icon
                     color="rgba(255, 255, 255)"
-                    type="chapter"
                   />
                 </button>
                 <button
@@ -93,7 +92,7 @@
                   class="flex justify-center items-center mx-2 h-8 w-10 rounded"
                   :class="{ 'border-gray-100 border': followContent }"
                 >
-                  <lock
+                  <lock-icon
                     color="rgba(255, 255, 255)"
                     title="Follow Transcripts"
                   />
@@ -166,7 +165,8 @@ import { selectors } from "~/store/reducers";
 
 import colors from "~/colors";
 import CustomTransition from "./CustomTransition";
-import Lock from "./icon/Lock";
+import LockIcon from "./icon/Lock";
+import ChapterIcon from "./icon/Chapter";
 import Chapter from "./Chapter";
 
 export default {
@@ -206,7 +206,8 @@ export default {
     StepperButton,
     ChapterButton,
     Icon,
-    Lock,
+    LockIcon,
+    ChapterIcon,
     CustomTransition,
   },
   methods: {
