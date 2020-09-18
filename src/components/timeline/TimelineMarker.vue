@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center mb-2 p-2">
     <bullet :top="top" :bottom="bottom">
-      <hour-glass />
+      <hour-glass class="text-gray-100" />
     </bullet>
     <a @click="play" class="block uppercase font-normal cursor-pointer px-2">
       {{ title }}
