@@ -14,12 +14,12 @@
       <!-- Discuss -->
       <button class="mx-4 font-light flex items-center overflow-visible" @click="scrollTo('header')">
         <summary-icon class="mr-3" />
-        <span class="uppercase hidden md:block">Summary</span>
+        <span class="uppercase hidden md:block">{{ $t('EPISODE.NAVIGATION.SUMMARY') }}</span>
       </button>
       <!-- Shownotes -->
       <button class="mx-4 font-light flex items-center overflow-visible" @click="scrollTo('shownotes')">
         <shownotes-icon class="mr-3" />
-        <span class="uppercase hidden md:block">Shownotes</span>
+        <span class="uppercase hidden md:block">{{ $t('EPISODE.NAVIGATION.SHOWNOTES') }}</span>
       </button>
       <!-- Subscribe -->
       <button class="mx-4 font-light flex items-center justify-center overflow-visible" @click="scrollTo('timeline')">

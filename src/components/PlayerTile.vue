@@ -17,7 +17,7 @@
               class="mr-1 w-6"
               v-for="contributor in episode.contributors"
               :contributor="contributor"
-              :key="`contributor-${contributor.id}`"
+              :key="`contributor-${contributor.details.id}`"
             />
           </div>
           <div class="flex">
@@ -60,7 +60,6 @@ export default {
         id: null,
         title: null,
         summary: null,
-        contributors: null,
         publicationDate: null,
         poster: null,
         show: null,

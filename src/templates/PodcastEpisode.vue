@@ -41,7 +41,7 @@
 
 <page-query>
 query ($id: ID!) {
-  episode(id: $id) {
+  podcastEpisode(id: $id) {
     id,
     path,
     title,
@@ -98,7 +98,7 @@ query ($id: ID!) {
 query {
   metadata {
     siteUrl,
-    show {
+    PodcastShow {
       title,
       poster
     }
@@ -176,11 +176,12 @@ export default {
   },
 
   metaInfo() {
+
     const episode = path(['$page', 'episode'], this)
     const metadata = path(['$static', 'metadata'], this)
     const authors = propOr([], 'contributors', this)
     const audio = propOr([], 'audio', episode)
-    const poster = prop('poster', episode) || path(['show', 'poster'], episode)
+    const poster = prop('poster', episode) || path(['PodloveShow', 'poster'], episode)
 
     return {
       title: prop('title', episode),
