@@ -28,7 +28,7 @@ export default ({ selectEpisode, selectRate, selectVolume, selectMuted, selectCu
 
     if (isEmpty(episode)) {
       const result = yield fetch(`/episode/${id}`);
-      episode = path(["data", "episode"], result);
+      episode = path(["data", "podcastEpisode"], result);
       yield put(episodes.actions.addEpisode(episode));
     }
 

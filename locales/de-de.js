@@ -4,11 +4,9 @@ module.exports = {
     "EPISODES": "Episoden"
   },
   "EPISODE": {
-    "NAVIGATION": {
-      "SUMMARY": "Zusammenfassung",
-      "SHOWNOTES": "Shownotes",
-      "TIMELINE": "Timeline",
-      "DISCUSS": "Kommentare"
-    }
+    "SUMMARY": "Info",
+    "SHOWNOTES": "Shownotes",
+    "TIMELINE": "Timeline",
+    "DISCUSS": "Kommentare"
   }
 }

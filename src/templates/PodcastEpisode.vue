@@ -2,32 +2,32 @@
   <Layout>
     <episode-header
       :id="id"
-      :title="$page.episode.title"
-      :poster="$page.episode.poster"
-      :publication-date="$page.episode.publicationDate"
-      :duration="$page.episode.duration"
-      :contributors="$page.episode.contributors"
+      :title="episode.title"
+      :poster="episode.poster"
+      :publication-date="episode.publicationDate"
+      :duration="episode.duration"
+      :contributors="episode.contributors"
       ><episode-navigation
     /></episode-header>
     <div class="lg:w-full lg:flex lg:justify-center pt-20">
       <div class="lg:w-app">
 
         <section id="summary">
-          <h2 class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-8 sm:mx-2">Summary</h2>
-          <div class="font-light border-gray-400 border-b mb-12 pt-6 pb-12 px-12">{{ $page.episode.summary }}</div>
+          <h2 class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-8 sm:mx-2">{{ $t('EPISODE.SUMMARY') }}</h2>
+          <div class="font-light border-gray-400 border-b mb-12 pt-6 pb-12 px-12">{{ episode.summary }}</div>
         </section>
 
         <section id="shownotes">
-          <h2 class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-8 sm:mx-2">Shownotes</h2>
-          <div class="font-light episode-content border-gray-400 border-b mb-12 pb-12 px-12" v-html="$page.episode.content"></div>
+          <h2 class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-8 sm:mx-2">{{ $t('EPISODE.SHOWNOTES') }}</h2>
+          <div class="font-light episode-content border-gray-400 border-b mb-12 pb-12 px-12" v-html="episode.content"></div>
         </section>
 
         <section id="timeline">
-          <h2 class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-8 sm:mx-2">Timeline</h2>
+          <h2 class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-8 sm:mx-2">{{ $t('EPISODE.TIMELINE') }}</h2>
           <timeline
             class="font-light border-gray-400 border-b mb-12 pb-12 px-12"
-            :id="$page.episode.id"
-            :timeline="$page.episode.timeline"
+            :id="episode.id"
+            :timeline="episode.timeline"
           />
         </section>
 
@@ -50,12 +50,6 @@ query ($id: ID!) {
     poster,
     duration,
     content,
-    show {
-      poster,
-      title,
-      subtitle,
-      link
-    },
     audio {
       url,
       size,
@@ -70,9 +64,11 @@ query ($id: ID!) {
       image
     },
     contributors {
-      id,
-      name
-      avatar
+      details {
+        id,
+        name
+        avatar
+      }
     },
     timeline {
       node,
@@ -124,7 +120,7 @@ import Icon from "~/components/Externals";
 
 export default {
   data: mapState({
-    episode: selectors.current.episode,
+    episodeId: selectors.current.episode,
     playtime: selectors.player.playtime,
     ghost: selectors.player.ghost.time,
     followContent: selectors.playbar.followContent
@@ -134,10 +130,16 @@ export default {
 
   computed: {
     id() {
-      return path(["episode", "id"], this.$page);
+      return path(["id"], this.episode);
     },
     follow() {
-      return this.followContent && this.episode === this.id;
+      return this.followContent && this.episodeId === this.id;
+    },
+    episode() {
+      return path(["podcastEpisode"], this.$page)
+    },
+    contributors() {
+      return pathOr([], ['contributors'], this.episode).map(({ details }) => details)
     }
   },
 
@@ -176,19 +178,17 @@ export default {
   },
 
   metaInfo() {
-
-    const episode = path(['$page', 'episode'], this)
     const metadata = path(['$static', 'metadata'], this)
     const authors = propOr([], 'contributors', this)
-    const audio = propOr([], 'audio', episode)
-    const poster = prop('poster', episode) || path(['PodloveShow', 'poster'], episode)
+    const audio = propOr([], 'audio', this.episode)
+    const poster = prop('poster', this.episode) || path(['PodloveShow', 'poster'], this.episode)
 
     return {
-      title: prop('title', episode),
+      title: prop('title', this.episode),
       meta: [
         {
           name: 'description',
-          content: prop('summary', episode)
+          content: prop('summary', this.episode)
         },
         // Authors
         ...authors.map(author => ({
@@ -206,20 +206,20 @@ export default {
         },
         {
           property: 'og:title',
-          content: prop('title', episode)
+          content: prop('title', this.episode)
         },
         {
           property: 'og:url',
-          content: `${prop('siteUrl', metadata)}${prop('path', episode)}`
+          content: `${prop('siteUrl', metadata)}${prop('path', this.episode)}`
         },
         {
           property: 'og:description',
-          content: prop('summary', episode)
+          content: prop('summary', this.episode)
         },
-        {
+        ...(poster ? [{
           property: 'og:image',
           content: prop('siteUrl', metadata) + require(`!!assets-loader!@images/${poster}`).src
-        },
+        }]: []),
         ...flatten(audio.map(src => [{
           property: 'og:audio:type',
           content: src.mimeType
