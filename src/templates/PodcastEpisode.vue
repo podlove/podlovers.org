@@ -247,13 +247,15 @@ export default {
 .episode-content h1{
   font-weight: bold;
   font-size: 1.5em;
-  margin-left: 1em;
+  margin-left: -1.5em;
   margin-bottom: 1em;
 }
 
 .episode-content h2 {
   font-weight: bold;
   font-size: 1.2em;
+  margin-left: -1.5em;
+  margin-bottom: 0.75em;
 }
 
 .episode-content h3 {
@@ -262,7 +264,6 @@ export default {
   margin-left: -1.5em;
   margin-bottom: 0.75em;
 }
-
 
 .episode-content a {
   border-bottom: 1px solid rgba(203, 213, 224);

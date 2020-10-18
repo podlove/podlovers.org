@@ -35,15 +35,14 @@
                   <h4 class="text-lg text-gray-100 uppercase truncate">{{ title }}</h4>
                 </g-link>
                 <g-link
-                  :to="episodeLink"
+                  :to="{ path: episodeLink, query: { t: toHumanTime(currentChapter.start + 10) } }"
                   class="block w-full text-gray-300 text-sm truncate"
-                  v-if="!ghostChapter && currentChapter && currentChapter.index"
+                  v-if="!ghostActive && currentChapter && currentChapter.index"
                   >{{ currentChapter.title }}</g-link
                 >
                 <g-link
-                  :to="episodeLink"
                   class="block w-full text-gray-300 text-sm truncate"
-                  v-if="ghostChapter && ghostChapter.index"
+                  v-if="ghostActive && ghostChapter.index"
                   >{{ ghostChapter.title }}</g-link
                 >
               </div>
@@ -140,6 +139,7 @@ import { throttle } from "throttle-debounce";
 import queryString from "query-string";
 import urlify from "lodash.kebabcase";
 import { mapState, mapActions } from "redux-vuex";
+import { toHumanTime } from "@podlove/utils/time";
 
 import {
   Icon,
@@ -183,7 +183,8 @@ export default {
         followContent: selectors.playbar.followContent,
         episodeLink: selectors.playbar.path,
         chaptersOverlay: selectors.playbar.chapters,
-        ghostChapter: selectors.player.ghost.chapter
+        ghostChapter: selectors.player.ghost.chapter,
+        ghostActive: selectors.player.ghost.active
       })
     };
   },
@@ -207,7 +208,8 @@ export default {
         max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight + 5 >
         document.documentElement.offsetHeight;
     },
-    isNumber: is(Number)
+    isNumber: is(Number),
+    toHumanTime
   },
   computed: {
     followContentButton() {
@@ -221,7 +223,7 @@ export default {
   },
   mounted() {
     const scrollListener = throttle(100, this.scroll.bind(this));
-    document.addEventListener("scroll", scrollListener);
+    document && document.addEventListener("scroll", scrollListener);
   }
 };
 </script>

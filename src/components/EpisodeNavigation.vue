@@ -59,7 +59,7 @@ export default {
   components: { Icon, DiscussIcon, TimelineIcon, SummaryIcon, ShownotesIcon },
   mounted() {
     this.handleScroll();
-    window.addEventListener("scroll", throttle(100, this.handleScroll.bind(this)));
+    window && window.addEventListener("scroll", throttle(100, this.handleScroll.bind(this)));
   },
   methods: {
     handleScroll() {

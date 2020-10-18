@@ -15,6 +15,7 @@
     "@podlove/player-sagas": "5.1.12",
     "@podlove/player-state": "5.1.12",
     "@podlove/utils": "5.1.12",
+    "@podlove/source-publisher": "0.2.0",
     "gridsome": "0.7.19",
     "lodash.kebabcase": "4.1.1",
     "no-scroll": "2.1.1",

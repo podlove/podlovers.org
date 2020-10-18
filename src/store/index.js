@@ -7,6 +7,7 @@ import { stepperSaga } from "@podlove/player-sagas/stepper";
 
 import episodeSaga from "./sagas/episode";
 import playbarSaga from "./sagas/playbar";
+import urlSaga from "./sagas/url";
 
 import { reducers, actions, selectors } from "./reducers";
 
@@ -58,6 +59,14 @@ export function createStore(Vue, { isClient }) {
         selectTitle: selectors.player.title
       })
     );
+
+    sagas.push(
+      urlSaga({
+        selectEpisode: selectors.current.episode,
+        selectCurrentId: selectors.router.id,
+        selectPlaybarActive: selectors.playbar.active
+      })
+    )
   }
 
   sagasEngine.run.apply(this, sagas);

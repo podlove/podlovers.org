@@ -9,16 +9,19 @@ import { selectors as network } from "@podlove/player-state/network";
 import { selectors as ghost } from "@podlove/player-state/ghost";
 import { selectors as chapters } from "@podlove/player-state/chapters";
 import { selectors as quantiles } from '@podlove/player-state/quantiles';
+
 import { currentChapterByPlaytime } from '@podlove/utils/chapters'
 
 import { selectors as episodes } from "./episodes";
 import { selectors as player, selectors } from "./player";
 import { selectors as playbar } from "./playbar";
 import { selectors as subscribeButton } from "./subscribe-button";
+import { selectors as router } from "./router";
 
 const slices = {
   player: propOr({}, "player"),
-  playbar: propOr({}, "playbar")
+  playbar: propOr({}, "playbar"),
+  router: propOr({}, 'router')
 };
 
 const playtime = compose(
@@ -252,5 +255,9 @@ export default {
   },
   subscribeButton: {
     visible: compose(subscribeButton.visible, propOr(false, 'subscribeButton'))
+  },
+  router: {
+    id: compose(router.id, slices.router),
+    path: compose(router.path, slices.router)
   }
 };
