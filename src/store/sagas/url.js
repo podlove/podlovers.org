@@ -1,6 +1,6 @@
 import { path } from 'ramda'
 import { toHumanTime, toPlayerTime } from '@podlove/utils/time'
-import { select, throttle, put, takeEvery } from 'redux-saga/effects'
+import { select, throttle, put, takeEvery, delay } from 'redux-saga/effects'
 import { BACKEND_PLAYTIME } from '@podlove/player-actions/types'
 import { takeOnce } from '@podlove/player-sagas/helper'
 import { requestPlaytime } from '@podlove/player-actions/timepiece'
@@ -24,6 +24,7 @@ export default ({ selectEpisode, selectCurrentId, selectPlaybarActive }) => {
   }
 
   function* restoreEpisode({ payload }) {
+    yield delay(1000)
     const id = path(['params', 'id'], payload)
     const playtime = path(['query', 't'], payload)
 
