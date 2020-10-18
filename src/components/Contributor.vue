@@ -1,6 +1,6 @@
 <template>
-  <span :title="contributor.name">
-    <g-image class="rounded" :src="require(`!!assets-loader?width=48&height=48!@images/${contributor.avatar}`)" />
+  <span v-if="contributor.details.avatar" :title="contributor.details.name">
+    <g-image class="rounded" :src="require(`!!assets-loader?width=48&height=48!@images/${contributor.details.avatar}`)" />
   </span>
 </template>
 
@@ -10,9 +10,11 @@ export default {
     contributor: {
       type: Object,
       default: () => ({
-        name: null,
-        id: null,
-        avatar: null
+        details: {
+          name: null,
+          id: null,
+          avatar: null
+        }
       })
     }
   }

@@ -21,13 +21,15 @@ import * as episodes from "./episodes";
 import * as player from "./player";
 import * as playbar from "./playbar";
 import * as subscribeButton from "./subscribe-button"
+import * as router from "./router"
 
 const reducers = combineReducers({
   action: action.reducer,
   episodes: episodes.reducer,
   player: combineReducers({ quantiles, chapters, ghost, network, driver, show, media, timepiece, episode, audio, current: player.reducer }),
   playbar: playbar.reducer,
-  subscribeButton: subscribeButton.reducer
+  subscribeButton: subscribeButton.reducer,
+  router: router.reducer
 });
 
 const actions = {
@@ -35,6 +37,7 @@ const actions = {
   ...player.actions,
   ...playbar.actions,
   ...subscribeButton.actions,
+  ...router.actions,
   setVolume,
   setRate,
   simulatePlaytime,

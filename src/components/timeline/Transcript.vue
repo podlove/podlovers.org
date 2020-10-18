@@ -17,7 +17,7 @@
         <span
           :id="transcriptId(text.start, text.end)"
           :class="{ 'border-b-2 border-podlove-blue-200': ghostTranscript(text.start, text.end), 'border-b-2 border-podlove-blue-700': activeTranscript(text.start, text.end), 'ml-0': index === 0 }"
-          class="m-1 break-words cursor-pointer"
+          class="mr-1 break-words cursor-pointer"
           @click="play(text.start)"
           @mouseover="simulateSection(text.start, text.end)" @mouseout="disableGhost"
           v-for="(text, index) in texts"

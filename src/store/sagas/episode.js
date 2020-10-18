@@ -28,7 +28,7 @@ export default ({ selectEpisode, selectRate, selectVolume, selectMuted, selectCu
 
     if (isEmpty(episode)) {
       const result = yield fetch(`/episode/${id}`);
-      episode = path(["data", "episode"], result);
+      episode = path(["data", "podcastEpisode"], result);
       yield put(episodes.actions.addEpisode(episode));
     }
 
@@ -79,8 +79,20 @@ export default ({ selectEpisode, selectRate, selectVolume, selectMuted, selectCu
     yield put(requestPause());
   }
 
+  function* restoreEpisode({ payload: { id, playtime } }) {
+    yield put(requestPause());
+    yield put(player.actions.selectEpisode(id));
+
+    const episode = yield loadEpisode(id)
+    yield put({ type: READY, payload: episode });
+    yield delay(100)
+    yield put(requestPlaytime(playtime))
+    yield takeOnce(BACKEND_LOADING_START, resetMeta);
+  }
+
   return function*() {
     yield takeEvery(player.types.EPISODE_PLAY, playEpisode);
     yield takeEvery(player.types.EPISODE_PAUSE, pauseEpisode);
+    yield takeEvery(player.types.EPISODE_RESTORE, restoreEpisode);
   };
 };

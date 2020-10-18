@@ -1,12 +1,8 @@
 <template>
   <div class="w-full">
     <custom-transition type="playbar">
-      <div
-        v-if="active && !scrolledToBottom"
-        :style="playbarStyle"
-        class="w-screen fixed bottom-0 play-bar mb-0 z-50"
-      >
-        <div class="w-full absolute progress-bar px-4">
+      <div v-if="active && !scrolledToBottom" :style="playbarStyle" class="w-screen fixed bottom-0 play-bar mb-0 z-50">
+        <div class="w-full absolute progress px-4">
           <div class="font-shadow flex justify-between text-xs -mt-4 font-bold">
             <timer :time="isNumber(ghost) ? ghost : playtime" />
             <timer :time="duration - (ghost ? ghost : playtime)" :remaining="true" />
@@ -39,10 +35,16 @@
                   <h4 class="text-lg text-gray-100 uppercase truncate">{{ title }}</h4>
                 </g-link>
                 <g-link
-                  :to="episodeLink"
+                  :to="{ path: episodeLink, query: { t: toHumanTime(currentChapter.start + 10) } }"
                   class="block w-full text-gray-300 text-sm truncate"
-                  v-if="currentChapter && currentChapter.index"
-                >{{ currentChapter.title }}</g-link>
+                  v-if="!ghostActive && currentChapter && currentChapter.index"
+                  >{{ currentChapter.title }}</g-link
+                >
+                <g-link
+                  class="block w-full text-gray-300 text-sm truncate"
+                  v-if="ghostActive && ghostChapter.index"
+                  >{{ ghostChapter.title }}</g-link
+                >
               </div>
             </div>
             <div class="w-1/4 sm:w-1/2 md:w-1/3 flex items-center justify-center">
@@ -53,11 +55,7 @@
                 class="mx-2 hidden sm:block"
                 @click="store.dispatch"
               />
-              <stepper-button
-                type="backwards"
-                class="mx-2 hidden sm:block"
-                @click="store.dispatch"
-              />
+              <stepper-button type="backwards" class="mx-2 hidden sm:block" @click="store.dispatch" />
               <play-button
                 :color="colors.blue[700]"
                 background="rgba(255, 255, 255)"
@@ -82,9 +80,7 @@
                   @click="toggleChaptersOverlay"
                   :class="{ 'border-gray-100 border': chaptersOverlay }"
                 >
-                  <chapter-icon
-                    color="rgba(255, 255, 255)"
-                  />
+                  <chapter-icon color="rgba(255, 255, 255)" />
                 </button>
                 <button
                   v-if="followContentButton"
@@ -92,10 +88,7 @@
                   class="flex justify-center items-center mx-2 h-8 w-10 rounded"
                   :class="{ 'border-gray-100 border': followContent }"
                 >
-                  <lock-icon
-                    color="rgba(255, 255, 255)"
-                    title="Follow Transcripts"
-                  />
+                  <lock-icon color="rgba(255, 255, 255)" title="Follow Transcripts" />
                 </button>
                 <button @click="toggleMute" class="mx-2 ml-4">
                   <icon color="rgba(255, 255, 255)" :type="volumeIcon" />
@@ -108,7 +101,7 @@
                     @input="setVolume"
                     :step="0.001"
                     background="rgba(255, 255, 255)"
-                    bordercolor="rgba(255, 255, 255)"
+                    borderColor="rgba(255, 255, 255)"
                   />
                 </div>
                 <button class="mx-2" @click="nextRate" @dblclick="setRate(1)">
@@ -133,12 +126,7 @@
           </button>
         </div>
         <div class="w-full p-2 chapters-list">
-          <chapter
-            v-for="(chapter, index) in chapters"
-            :chapter="chapter"
-            :index="index"
-            :key="`chapter-${index}`"
-          />
+          <chapter v-for="(chapter, index) in chapters" :chapter="chapter" :index="index" :key="`chapter-${index}`" />
         </div>
       </div>
     </custom-transition>
@@ -151,6 +139,7 @@ import { throttle } from "throttle-debounce";
 import queryString from "query-string";
 import urlify from "lodash.kebabcase";
 import { mapState, mapActions } from "redux-vuex";
+import { toHumanTime } from "@podlove/utils/time";
 
 import {
   Icon,
@@ -159,7 +148,7 @@ import {
   StepperButton,
   ChapterButton,
   InputSlider,
-  Timer,
+  Timer
 } from "~/components/Externals";
 import { selectors } from "~/store/reducers";
 
@@ -194,7 +183,9 @@ export default {
         followContent: selectors.playbar.followContent,
         episodeLink: selectors.playbar.path,
         chaptersOverlay: selectors.playbar.chapters,
-      }),
+        ghostChapter: selectors.player.ghost.chapter,
+        ghostActive: selectors.player.ghost.active
+      })
     };
   },
   components: {
@@ -208,50 +199,38 @@ export default {
     Icon,
     LockIcon,
     ChapterIcon,
-    CustomTransition,
+    CustomTransition
   },
   methods: {
-    ...mapActions(
-      "setVolume",
-      "setRate",
-      "nextRate",
-      "toggleMute",
-      "toggleFollowContent",
-      "toggleChaptersOverlay"
-    ),
+    ...mapActions("setVolume", "setRate", "nextRate", "toggleMute", "toggleFollowContent", "toggleChaptersOverlay"),
     scroll() {
       this.scrolledToBottom =
-        max(
-          window.pageYOffset,
-          document.documentElement.scrollTop,
-          document.body.scrollTop
-        ) +
-          window.innerHeight +
-          5 >
+        max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight + 5 >
         document.documentElement.offsetHeight;
     },
     isNumber: is(Number),
+    toHumanTime
   },
   computed: {
     followContentButton() {
-      return path(["$page", "episode", "id"], this) === this.episode;
+      return path(["$page", "podcastEpisode", "id"], this) === this.episode;
     },
     playbarStyle() {
       return {
-        background: `${colors.blue[700]}E6`,
+        background: `${colors.blue[700]}E6`
       };
-    },
+    }
   },
   mounted() {
     const scrollListener = throttle(100, this.scroll.bind(this));
-    document.addEventListener("scroll", scrollListener);
-  },
+    document && document.addEventListener("scroll", scrollListener);
+  }
 };
 </script>
 
-<style scoped>
-.progress-bar {
-  margin-top: -10px;
+<style>
+.progress {
+  margin-top: -5px;
 }
 
 .font-shadow {
@@ -267,5 +246,14 @@ export default {
 .chapters-list {
   max-height: calc(100vh - 250px);
   overflow-x: auto;
+}
+
+.chapter-progress {
+  overflow: hidden;
+}
+
+.chapter-progress .title {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>

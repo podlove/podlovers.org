@@ -28,10 +28,10 @@
               class="text-center flex flex-col items-center mx-2 mb-2 w-16"
               :class="{ 'ml-0': index === 0 }"
               v-for="(contributor, index) in contributors"
-              :key="`contributor-${contributor.id}`"
+              :key="`contributor-${contributor.details.id}`"
             >
               <contributor class="block w-12" :contributor="contributor" />
-              <span class="text-gray-300 truncate">{{ contributor.name.split(" ").shift() }}</span>
+              <span class="text-gray-300 truncate">{{ contributor.details.name.split(" ").shift() }}</span>
             </div>
           </div>
         </div>

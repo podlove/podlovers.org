@@ -14,22 +14,22 @@
       <!-- Discuss -->
       <button class="mx-4 font-light flex items-center overflow-visible" @click="scrollTo('header')">
         <summary-icon class="mr-3" />
-        <span class="uppercase hidden md:block">Summary</span>
+        <span class="uppercase hidden md:block">{{ $t('EPISODE.SUMMARY') }}</span>
       </button>
       <!-- Shownotes -->
       <button class="mx-4 font-light flex items-center overflow-visible" @click="scrollTo('shownotes')">
         <shownotes-icon class="mr-3" />
-        <span class="uppercase hidden md:block">Shownotes</span>
+        <span class="uppercase hidden md:block">{{ $t('EPISODE.SHOWNOTES') }}</span>
       </button>
       <!-- Subscribe -->
       <button class="mx-4 font-light flex items-center justify-center overflow-visible" @click="scrollTo('timeline')">
         <timeline-icon class="mr-3" />
-        <span class="uppercase hidden md:block">Timeline</span>
+        <span class="uppercase hidden md:block">{{ $t('EPISODE.TIMELINE') }}</span>
       </button>
       <!-- Discuss -->
       <button class="mx-4 font-light flex items-center overflow-visible" @click="scrollTo('discuss')">
         <discuss-icon class="mr-3" />
-        <span class="uppercase hidden md:block">Discuss</span>
+        <span class="uppercase hidden md:block">{{ $t('EPISODE.DISCUSS') }}</span>
       </button>
     </div>
 
@@ -59,7 +59,7 @@ export default {
   components: { Icon, DiscussIcon, TimelineIcon, SummaryIcon, ShownotesIcon },
   mounted() {
     this.handleScroll();
-    window.addEventListener("scroll", throttle(100, this.handleScroll.bind(this)));
+    window && window.addEventListener("scroll", throttle(100, this.handleScroll.bind(this)));
   },
   methods: {
     handleScroll() {

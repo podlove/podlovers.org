@@ -23,10 +23,18 @@ module.exports = {
         perPage: 100,
         concurrent: 10
       }
+    },
+    {
+      use: '@podlove/source-publisher',
+      options: {
+        baseUrl: 'https://backend.podlovers.org', // required
+        apiBase: 'wp-json',
+        typeName: 'Podcast'
+      }
     }
   ],
   templates: {
-    Episode: '/episode/:id',
+    PodcastEpisode: '/episode/:id',
     WordPressPage: [{
       path: '/page/:slug',
       component: './src/templates/Page.vue'

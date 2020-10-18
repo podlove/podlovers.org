@@ -43,7 +43,7 @@
 
 <page-query>
 query {
-  episodes: allEpisode(sortBy: "publicationDate") {
+  episodes: allPodcastEpisode(sortBy: "publicationDate") {
     edges {
       node {
         title,
@@ -54,9 +54,11 @@ query {
         publicationDate,
         duration,
         contributors {
-          id,
-          name
-          avatar
+          details {
+            id,
+            name
+            avatar
+          }
         }
       }
     }
@@ -69,7 +71,7 @@ query {
   metadata {
     siteUrl,
     siteName,
-    show {
+    PodcastShow {
       title,
       subtitle,
       summary,
@@ -99,25 +101,25 @@ export default {
 
 
     poster() {
-      return path(["$static", "metadata", "show", "poster"], this)
+      return path(["$static", "metadata", "PodcastShow", "poster"], this)
     },
 
     title() {
-      return path(["$static", "metadata", "show", "title"], this)
+      return path(["$static", "metadata", "PodcastShow", "title"], this)
     },
 
     summary() {
-      return path(["$static", "metadata", "show", "summary"], this)
+      return path(["$static", "metadata", "PodcastShow", "summary"], this)
     },
 
     subtitle() {
-      return path(["$static", "metadata", "show", "subtitle"], this)
+      return path(["$static", "metadata", "PodcastShow", "subtitle"], this)
     }
   },
 
   metaInfo() {
     const metadata = pathOr({}, ["$static", "metadata"], this);
-    const show = propOr({}, "show", metadata);
+    const show = propOr({}, "PodcastShow", metadata);
 
     return {
       title: `${prop("title", show)} - ${prop("subtitle", show)}`,

@@ -1,4 +1,4 @@
-import { compose, either, propOr, prop } from "ramda";
+import { compose, either, propOr } from "ramda";
 import { selectors as driver } from "@podlove/player-state/driver";
 import { selectors as show } from "@podlove/player-state/show";
 import { selectors as media } from "@podlove/player-state/media";
@@ -8,16 +8,20 @@ import { selectors as audio } from "@podlove/player-state/audio";
 import { selectors as network } from "@podlove/player-state/network";
 import { selectors as ghost } from "@podlove/player-state/ghost";
 import { selectors as chapters } from "@podlove/player-state/chapters";
-import { selectors as quantiles } from '@podlove/player-state/quantiles'
+import { selectors as quantiles } from '@podlove/player-state/quantiles';
+
+import { currentChapterByPlaytime } from '@podlove/utils/chapters'
 
 import { selectors as episodes } from "./episodes";
-import { selectors as player } from "./player";
+import { selectors as player, selectors } from "./player";
 import { selectors as playbar } from "./playbar";
 import { selectors as subscribeButton } from "./subscribe-button";
+import { selectors as router } from "./router";
 
 const slices = {
   player: propOr({}, "player"),
-  playbar: propOr({}, "playbar")
+  playbar: propOr({}, "playbar"),
+  router: propOr({}, 'router')
 };
 
 const playtime = compose(
@@ -84,6 +88,18 @@ const rate = compose(
   slices.player
 )
 
+const playerChaptersList =  compose(
+  chapters.list,
+  propOr({}, 'chapters'),
+  slices.player
+)
+
+const playerGhostTime = compose(
+  ghost.time,
+  propOr({}, "ghost"),
+  slices.player
+)
+
 export default {
   current: {
     episode: currentEpisode
@@ -116,16 +132,18 @@ export default {
       slices.player
     ),
     ghost: {
-      time: compose(
-        ghost.time,
-        propOr({}, "ghost"),
-        slices.player
-      ),
+      time: playerGhostTime,
       active: compose(
         ghost.active,
         propOr({}, "ghost"),
         slices.player
-      )
+      ),
+      chapter: (state) => {
+        const chapters = playerChaptersList(state)
+        const playtime = playerGhostTime(state)
+
+        return currentChapterByPlaytime(chapters, playtime);
+      }
     },
     media: compose(
       media.media,
@@ -138,11 +156,7 @@ export default {
       rate
     },
     chapters: {
-      list: compose(
-        chapters.list,
-        propOr({}, 'chapters'),
-        slices.player
-      ),
+      list: playerChaptersList,
       next: compose(
         chapters.next,
         propOr({}, 'chapters'),
@@ -241,5 +255,9 @@ export default {
   },
   subscribeButton: {
     visible: compose(subscribeButton.visible, propOr(false, 'subscribeButton'))
+  },
+  router: {
+    id: compose(router.id, slices.router),
+    path: compose(router.path, slices.router)
   }
 };
