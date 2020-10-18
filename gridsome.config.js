@@ -5,11 +5,11 @@
 // To restart press CTRL + C in terminal and run `gridsome develop`
 
 module.exports = {
-  siteName: "Podlovers",
+  siteName: 'Podlovers',
   siteUrl: 'https://podlovers.org',
   plugins: [
     {
-      use: "gridsome-plugin-tailwindcss",
+      use: 'gridsome-plugin-tailwindcss',
       options: {
         config: './tailwind.config.js'
       }
@@ -35,12 +35,14 @@ module.exports = {
   ],
   templates: {
     PodcastEpisode: '/episode/:id',
-    WordPressPage: [{
-      path: '/page/:slug',
-      component: './src/templates/Page.vue'
-    }]
+    WordPressPage: [
+      {
+        path: '/page/:slug',
+        component: './src/templates/Page.vue'
+      }
+    ]
   },
-  chainWebpack: config => {
+  chainWebpack: (config) => {
     config.resolve.alias.set('@images', '@/assets/images')
-  },
-};
+  }
+}

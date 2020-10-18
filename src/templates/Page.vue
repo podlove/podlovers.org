@@ -21,19 +21,19 @@ query ($id: ID!) {
 </page-query>
 
 <script>
-import { pathOr } from "ramda";
+import { pathOr } from 'ramda'
 
 export default {
   computed: {
     title() {
-      return pathOr("", ["$page", "wordPressPage", "title"], this);
+      return pathOr('', ['$page', 'wordPressPage', 'title'], this)
     },
 
     content() {
-      return pathOr("", ["$page", "wordPressPage", "content"], this);
+      return pathOr('', ['$page', 'wordPressPage', 'content'], this)
     }
   }
-};
+}
 </script>
 
 <style>

@@ -2,23 +2,43 @@
   <div class="w-full bg-gray-800 p-6 mt-16 text-gray-100 font-thin text-sm flex justify-center">
     <div class="w-full lg:w-app px-8 block lg:flex">
       <ul class="flex flex-wrap mb-6 w-full md:w-1/2 lg:w-2/3">
-        <li v-for="page in pages" :key="page.node.id" class="whitespace-no-wrap w-1/2 sm:w-full md:w-1/3 truncate pr-2">
+        <li
+          v-for="page in pages"
+          :key="page.node.id"
+          class="whitespace-no-wrap w-1/2 sm:w-full md:w-1/3 truncate pr-2"
+        >
           <g-link class="hover:underline" :to="page.node.path">{{ page.node.title }}</g-link>
         </li>
       </ul>
       <div class="w-full md:w-1/2 lg:w-1/3 whitespace-no-wrap">
         Made with
-        <g-link class="hover:underline" href="https://podlove.org" target="_blank" rel="nofollow noopener"
+        <g-link
+          class="hover:underline"
+          href="https://podlove.org"
+          target="_blank"
+          rel="nofollow noopener"
           >Podlove</g-link
         >,
-        <g-link class="hover:underline" href="https://ultraschall.fm" target="_blank" rel="nofollow noopener"
+        <g-link
+          class="hover:underline"
+          href="https://ultraschall.fm"
+          target="_blank"
+          rel="nofollow noopener"
           >Ultraschall</g-link
         >,
-        <g-link class="hover:underline" href="https://studio-link.de" target="_blank" rel="nofollow noopener"
+        <g-link
+          class="hover:underline"
+          href="https://studio-link.de"
+          target="_blank"
+          rel="nofollow noopener"
           >Studio-Link</g-link
         >
         and
-        <g-link class="hover:underline" href="https://auphonic.com" target="_blank" rel="nofollow noopener"
+        <g-link
+          class="hover:underline"
+          href="https://auphonic.com"
+          target="_blank"
+          rel="nofollow noopener"
           >Auphonic</g-link
         >
       </div>
@@ -41,13 +61,13 @@ query {
 </static-query>
 
 <script>
-import { pathOr } from "ramda";
+import { pathOr } from 'ramda'
 
 export default {
   computed: {
     pages() {
-      return pathOr([], ["$static", "pages", "edges"], this);
+      return pathOr([], ['$static', 'pages', 'edges'], this)
     }
   }
-};
+}
 </script>

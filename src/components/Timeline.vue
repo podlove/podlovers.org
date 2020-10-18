@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import TimelineMarker from "./timeline/TimelineMarker";
-import Chapter from "./timeline/Chapter";
-import Transcript from "./timeline/Transcript";
+import TimelineMarker from './timeline/TimelineMarker'
+import Chapter from './timeline/Chapter'
+import Transcript from './timeline/Transcript'
 
 export default {
   components: {
@@ -28,5 +28,5 @@ export default {
       default: null
     }
   }
-};
+}
 </script>

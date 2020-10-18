@@ -1,18 +1,18 @@
-import { createStore } from "./store";
-import { actions } from "./store/reducers";
-import DefaultLayout from "~/layouts/Default.vue";
-import localePlugin from "../locales";
+import { createStore } from './store'
+import { actions } from './store/reducers'
+import DefaultLayout from '~/layouts/Default.vue'
+import localePlugin from '../locales'
 
 // Roboto font
-require("typeface-roboto");
+require('typeface-roboto')
 
-export default function(Vue, { isClient, router }) {
+export default function (Vue, { isClient, router }) {
   // Set default layout as a global component
-  Vue.component("Layout", DefaultLayout);
+  Vue.component('Layout', DefaultLayout)
 
-  Vue.use(localePlugin, { locale: "de-de" });
+  Vue.use(localePlugin, { locale: 'de-de' })
 
-  const store = createStore(Vue, { isClient });
+  const store = createStore(Vue, { isClient })
 
   router.beforeEach((to, _, next) => {
     store.dispatch(
@@ -21,7 +21,7 @@ export default function(Vue, { isClient, router }) {
         path: to.path,
         query: to.query
       })
-    );
-    next();
-  });
+    )
+    next()
+  })
 }

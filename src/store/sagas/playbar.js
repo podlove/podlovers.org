@@ -1,4 +1,4 @@
-import { put, takeEvery, select } from "redux-saga/effects";
+import { put, takeEvery, select } from 'redux-saga/effects'
 import {
   BACKEND_PLAY,
   BACKEND_PAUSE,
@@ -41,11 +41,11 @@ export default ({ selectRate, selectMuted }) => {
 
     const next = steps.indexOf(rate) + 1
 
-      if (next < steps.length) {
-        yield put(setRate(steps[next]))
-      } else {
-        yield put(setRate(steps[0]))
-      }
+    if (next < steps.length) {
+      yield put(setRate(steps[next]))
+    } else {
+      yield put(setRate(steps[0]))
+    }
   }
 
   function* toggleMute() {
@@ -54,7 +54,7 @@ export default ({ selectRate, selectMuted }) => {
     yield put(muted ? unmute() : mute())
   }
 
-  return function*() {
+  return function* () {
     yield takeEvery(BACKEND_PLAY, play)
     yield takeEvery(BACKEND_PAUSE, pause)
     yield takeEvery(BACKEND_LOADING_START, loading)

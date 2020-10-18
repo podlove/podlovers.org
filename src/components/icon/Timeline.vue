@@ -15,7 +15,13 @@
     :height="size"
   >
     <switch>
-      <foreignObject requiredExtensions="http://ns.adobe.com/AdobeIllustrator/10.0/" x="0" y="0" width="1" height="1" />
+      <foreignObject
+        requiredExtensions="http://ns.adobe.com/AdobeIllustrator/10.0/"
+        x="0"
+        y="0"
+        width="1"
+        height="1"
+      />
       <g i:extraneous="self" :fill="color">
         <g>
           <path
@@ -57,10 +63,10 @@ export default {
     },
     color: {
       type: String,
-      default: "currentColor",
-    },
+      default: 'currentColor'
+    }
   }
-};
+}
 </script>
 
 <style></style>

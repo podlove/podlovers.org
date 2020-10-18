@@ -56,39 +56,39 @@ export default {
     },
     color: {
       type: String,
-      default: "currentColor"
+      default: 'currentColor'
     }
   },
   computed: {
     style() {
       return {
-        "color-rendering": "auto",
+        'color-rendering': 'auto',
         color: this.color,
-        "dominant-baseline": "auto",
-        "font-feature-settings": "normal",
-        "font-variant-alternates": "normal",
-        "font-variant-caps": "normal",
-        "font-variant-ligatures": "normal",
-        "font-variant-numeric": "normal",
-        "font-variant-position": "normal",
-        "image-rendering": "auto",
-        isolation: "auto",
-        "mix-blend-mode": "normal",
-        "paint-order": "fill markers stroke",
-        "shape-padding": 0,
-        "shape-rendering": "auto",
-        "solid-color": this.color,
-        "text-decoration-color": this.color,
-        "text-decoration-line": "none",
-        "text-decoration-style": "solid",
-        "text-indent": 0,
-        "text-orientation": "mixed",
-        "text-transform": "none",
-        "white-space": "normal"
-      };
+        'dominant-baseline': 'auto',
+        'font-feature-settings': 'normal',
+        'font-variant-alternates': 'normal',
+        'font-variant-caps': 'normal',
+        'font-variant-ligatures': 'normal',
+        'font-variant-numeric': 'normal',
+        'font-variant-position': 'normal',
+        'image-rendering': 'auto',
+        isolation: 'auto',
+        'mix-blend-mode': 'normal',
+        'paint-order': 'fill markers stroke',
+        'shape-padding': 0,
+        'shape-rendering': 'auto',
+        'solid-color': this.color,
+        'text-decoration-color': this.color,
+        'text-decoration-line': 'none',
+        'text-decoration-style': 'solid',
+        'text-indent': 0,
+        'text-orientation': 'mixed',
+        'text-transform': 'none',
+        'white-space': 'normal'
+      }
     }
   }
-};
+}
 </script>
 
 <style></style>

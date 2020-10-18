@@ -1,6 +1,9 @@
 <template>
   <span v-if="contributor.details.avatar" :title="contributor.details.name">
-    <g-image class="rounded" :src="require(`!!assets-loader?width=48&height=48!@images/${contributor.details.avatar}`)" />
+    <g-image
+      class="rounded"
+      :src="require(`!!assets-loader?width=48&height=48!@images/${contributor.details.avatar}`)"
+    />
   </span>
 </template>
 

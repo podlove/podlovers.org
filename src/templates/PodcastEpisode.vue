@@ -11,19 +11,29 @@
     /></episode-header>
     <div class="lg:w-full lg:flex lg:justify-center pt-20">
       <div class="lg:w-app">
-
         <section id="summary">
-          <h2 class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-8 sm:mx-2">{{ $t('EPISODE.SUMMARY') }}</h2>
-          <div class="font-light border-gray-400 border-b mb-12 pt-6 pb-12 px-12">{{ episode.summary }}</div>
+          <h2 class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-8 sm:mx-2">
+            {{ $t('EPISODE.SUMMARY') }}
+          </h2>
+          <div class="font-light border-gray-400 border-b mb-12 pt-6 pb-12 px-12">
+            {{ episode.summary }}
+          </div>
         </section>
 
         <section id="shownotes">
-          <h2 class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-8 sm:mx-2">{{ $t('EPISODE.SHOWNOTES') }}</h2>
-          <div class="font-light episode-content border-gray-400 border-b mb-12 pb-12 px-12" v-html="episode.content"></div>
+          <h2 class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-8 sm:mx-2">
+            {{ $t('EPISODE.SHOWNOTES') }}
+          </h2>
+          <div
+            class="font-light episode-content border-gray-400 border-b mb-12 pb-12 px-12"
+            v-html="episode.content"
+          ></div>
         </section>
 
         <section id="timeline">
-          <h2 class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-8 sm:mx-2">{{ $t('EPISODE.TIMELINE') }}</h2>
+          <h2 class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-8 sm:mx-2">
+            {{ $t('EPISODE.TIMELINE') }}
+          </h2>
           <timeline
             class="font-light border-gray-400 border-b mb-12 pb-12 px-12"
             :id="episode.id"
@@ -103,20 +113,20 @@ query {
 </static-query>
 
 <script>
-import { throttle } from "throttle-debounce";
-import scrollIntoView from "scroll-into-view-if-needed";
-import { mapActions, mapState } from "redux-vuex";
-import { compose, path, pathOr, propOr, prop, flatten } from "ramda";
-import { toPlayerTime, toHumanTime } from "@podlove/utils/time";
+import { throttle } from 'throttle-debounce'
+import scrollIntoView from 'scroll-into-view-if-needed'
+import { mapActions, mapState } from 'redux-vuex'
+import { compose, path, pathOr, propOr, prop, flatten } from 'ramda'
+import { toPlayerTime, toHumanTime } from '@podlove/utils/time'
 
-import { selectors } from "~/store/reducers";
-import Contributor from "~/components/Contributor";
-import Timeline from "~/components/Timeline";
-import Subscribe from "~/components/Subscribe";
-import EpisodeNavigation from "~/components/EpisodeNavigation";
-import EpisodeHeader from "~/components/EpisodeHeader";
-import Discuss from "~/components/Discuss";
-import Icon from "~/components/Externals";
+import { selectors } from '~/store/reducers'
+import Contributor from '~/components/Contributor'
+import Timeline from '~/components/Timeline'
+import Subscribe from '~/components/Subscribe'
+import EpisodeNavigation from '~/components/EpisodeNavigation'
+import EpisodeHeader from '~/components/EpisodeHeader'
+import Discuss from '~/components/Discuss'
+import Icon from '~/components/Externals'
 
 export default {
   data: mapState({
@@ -130,13 +140,13 @@ export default {
 
   computed: {
     id() {
-      return path(["id"], this.episode);
+      return path(['id'], this.episode)
     },
     follow() {
-      return this.followContent && this.episodeId === this.id;
+      return this.followContent && this.episodeId === this.id
     },
     episode() {
-      return path(["podcastEpisode"], this.$page)
+      return path(['podcastEpisode'], this.$page)
     },
     contributors() {
       return pathOr([], ['contributors'], this.episode).map(({ details }) => details)
@@ -145,36 +155,41 @@ export default {
 
   watch: {
     playtime() {
-      this.scroll();
+      this.scroll()
     },
     ghost() {
-      this.scroll();
+      this.scroll()
     },
     followContent() {
-      this.followContent && this.scroll();
+      this.followContent && this.scroll()
     }
   },
 
   methods: {
-    ...mapActions("playEpisode"),
+    ...mapActions('playEpisode'),
     scroll() {
       if (!this.follow) {
-        return;
+        return
       }
 
-      this.scrollIntoView();
+      this.scrollIntoView()
     },
     scrollIntoView: throttle(500, () => {
-      const node = document.getElementById("transcript-ghost-active") || document.getElementById("transcript-active");
+      const node =
+        document.getElementById('transcript-ghost-active') ||
+        document.getElementById('transcript-active')
 
       return (
-        node && scrollIntoView(node, { behavior: "smooth", scrollMode: "always", block: "center", inline: "center" })
-      );
+        node &&
+        scrollIntoView(node, {
+          behavior: 'smooth',
+          scrollMode: 'always',
+          block: 'center',
+          inline: 'center'
+        })
+      )
     }),
-    duration: compose(
-      toHumanTime,
-      toPlayerTime
-    )
+    duration: compose(toHumanTime, toPlayerTime)
   },
 
   metaInfo() {
@@ -191,7 +206,7 @@ export default {
           content: prop('summary', this.episode)
         },
         // Authors
-        ...authors.map(author => ({
+        ...authors.map((author) => ({
           name: 'author',
           content: prop('name', author)
         })),
@@ -216,23 +231,32 @@ export default {
           property: 'og:description',
           content: prop('summary', this.episode)
         },
-        ...(poster ? [{
-          property: 'og:image',
-          content: prop('siteUrl', metadata) + require(`!!assets-loader!@images/${poster}`).src
-        }]: []),
-        ...flatten(audio.map(src => [{
-          property: 'og:audio:type',
-          content: src.mimeType
-        }, {
-          property: 'og:audio',
-          content: src.url
-        }]))
+        ...(poster
+          ? [
+              {
+                property: 'og:image',
+                content:
+                  prop('siteUrl', metadata) + require(`!!assets-loader!@images/${poster}`).src
+              }
+            ]
+          : []),
+        ...flatten(
+          audio.map((src) => [
+            {
+              property: 'og:audio:type',
+              content: src.mimeType
+            },
+            {
+              property: 'og:audio',
+              content: src.url
+            }
+          ])
+        )
       ]
     }
   }
-};
+}
 </script>
-
 
 <style>
 .episode-content ul {
@@ -244,7 +268,7 @@ export default {
   margin-bottom: 0.5em;
 }
 
-.episode-content h1{
+.episode-content h1 {
   font-weight: bold;
   font-size: 1.5em;
   margin-left: -1.5em;

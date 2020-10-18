@@ -2,7 +2,10 @@
   <div class="p-2">
     <div class="flex items-center mb-2">
       <bullet :top="true" :bottom="true" :time="start">
-        <g-image v-if="speaker.avatar" :src="require(`!!assets-loader?width=48&height=48!@images/${speaker.avatar}`)" />
+        <g-image
+          v-if="speaker.avatar"
+          :src="require(`!!assets-loader?width=48&height=48!@images/${speaker.avatar}`)"
+        />
       </bullet>
       <a class="block uppercase font-normal cursor-pointer px-2">
         {{ speaker.name }}
@@ -16,10 +19,15 @@
       <div class="px-2">
         <span
           :id="transcriptId(text.start, text.end)"
-          :class="{ 'border-b-2 border-podlove-blue-200': ghostTranscript(text.start, text.end), 'border-b-2 border-podlove-blue-700': activeTranscript(text.start, text.end), 'ml-0': index === 0 }"
+          :class="{
+            'border-b-2 border-podlove-blue-200': ghostTranscript(text.start, text.end),
+            'border-b-2 border-podlove-blue-700': activeTranscript(text.start, text.end),
+            'ml-0': index === 0
+          }"
           class="mr-1 break-words cursor-pointer"
           @click="play(text.start)"
-          @mouseover="simulateSection(text.start, text.end)" @mouseout="disableGhost"
+          @mouseover="simulateSection(text.start, text.end)"
+          @mouseout="disableGhost"
           v-for="(text, index) in texts"
           :key="text.start"
           >{{ text.text }}</span
@@ -30,12 +38,12 @@
 </template>
 
 <script>
-import { path, prop, propOr } from "ramda";
-import { toHumanTime } from "@podlove/utils/time";
-import { mapActions, mapState } from "redux-vuex";
+import { path, prop, propOr } from 'ramda'
+import { toHumanTime } from '@podlove/utils/time'
+import { mapActions, mapState } from 'redux-vuex'
 
-import { selectors } from "~/store/reducers";
-import Bullet from "./Bullet";
+import { selectors } from '~/store/reducers'
+import Bullet from './Bullet'
 
 export default {
   components: { Bullet },
@@ -61,29 +69,29 @@ export default {
   computed: {
     speaker() {
       return {
-        avatar: path(["speaker", "avatar"], this.data),
-        name: path(["speaker", "name"], this.data)
-      };
+        avatar: path(['speaker', 'avatar'], this.data),
+        name: path(['speaker', 'name'], this.data)
+      }
     },
 
     start() {
-      return prop("start", this.data);
+      return prop('start', this.data)
     },
 
     texts() {
-      return propOr([], "texts", this.data);
+      return propOr([], 'texts', this.data)
     },
 
     active() {
-      return this.current === this.id;
+      return this.current === this.id
     }
   },
 
   methods: {
-    ...mapActions("playEpisode", "simulatePlaytime", "enableGhost", "disableGhost"),
+    ...mapActions('playEpisode', 'simulatePlaytime', 'enableGhost', 'disableGhost'),
     toHumanTime,
     play(playtime) {
-      this.playEpisode({ id: this.id, playtime });
+      this.playEpisode({ id: this.id, playtime })
     },
     simulateSection(start) {
       if (!this.active) {
@@ -94,10 +102,16 @@ export default {
       this.simulatePlaytime(start)
     },
     activeTranscript(start, end) {
-      return this.active && this.playtime >= start && this.playtime < end;
+      return this.active && this.playtime >= start && this.playtime < end
     },
     ghostTranscript(start, end) {
-      return this.active && !this.activeTranscript(start, end) && this.hovered && this.ghost >= start && this.ghost < end;
+      return (
+        this.active &&
+        !this.activeTranscript(start, end) &&
+        this.hovered &&
+        this.ghost >= start &&
+        this.ghost < end
+      )
     },
     transcriptId(start, end) {
       if (this.activeTranscript(start, end)) {
@@ -111,5 +125,5 @@ export default {
       return null
     }
   }
-};
+}
 </script>

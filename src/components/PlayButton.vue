@@ -11,11 +11,11 @@
 </template>
 
 <script>
-import { mapActions } from "redux-vuex";
-import { REQUEST_PLAY, REQUEST_PAUSE } from "@podlove/player-actions/types";
+import { mapActions } from 'redux-vuex'
+import { REQUEST_PLAY, REQUEST_PAUSE } from '@podlove/player-actions/types'
 
-import { PlayButton } from "./Externals";
-import { selectors } from "~/store/reducers";
+import { PlayButton } from './Externals'
+import { selectors } from '~/store/reducers'
 
 export default {
   props: {
@@ -43,7 +43,7 @@ export default {
   data() {
     return this.mapState({
       playing: selectors.episode.playing(this.id)
-    });
+    })
   },
 
   components: {
@@ -51,17 +51,17 @@ export default {
   },
 
   methods: {
-    ...mapActions("playEpisode", "pauseEpisode"),
+    ...mapActions('playEpisode', 'pauseEpisode'),
     play({ type }) {
       switch (type) {
         case REQUEST_PLAY:
-          this.playEpisode({ id: this.id });
-          break;
+          this.playEpisode({ id: this.id })
+          break
         case REQUEST_PAUSE:
-          this.pauseEpisode();
-          break;
+          this.pauseEpisode()
+          break
       }
     }
   }
-};
+}
 </script>

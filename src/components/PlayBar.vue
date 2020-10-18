@@ -1,7 +1,11 @@
 <template>
   <div class="w-full">
     <custom-transition type="playbar">
-      <div v-if="active && !scrolledToBottom" :style="playbarStyle" class="w-screen fixed bottom-0 play-bar mb-0 z-50">
+      <div
+        v-if="active && !scrolledToBottom"
+        :style="playbarStyle"
+        class="w-screen fixed bottom-0 play-bar mb-0 z-50"
+      >
         <div class="w-full absolute progress px-4">
           <div class="font-shadow flex justify-between text-xs -mt-4 font-bold">
             <timer :time="isNumber(ghost) ? ghost : playtime" />
@@ -55,7 +59,11 @@
                 class="mx-2 hidden sm:block"
                 @click="store.dispatch"
               />
-              <stepper-button type="backwards" class="mx-2 hidden sm:block" @click="store.dispatch" />
+              <stepper-button
+                type="backwards"
+                class="mx-2 hidden sm:block"
+                @click="store.dispatch"
+              />
               <play-button
                 :color="colors.blue[700]"
                 background="rgba(255, 255, 255)"
@@ -126,7 +134,12 @@
           </button>
         </div>
         <div class="w-full p-2 chapters-list">
-          <chapter v-for="(chapter, index) in chapters" :chapter="chapter" :index="index" :key="`chapter-${index}`" />
+          <chapter
+            v-for="(chapter, index) in chapters"
+            :chapter="chapter"
+            :index="index"
+            :key="`chapter-${index}`"
+          />
         </div>
       </div>
     </custom-transition>
@@ -134,12 +147,12 @@
 </template>
 
 <script>
-import { path, max, is } from "ramda";
-import { throttle } from "throttle-debounce";
-import queryString from "query-string";
-import urlify from "lodash.kebabcase";
-import { mapState, mapActions } from "redux-vuex";
-import { toHumanTime } from "@podlove/utils/time";
+import { path, max, is } from 'ramda'
+import { throttle } from 'throttle-debounce'
+import queryString from 'query-string'
+import urlify from 'lodash.kebabcase'
+import { mapState, mapActions } from 'redux-vuex'
+import { toHumanTime } from '@podlove/utils/time'
 
 import {
   Icon,
@@ -149,14 +162,14 @@ import {
   ChapterButton,
   InputSlider,
   Timer
-} from "~/components/Externals";
-import { selectors } from "~/store/reducers";
+} from '~/components/Externals'
+import { selectors } from '~/store/reducers'
 
-import colors from "~/colors";
-import CustomTransition from "./CustomTransition";
-import LockIcon from "./icon/Lock";
-import ChapterIcon from "./icon/Chapter";
-import Chapter from "./Chapter";
+import colors from '~/colors'
+import CustomTransition from './CustomTransition'
+import LockIcon from './icon/Lock'
+import ChapterIcon from './icon/Chapter'
+import Chapter from './Chapter'
 
 export default {
   data() {
@@ -186,7 +199,7 @@ export default {
         ghostChapter: selectors.player.ghost.chapter,
         ghostActive: selectors.player.ghost.active
       })
-    };
+    }
   },
   components: {
     Chapter,
@@ -202,30 +215,39 @@ export default {
     CustomTransition
   },
   methods: {
-    ...mapActions("setVolume", "setRate", "nextRate", "toggleMute", "toggleFollowContent", "toggleChaptersOverlay"),
+    ...mapActions(
+      'setVolume',
+      'setRate',
+      'nextRate',
+      'toggleMute',
+      'toggleFollowContent',
+      'toggleChaptersOverlay'
+    ),
     scroll() {
       this.scrolledToBottom =
-        max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight + 5 >
-        document.documentElement.offsetHeight;
+        max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) +
+          window.innerHeight +
+          5 >
+        document.documentElement.offsetHeight
     },
     isNumber: is(Number),
     toHumanTime
   },
   computed: {
     followContentButton() {
-      return path(["$page", "podcastEpisode", "id"], this) === this.episode;
+      return path(['$page', 'podcastEpisode', 'id'], this) === this.episode
     },
     playbarStyle() {
       return {
         background: `${colors.blue[700]}E6`
-      };
+      }
     }
   },
   mounted() {
-    const scrollListener = throttle(100, this.scroll.bind(this));
-    document && document.addEventListener("scroll", scrollListener);
+    const scrollListener = throttle(100, this.scroll.bind(this))
+    document && document.addEventListener('scroll', scrollListener)
   }
-};
+}
 </script>
 
 <style>

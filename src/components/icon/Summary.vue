@@ -27,10 +27,10 @@ export default {
     },
     color: {
       type: String,
-      default: "currentColor",
-    },
+      default: 'currentColor'
+    }
   }
-};
+}
 </script>
 
 <style></style>

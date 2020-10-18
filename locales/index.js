@@ -13,7 +13,7 @@ export default {
   }
 }
 
-const resolver = translations => (path, args) => {
+const resolver = (translations) => (path, args) => {
   const result = get(translations, path)
 
   if (typeof result === 'function') {
@@ -24,7 +24,7 @@ const resolver = translations => (path, args) => {
 }
 
 export const registerLocaleMixin = (translations) => ({
-  beforeCreate () {
+  beforeCreate() {
     if (!this.$t) {
       this.$t = resolver(translations)
     }

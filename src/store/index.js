@@ -1,26 +1,29 @@
-import sagasEngine from "@podlove/player-sagas";
-import { createStore as createReduxStore, applyMiddleware, compose } from "redux";
-import { connect } from "redux-vuex";
-import { quantilesSaga } from "@podlove/player-sagas/quantiles";
-import { chaptersSaga } from "@podlove/player-sagas/chapters";
-import { stepperSaga } from "@podlove/player-sagas/stepper";
+import sagasEngine from '@podlove/player-sagas'
+import { createStore as createReduxStore, applyMiddleware, compose } from 'redux'
+import { connect } from 'redux-vuex'
+import { quantilesSaga } from '@podlove/player-sagas/quantiles'
+import { chaptersSaga } from '@podlove/player-sagas/chapters'
+import { stepperSaga } from '@podlove/player-sagas/stepper'
 
-import episodeSaga from "./sagas/episode";
-import playbarSaga from "./sagas/playbar";
-import urlSaga from "./sagas/url";
+import episodeSaga from './sagas/episode'
+import playbarSaga from './sagas/playbar'
+import urlSaga from './sagas/url'
 
-import { reducers, actions, selectors } from "./reducers";
+import { reducers, actions, selectors } from './reducers'
 
 export function createStore(Vue, { isClient }) {
-  let composeEnhancers = compose;
+  let composeEnhancers = compose
 
   if (isClient) {
-    composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+    composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
   }
 
-  const store = createReduxStore(reducers, composeEnhancers(applyMiddleware(sagasEngine.middleware)));
+  const store = createReduxStore(
+    reducers,
+    composeEnhancers(applyMiddleware(sagasEngine.middleware))
+  )
 
-  connect({ Vue, store, actions });
+  connect({ Vue, store, actions })
 
   const sagas = [
     episodeSaga({
@@ -46,10 +49,10 @@ export function createStore(Vue, { isClient }) {
       selectRate: selectors.player.audio.rate,
       selectMuted: selectors.player.audio.muted
     })
-  ];
+  ]
 
   if (isClient) {
-    const { playerSaga } = require("@podlove/player-sagas/player");
+    const { playerSaga } = require('@podlove/player-sagas/player')
 
     sagas.push(
       playerSaga({
@@ -58,7 +61,7 @@ export function createStore(Vue, { isClient }) {
         selectPoster: selectors.player.image,
         selectTitle: selectors.player.title
       })
-    );
+    )
 
     sagas.push(
       urlSaga({
@@ -69,7 +72,7 @@ export function createStore(Vue, { isClient }) {
     )
   }
 
-  sagasEngine.run.apply(this, sagas);
+  sagasEngine.run.apply(this, sagas)
 
-  return store;
+  return store
 }

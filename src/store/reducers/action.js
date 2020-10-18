@@ -1,6 +1,6 @@
 export const INITIAL_STATE = {
-    type: null,
-    payload: null
-  }
+  type: null,
+  payload: null
+}
 
-  export const reducer = (state = INITIAL_STATE, action) => action
+export const reducer = (state = INITIAL_STATE, action) => action

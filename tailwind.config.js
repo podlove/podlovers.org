@@ -5,33 +5,33 @@ module.exports = {
   theme: {
     colors: {
       blue: {
-        '100': '#DCE4EB',
-        '200': '#C8D3DF',
-        '300': '#A2B5C8',
-        '400': '#738FAA',
-        '500': '#4C6780',
-        '600': '#2C4A66',
-        '700': '#1B3854',
-        '800': '#102A43',
-        '900': '#051729',
+        100: '#DCE4EB',
+        200: '#C8D3DF',
+        300: '#A2B5C8',
+        400: '#738FAA',
+        500: '#4C6780',
+        600: '#2C4A66',
+        700: '#1B3854',
+        800: '#102A43',
+        900: '#051729'
       },
       gray: {
-        '100': '#FFFFFF',
-        '200': '#EDEFF2',
-        '300': '#CAD1D7',
-        '400': '#9EA5AC',
-        '500': '#767F87',
-        '600': '#56616A',
-        '700': '#3D464D',
-        '800': '#22282C',
-        '900': '#070809',
+        100: '#FFFFFF',
+        200: '#EDEFF2',
+        300: '#CAD1D7',
+        400: '#9EA5AC',
+        500: '#767F87',
+        600: '#56616A',
+        700: '#3D464D',
+        800: '#22282C',
+        900: '#070809'
       }
     },
     screens: {
       sm: '640px',
       md: '768px',
       lg: '1024px',
-      xl: '1280px',
+      xl: '1280px'
     },
     fontFamily: {
       sans: [
@@ -57,18 +57,18 @@ module.exports = {
         '"Liberation Mono"',
         '"Courier New"',
         'monospace'
-      ],
+      ]
     },
     borderWidth: {
       default: '1px',
-      '0': '0',
-      '2': '2px',
-      '4': '4px',
+      0: '0',
+      2: '2px',
+      4: '4px'
     },
     inset: {
-      '0': 0,
+      0: 0,
       auto: 'auto',
-      '100': '100%',
+      100: '100%'
     },
     extend: {
       colors: {
@@ -77,8 +77,8 @@ module.exports = {
         'podlove-orange': colors.orange
       },
       spacing: {
-        '96': '24rem',
-        '128': '32rem',
+        96: '24rem',
+        128: '32rem'
       },
       width: {
         app: '1024px'
@@ -86,6 +86,6 @@ module.exports = {
     }
   },
   variants: {
-    visibility: ['responsive', 'hover', 'focus', 'group-hover'],
+    visibility: ['responsive', 'hover', 'focus', 'group-hover']
   }
 }

@@ -6,7 +6,9 @@
     >
       <div class="w-app flex font-light items-center flex-col mt-6">
         <div class="flex flex-col items-center md:items-start md:flex-row">
-          <div class="flex landing-poster items-center justify-center sm:items-start mb-4 md:mb-0 md:mr-8 w-1/5">
+          <div
+            class="flex landing-poster items-center justify-center sm:items-start mb-4 md:mb-0 md:mr-8 w-1/5"
+          >
             <g-image
               v-if="poster"
               :title="title"
@@ -15,8 +17,15 @@
             />
           </div>
           <div class="flex flex-col items-center md:block w-4/5">
-            <h1 v-if="subtitle" class="text-gray-100 text-2xl text-center md:text-left lg:text-3xl mb-1 font-light">{{ subtitle }}</h1>
-            <p class="text-gray-200 hidden md:block lg:text-xl w-10/12 md:text-lg font-thin">{{ summary }}</p>
+            <h1
+              v-if="subtitle"
+              class="text-gray-100 text-2xl text-center md:text-left lg:text-3xl mb-1 font-light"
+            >
+              {{ subtitle }}
+            </h1>
+            <p class="text-gray-200 hidden md:block lg:text-xl w-10/12 md:text-lg font-thin">
+              {{ summary }}
+            </p>
           </div>
         </div>
         <slot />
@@ -33,9 +42,7 @@
         />
       </div>
       <div class="w-app py-32 flex justify-center items-center" v-else>
-        <span class="italic font-thin text-xl">
-          here be dragons
-        </span>
+        <span class="italic font-thin text-xl"> here be dragons </span>
       </div>
     </div>
   </Layout>
@@ -82,87 +89,85 @@ query {
 </static-query>
 
 <script>
-import { path, pathOr, slice, head, prop, propOr } from "ramda";
+import { path, pathOr, slice, head, prop, propOr } from 'ramda'
 
-import PlayerTile from "~/components/PlayerTile";
-import EpisodeHeader from "~/components/EpisodeHeader";
+import PlayerTile from '~/components/PlayerTile'
+import EpisodeHeader from '~/components/EpisodeHeader'
 
 export default {
   components: { PlayerTile, EpisodeHeader },
 
   computed: {
     episodes() {
-      return pathOr([], ["$page", "episodes", "edges"], this);
+      return pathOr([], ['$page', 'episodes', 'edges'], this)
     },
 
     latest() {
-      return head(this.episodes);
+      return head(this.episodes)
     },
 
-
     poster() {
-      return path(["$static", "metadata", "PodcastShow", "poster"], this)
+      return path(['$static', 'metadata', 'PodcastShow', 'poster'], this)
     },
 
     title() {
-      return path(["$static", "metadata", "PodcastShow", "title"], this)
+      return path(['$static', 'metadata', 'PodcastShow', 'title'], this)
     },
 
     summary() {
-      return path(["$static", "metadata", "PodcastShow", "summary"], this)
+      return path(['$static', 'metadata', 'PodcastShow', 'summary'], this)
     },
 
     subtitle() {
-      return path(["$static", "metadata", "PodcastShow", "subtitle"], this)
+      return path(['$static', 'metadata', 'PodcastShow', 'subtitle'], this)
     }
   },
 
   metaInfo() {
-    const metadata = pathOr({}, ["$static", "metadata"], this);
-    const show = propOr({}, "PodcastShow", metadata);
+    const metadata = pathOr({}, ['$static', 'metadata'], this)
+    const show = propOr({}, 'PodcastShow', metadata)
 
     return {
-      title: `${prop("title", show)} - ${prop("subtitle", show)}`,
+      title: `${prop('title', show)} - ${prop('subtitle', show)}`,
       meta: [
         {
-          name: "description",
-          content: prop("summary", show)
+          name: 'description',
+          content: prop('summary', show)
         },
         // Open Graph
         {
-          property: "og:type",
-          content: "website"
+          property: 'og:type',
+          content: 'website'
         },
         {
-          property: "og:site_name",
-          content: prop("siteName", metadata)
+          property: 'og:site_name',
+          content: prop('siteName', metadata)
         },
         {
-          property: "og:title",
-          content: prop("title", show)
+          property: 'og:title',
+          content: prop('title', show)
         },
         {
-          property: "og:url",
-          content: prop("siteUrl", metadata)
+          property: 'og:url',
+          content: prop('siteUrl', metadata)
         },
         {
-          property: "og:description",
-          content: prop("summary", show)
+          property: 'og:description',
+          content: prop('summary', show)
         },
         {
-          property: "og:image",
-          content: prop("siteUrl", metadata) + require(`!!assets-loader!@images/${this.poster}`).src
+          property: 'og:image',
+          content: prop('siteUrl', metadata) + require(`!!assets-loader!@images/${this.poster}`).src
         }
       ]
-    };
+    }
   }
-};
+}
 </script>
-
 
 <style>
 .landing-header {
-  background-image: url("/bg-pattern.png");
+  background-image: url('/bg-pattern.png');
 }
 
 .landing-poster {

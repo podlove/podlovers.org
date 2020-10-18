@@ -7,11 +7,20 @@
     <div class="w-app flex font-light items-center flex-col mt-6">
       <div class="flex flex-col items-center md:items-start md:flex-row">
         <div class="episode-poster relative mb-4 md:mb-0 md:mr-8">
-          <g-image v-if="poster" :src="require(`!!assets-loader?width=180&height=180!@images/${poster}`)" class="rounded shadow-lg border border-podlove-blue-700" />
+          <g-image
+            v-if="poster"
+            :src="require(`!!assets-loader?width=180&height=180!@images/${poster}`)"
+            class="rounded shadow-lg border border-podlove-blue-700"
+          />
           <div
             class="absolute w-full h-full inset-0 flex items-center justify-center opacity-75 hover:opacity-100 transition ease-in duration-100"
           >
-            <play-button :size="150" color="rgba(255, 255, 255)" background="rgba(44, 82, 130, 0.5)" :id="id" />
+            <play-button
+              :size="150"
+              color="rgba(255, 255, 255)"
+              background="rgba(44, 82, 130, 0.5)"
+              :id="id"
+            />
           </div>
         </div>
         <div class="flex flex-col items-center md:block">
@@ -31,7 +40,9 @@
               :key="`contributor-${contributor.details.id}`"
             >
               <contributor class="block w-12" :contributor="contributor" />
-              <span class="text-gray-300 truncate">{{ contributor.details.name.split(" ").shift() }}</span>
+              <span class="text-gray-300 truncate">{{
+                contributor.details.name.split(' ').shift()
+              }}</span>
             </div>
           </div>
         </div>
@@ -42,10 +53,10 @@
 </template>
 
 <script>
-import { toHumanTime } from "@podlove/utils/time";
+import { toHumanTime } from '@podlove/utils/time'
 
-import PlayButton from "./PlayButton";
-import Contributor from "./Contributor";
+import PlayButton from './PlayButton'
+import Contributor from './Contributor'
 
 export default {
   components: { PlayButton, Contributor },
@@ -84,21 +95,21 @@ export default {
   methods: {
     toHumanTime,
     date(date) {
-      return new Date(date).toLocaleDateString();
+      return new Date(date).toLocaleDateString()
     }
   },
 
   computed: {
     expanded() {
-      return !!this.$slots.default;
+      return !!this.$slots.default
     }
   }
-};
+}
 </script>
 
 <style scoped>
 .episode-header {
-  background-image: url("/bg-pattern.png");
+  background-image: url('/bg-pattern.png');
 }
 
 .episode-poster {

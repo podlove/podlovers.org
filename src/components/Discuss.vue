@@ -11,11 +11,11 @@ export default {
       discourseEmbedUrl: window.location.href
     }
 
-    const discourse = document.createElement("script");
-    discourse.setAttribute("src", "https://community.podlove.org/javascripts/embed.js");
-    document.head.appendChild(discourse);
+    const discourse = document.createElement('script')
+    discourse.setAttribute('src', 'https://community.podlove.org/javascripts/embed.js')
+    document.head.appendChild(discourse)
   }
-};
+}
 </script>
 
 <style></style>

@@ -11,13 +11,13 @@
 </template>
 
 <script>
-import { mapActions } from "redux-vuex";
-import { compose, propOr, prop } from "ramda";
-import { toPlayerTime, toHumanTime } from "@podlove/utils/time";
+import { mapActions } from 'redux-vuex'
+import { compose, propOr, prop } from 'ramda'
+import { toPlayerTime, toHumanTime } from '@podlove/utils/time'
 
-import Icon from "../Externals";
+import Icon from '../Externals'
 import HourGlass from '../icon/HourGlass'
-import Bullet from "./Bullet";
+import Bullet from './Bullet'
 
 export default {
   components: {
@@ -38,35 +38,32 @@ export default {
 
   computed: {
     title() {
-      return propOr("", "title", this.data);
+      return propOr('', 'title', this.data)
     },
 
     start() {
-      return propOr("", "start", this.data);
+      return propOr('', 'start', this.data)
     },
 
     node() {
-      return prop("node", this.data);
+      return prop('node', this.data)
     },
 
     top() {
-      return this.node !== "start";
+      return this.node !== 'start'
     },
 
     bottom() {
-      return this.node !== "end";
+      return this.node !== 'end'
     }
   },
 
   methods: {
-    ...mapActions("playEpisode"),
-    duration: compose(
-      toHumanTime,
-      toPlayerTime
-    ),
+    ...mapActions('playEpisode'),
+    duration: compose(toHumanTime, toPlayerTime),
     play() {
-      this.playEpisode({ id: this.id, playtime: toPlayerTime(this.start) });
+      this.playEpisode({ id: this.id, playtime: toPlayerTime(this.start) })
     }
   }
-};
+}
 </script>
