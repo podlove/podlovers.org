@@ -3,12 +3,17 @@
 </template>
 
 <script>
+import normalize from 'normalize-url'
 // Add Discourse Stylesheet
 export default {
   mounted() {
     window.DiscourseEmbed = {
       discourseUrl: 'https://community.podlove.org/',
-      discourseEmbedUrl: window.location.href
+      discourseEmbedUrl: normalize(window.location.href, {
+        stripHash: true,
+        removeQueryParameters: [/(.*?)/],
+        removeTrailingSlash: true
+      })
     }
 
     const discourse = document.createElement('script')

@@ -31,7 +31,8 @@
     "typeface-roboto": "0.0.75",
     "vue-observe-visibility": "0.4.6",
     "vue-scroll": "2.1.13",
-    "string-template": "1.0.0"
+    "string-template": "1.0.0",
+    "normalize-url": "5.1.0"
   },
   "devDependencies": {
     "@gridsome/cli": "0.3.4",
