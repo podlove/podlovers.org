@@ -217,7 +217,7 @@ export default {
         },
         {
           property: 'og:site_name',
-          content: path(['show', 'title'], metadata)
+          content: path(['PodcastShow', 'title'], metadata)
         },
         {
           property: 'og:title',
