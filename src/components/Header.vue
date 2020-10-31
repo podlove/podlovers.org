@@ -23,10 +23,12 @@ query {
 
 <script>
 import { mapActions } from 'redux-vuex'
-import Logo from './icon/Logo'
+import Logo from './icon/PodloversLogo'
 
 export default {
-  components: { Logo },
+  components: {
+    Logo
+  },
   methods: mapActions('toggleSubscribeOverlay')
 }
 </script>
