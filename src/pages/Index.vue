@@ -4,7 +4,7 @@
       id="header"
       class="landing-header w-full px-8 py-20 bg-podlove-blue-900 flex items-center justify-center relative shadow"
     >
-      <div class="w-app flex font-light items-center flex-col mt-6">
+      <div class="lg:w-app flex font-light items-center flex-col mt-6">
         <div class="flex flex-col items-center md:items-start md:flex-row">
           <div
             class="flex landing-poster items-center justify-center sm:items-start mb-4 md:mb-0 md:mr-8 w-1/5"
@@ -32,7 +32,7 @@
       </div>
     </div>
     <div class="flex justify-center">
-      <div class="w-app p-8" v-if="episodes.length > 0">
+      <div class="lg:w-app p-8 overflow-hidden" v-if="episodes.length > 0">
         <player-tile
           :class="{ 'pt-0': index === 0, 'border-b': index < episodes.length - 1 }"
           class="py-8 border-gray-400 border-dashed"
@@ -41,7 +41,7 @@
           :episode="edge.node"
         />
       </div>
-      <div class="w-app py-32 flex justify-center items-center" v-else>
+      <div class="lg:w-app py-32 flex justify-center items-center" v-else>
         <span class="italic font-thin text-xl"> here be dragons </span>
       </div>
     </div>
