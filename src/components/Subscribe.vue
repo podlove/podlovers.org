@@ -34,12 +34,13 @@
             </div>
             <h3 class="font-mono inline-block border-gray-400 border-b-2 mb-6">RSS Feed</h3>
             <div class="mx-2 mb-4">
-              <input
-                :value="feed"
-                readonly
-                class="block rounded h-10 w-full border-gray-400 border-2 text-blue-800 hover:border-blue-800 focus:border-blue-800 px-2 font-light cursor-pointer truncate hover:bg-podlove-blue-200 bg-podlove-blue-100 appearance-none"
-                @focus="$event.target.select()"
-              />
+              <div
+                ref="feed"
+                class="rounded p-2 w-full border-gray-400 border-2 text-blue-800 hover:border-blue-800 focus:border-blue-800 px-2 font-light cursor-pointer truncate hover:bg-podlove-blue-200 bg-podlove-blue-100 appearance-none"
+                @click="selectText"
+              >
+                {{ feed }}
+              </div>
             </div>
           </div>
         </div>
@@ -126,7 +127,17 @@ export default {
     }
   },
 
-  methods: mapActions('toggleSubscribeOverlay'),
+  methods: {
+    ...mapActions('toggleSubscribeOverlay'),
+    selectText() {
+      const selection = window.getSelection()
+      const range = document.createRange()
+      range.setStart(this.$refs.feed, 0)
+      range.setEnd(this.$refs.feed, 1)
+      selection.removeAllRanges()
+      selection.addRange(range)
+    }
+  },
 
   watch: {
     visible(val) {
