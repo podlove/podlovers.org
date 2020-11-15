@@ -4,7 +4,7 @@
       ><ClientOnly><icon type="chapter" :size="25" color="rgba(255, 255, 255)" /></ClientOnly
     ></bullet>
     <div
-      class="flex w-full items-center p-2 -mx-2 rounded"
+      class="flex items-center space-between p-2 -mx-2 rounded w-full overflow-hidden"
       :class="{
         'bg-podlove-blue-300': ghostChapter,
         'bg-podlove-blue-700 text-gray-100': activeChapter
@@ -12,12 +12,12 @@
     >
       <a
         @click="play"
-        class="block uppercase font-normal cursor-pointer px-2 py-1 rounded truncate w-5/6"
+        class="block uppercase font-normal cursor-pointer px-2 py-1 rounded truncate w-full"
       >
         {{ title }}
       </a>
       <div
-        class="ml-auto font-mono"
+        class="font-mono"
         :class="{ 'text-gray-100': activeChapter, 'text-gray-500': !activeChapter }"
       >
         {{ toHumanTime(start) }}

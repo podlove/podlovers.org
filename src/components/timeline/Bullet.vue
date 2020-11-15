@@ -1,5 +1,5 @@
 <template>
-  <div class="relative mr-6">
+  <div class="relative mr-2 md:mr-6">
     <span
       v-if="top"
       class="absolute top-0 left-0 h-4 border-gray-500 border-l-2 w-1 -mt-4 ml-4"
