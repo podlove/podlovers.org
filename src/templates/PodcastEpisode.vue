@@ -35,7 +35,7 @@
             {{ $t('EPISODE.TIMELINE') }}
           </h2>
           <timeline
-            class="font-light border-gray-400 border-b mb-12 pb-12 px-12"
+            class="font-light border-gray-400 border-b mb-12 pb-12 pl-12 pr-6"
             :id="episode.id"
             :timeline="episode.timeline"
           />

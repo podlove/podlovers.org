@@ -12,7 +12,7 @@
     >
       <a
         @click="play"
-        class="block uppercase font-normal cursor-pointer px-2 py-1 rounded whitespace-no-wrap truncate w-5/6"
+        class="block uppercase font-normal cursor-pointer px-2 py-1 rounded truncate w-5/6"
       >
         {{ title }}
       </a>
