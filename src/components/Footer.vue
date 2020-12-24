@@ -1,7 +1,7 @@
 <template>
   <div class="w-full bg-gray-800 p-6 mt-16 text-gray-100 font-thin text-sm flex justify-center">
     <div class="w-full lg:w-app px-8 block lg:flex">
-      <ul class="flex flex-wrap mb-6 w-full md:w-1/2 lg:w-2/3">
+      <ul class="flex flex-wrap mb-6 w-full md:w-1/2">
         <li
           v-for="page in pages"
           :key="page.node.id"
@@ -10,7 +10,7 @@
           <g-link class="hover:underline" :to="page.node.path">{{ page.node.title }}</g-link>
         </li>
       </ul>
-      <div class="w-full md:w-1/2 lg:w-1/3 truncate">
+      <div class="w-full md:w-1/2 truncate">
         Made with
         <g-link
           class="hover:underline"

@@ -37,12 +37,14 @@
               class="text-center flex flex-col items-center mx-2 mb-2 w-16"
               :class="{ 'ml-0': index === 0 }"
               v-for="(contributor, index) in contributors"
-              :key="`contributor-${contributor.details.id}`"
+              :key="`contributor-${contributor.id}`"
             >
-              <contributor class="block w-12" :contributor="contributor" />
-              <span class="text-gray-300 truncate">{{
-                contributor.details.name.split(' ').shift()
-              }}</span>
+              <contributor
+                class="block w-12 mb-1"
+                :contributor="contributor"
+                :popover="`popover-contributor-${contributor.id}`"
+              />
+              <span class="text-gray-300 truncate">{{ contributor.nickname }}</span>
             </div>
           </div>
         </div>

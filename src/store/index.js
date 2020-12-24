@@ -7,11 +7,11 @@ import { stepperSaga } from '@podlove/player-sagas/stepper'
 
 import episodeSaga from './sagas/episode'
 import playbarSaga from './sagas/playbar'
-import urlSaga from './sagas/url'
+import routerSaga from './sagas/router'
 
 import { reducers, actions, selectors } from './reducers'
 
-export function createStore(Vue, { isClient }) {
+export function createStore(Vue, { isClient, router }) {
   let composeEnhancers = compose
 
   if (isClient) {
@@ -64,10 +64,12 @@ export function createStore(Vue, { isClient }) {
     )
 
     sagas.push(
-      urlSaga({
+      routerSaga({
         selectEpisode: selectors.current.episode,
         selectCurrentId: selectors.router.id,
-        selectPlaybarActive: selectors.playbar.active
+        selectPlaybarActive: selectors.playbar.active,
+        selectFollowContent: selectors.playbar.followContent,
+        router
       })
     )
   }

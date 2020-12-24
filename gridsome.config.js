@@ -41,7 +41,7 @@ module.exports = {
         component: './src/templates/Page.vue'
       }
     ],
-    PodcastContributor: '/contributor/:id'
+    PodcastContributor: '/contributor/:slug'
   },
   chainWebpack: (config) => {
     config.resolve.alias.set('@images', '@/assets/images')

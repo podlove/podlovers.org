@@ -16,7 +16,7 @@ export default function (Vue, { isClient, router }) {
 
   Vue.use(localePlugin, { locale: 'de-de' })
 
-  const store = createStore(Vue, { isClient })
+  const store = createStore(Vue, { isClient, router })
 
   router.beforeEach((to, _, next) => {
     store.dispatch(

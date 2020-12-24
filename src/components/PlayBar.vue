@@ -46,7 +46,7 @@
                 >
                 <g-link
                   class="block w-full text-gray-300 text-sm truncate"
-                  v-if="ghostActive && ghostChapter.index"
+                  v-if="ghostActive && ghostChapter && ghostChapter.index"
                   >{{ ghostChapter.title }}</g-link
                 >
               </div>
@@ -91,7 +91,6 @@
                   <chapter-icon color="rgba(255, 255, 255)" />
                 </button>
                 <button
-                  v-if="followContentButton"
                   @click="toggleFollowContent"
                   class="flex justify-center items-center mx-2 h-8 w-10 rounded"
                   :class="{ 'border-gray-100 border': followContent }"
@@ -234,9 +233,6 @@ export default {
     toHumanTime
   },
   computed: {
-    followContentButton() {
-      return path(['$page', 'podcastEpisode', 'id'], this) === this.episode
-    },
     playbarStyle() {
       return {
         background: `${colors.blue[700]}E6`

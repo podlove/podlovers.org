@@ -11,8 +11,46 @@
             class="rounded shadow-lg border border-podlove-blue-700"
           />
         </div>
-        <div class="flex flex-col items-center md:block">
-          <h1 v-if="name" class="text-gray-100 text-3xl mb-5" v-html="name" />
+        <div class="flex flex-col items-center md:block mb-5">
+          <h1 v-if="name" class="text-gray-100 text-3xl" v-html="name" />
+          <div class="mb-4" v-if="social.length > 0">
+            <h3 class="text-gray-100 mb-1">{{ $t('CONTRIBUTOR.SOCIAL') }}</h3>
+            <div class="flex">
+              <a
+                v-for="service in social"
+                :href="service.url"
+                :key="service.url"
+                :title="service.title"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mr-2"
+              >
+                <g-image
+                  :src="require(`!!assets-loader?width=30&height=30!@images/${service.logo}`)"
+                  class="rounded shadow-lg social-service"
+                />
+              </a>
+            </div>
+          </div>
+          <div class="mb-4" v-if="donation.length > 0">
+            <h3 class="text-gray-100 mb-1">{{ $t('CONTRIBUTOR.DONATION') }}</h3>
+            <div class="flex">
+              <a
+                v-for="service in donation"
+                :href="service.url"
+                :key="service.url"
+                :title="service.title"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mr-2"
+              >
+                <g-image
+                  :src="require(`!!assets-loader?width=30&height=30!@images/${service.logo}`)"
+                  class="rounded shadow-lg social-service"
+                />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -29,6 +67,14 @@ export default {
     },
     name: {
       type: String
+    },
+    social: {
+      type: Array,
+      default: () => []
+    },
+    donation: {
+      type: Array,
+      default: () => []
     }
   },
   methods: {

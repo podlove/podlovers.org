@@ -28,7 +28,7 @@ export default {
       default: 0
     },
     label: {
-      type: Number
+      type: [String, Number]
     },
     description: {
       type: String
