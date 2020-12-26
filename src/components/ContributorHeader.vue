@@ -26,8 +26,8 @@
                 class="mr-2"
               >
                 <g-image
-                  :src="require(`!!assets-loader?width=30&height=30!@images/${service.logo}`)"
-                  class="rounded shadow-lg social-service"
+                  :src="require(`!!assets-loader?width=60&height=60!@images/${service.logo}`)"
+                  class="rounded shadow-lg w-8 h-8"
                 />
               </a>
             </div>
@@ -45,8 +45,8 @@
                 class="mr-2"
               >
                 <g-image
-                  :src="require(`!!assets-loader?width=30&height=30!@images/${service.logo}`)"
-                  class="rounded shadow-lg social-service"
+                  :src="require(`!!assets-loader?width=60&height=60!@images/${service.logo}`)"
+                  class="rounded shadow-lg w-8 h-8"
                 />
               </a>
             </div>
