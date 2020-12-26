@@ -161,7 +161,7 @@ import {
   ChapterButton,
   InputSlider,
   Timer
-} from '~/components/Externals'
+} from '~/externals'
 import { selectors } from '~/store/reducers'
 
 import colors from '~/colors'

@@ -36,7 +36,7 @@ import { requestPlay, requestPause } from '@podlove/player-actions/play'
 import { toHumanTime } from '@podlove/utils/time'
 
 import { selectors } from '~/store/reducers'
-import { ChapterProgress, Icon } from './Externals'
+import { ChapterProgress, Icon } from '~/externals'
 
 export default {
   components: {

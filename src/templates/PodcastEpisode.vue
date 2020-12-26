@@ -146,7 +146,7 @@ import EpisodeNavigation from '~/components/EpisodeNavigation'
 import ContributorPopover from '~/components/ContributorPopover'
 import EpisodeHeader from '~/components/EpisodeHeader'
 import Discuss from '~/components/Discuss'
-import Icon from '~/components/Externals'
+import Icon from '~/externals'
 
 export default {
   data: mapState({

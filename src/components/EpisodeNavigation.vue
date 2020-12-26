@@ -59,7 +59,7 @@ import { throttle } from 'throttle-debounce'
 import scrollIntoView from 'scroll-into-view-if-needed'
 
 import { selectors } from '~/store/reducers'
-import { Icon } from '~/components/Externals'
+import { Icon } from '~/externals'
 import DiscussIcon from '~/components/icon/Discuss'
 import TimelineIcon from '~/components/icon/Timeline'
 import SummaryIcon from '~/components/icon/Summary'

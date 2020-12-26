@@ -14,7 +14,7 @@
 import { mapActions } from 'redux-vuex'
 import { REQUEST_PLAY, REQUEST_PAUSE } from '@podlove/player-actions/types'
 
-import { PlayButton } from './Externals'
+import { PlayButton } from '~/externals'
 import { selectors } from '~/store/reducers'
 
 export default {

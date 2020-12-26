@@ -1,15 +1,15 @@
-import Popover from 'vue-js-popover'
+import localePlugin from '../locales'
 
 import { createStore } from './store'
 import { actions } from './store/reducers'
-import DefaultLayout from '~/layouts/Default.vue'
-import localePlugin from '../locales'
+import DefaultLayout from './layouts/Default'
+import { Popover } from './externals'
 
 // Roboto font
 require('typeface-roboto')
 
-export default function (Vue, { isClient, router }) {
-  Vue.use(Popover)
+export default async function (Vue, { isClient, router }) {
+  await Popover().then((Popover) => Vue.use(Popover))
 
   // Set default layout as a global component
   Vue.component('Layout', DefaultLayout)

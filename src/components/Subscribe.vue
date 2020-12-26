@@ -73,7 +73,7 @@ import { pathOr, path, prop } from 'ramda'
 import getClients from '@podlove/clients'
 import { type, platform } from '@podlove/clients/types'
 import { getPlatform } from '@podlove/utils/useragent'
-import { Icon } from '~/components/Externals'
+import { Icon } from '~/externals'
 
 import CustomTransition from '~/components/CustomTransition'
 import { selectors } from '~/store/reducers'

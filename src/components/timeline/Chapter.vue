@@ -32,7 +32,7 @@ import { toPlayerTime, toHumanTime } from '@podlove/utils/time'
 import { mapActions } from 'redux-vuex'
 
 import { selectors } from '~/store/reducers'
-import { Icon } from '~/components/Externals'
+import { Icon } from '~/externals'
 import Bullet from './Bullet'
 
 export default {

@@ -1,3 +1,12 @@
+export const Popover = () =>
+  process.isClient
+    ? import('vue-js-popover').then((mod) => mod.default)
+    : Promise.resolve({
+        install(Vue) {
+          Vue.component('Popover', { render: () => '' })
+          Vue.directive('popover', {})
+        }
+      })
 export const Icon = () => import('@podlove/components/icons').catch()
 export const PlayButton = () => import('@podlove/components/play-button').catch()
 export const ProgressBar = () => import('@podlove/components/progress-bar').catch()

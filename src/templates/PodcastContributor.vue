@@ -105,7 +105,6 @@
                       class="absolute border-gray-400 border-r h-10 opacity-75 hover:opacity-100"
                       :to="{ path: stats.episode.path, query: { t: toHumanTime(chapter.start) } }"
                       @click="playEpisode({ id: stats.episode.id, playtime: chapter.start })"
-                      :class="chapterClass(chapter)"
                       :style="chapterStyle(stats.episode, chapter)"
                       v-for="(chapter, index) in episodeTimeline(stats.episode.timeline)"
                       :key="`timeline-${stats.episode.id}-${index}`"
@@ -238,7 +237,7 @@ import ContributorHeader from '~/components/ContributorHeader'
 import DoughnutChart from '~/components/DoughnutChart'
 import Duration from '~/components/icon/HourGlass'
 import Speak from '~/components/icon/Speak'
-import colors from '../colors'
+import colors from '~/colors'
 
 export default {
   components: {
@@ -360,17 +359,12 @@ export default {
     chapterStyle(episode, chapter) {
       const left = (chapter.start / episode.duration) * 100
       const width = (chapter.duration / episode.duration) * 100
-
-      return {
-        left: `${left}%`,
-        width: `${width}%`
-      }
-    },
-    chapterClass(chapter) {
       const speaking = Math.round(((chapter.speaking / chapter.duration) * 100 * 9) / 100) * 100
 
       return {
-        [`bg-podlove-green-${speaking}`]: true
+        left: `${left}%`,
+        width: `${width}%`,
+        background: colors.green[speaking]
       }
     }
   }
