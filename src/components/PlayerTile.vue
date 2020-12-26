@@ -24,21 +24,27 @@
             :to="episode.path"
             v-if="episode.title"
             class="leading-tight sm:leading block text-xl mb-1 uppercase whitespace-no-wrap truncate"
-            >{{ episode.title }}</g-link
+            >{{ episode.mnemonic }} {{ episode.title }}</g-link
           >
           <div class="block md:flex mb-2">
             <div class="flex mb-2 md:mb-0">
               <contributor
                 class="mr-1 w-6"
-                v-for="contributor in episode.contributors"
+                v-for="contributor in contributors"
                 :contributor="contributor"
-                :key="`contributor-${contributor.details.id}`"
+                :key="`contributor-${contributor.id}`"
+                :popover="`popover-contributor-${episode.id}-${contributor.id}`"
+              />
+              <contributor-popover
+                v-for="contributor in contributors"
+                :key="`popover-contributor-${contributor.id}`"
+                :name="contributor.name"
+                :role="contributor.role"
+                :id="`popover-contributor-${episode.id}-${contributor.id}`"
               />
             </div>
             <div class="flex">
-              <span
-                class="text-gray-500 mx-1 hidden md:inline"
-                v-if="episode.contributors.length > 0"
+              <span class="text-gray-500 mx-1 hidden md:inline" v-if="contributors.length > 0"
                 >・</span
               >
               <span
@@ -61,19 +67,21 @@
 </template>
 
 <script>
-import { compose, pathOr } from 'ramda'
+import { compose, pathOr, path } from 'ramda'
 import { toHumanTime } from '@podlove/utils/time'
 import truncate from 'trunc-text'
 
 import { selectors } from '~/store/reducers'
 
 import Contributor from './Contributor'
+import ContributorPopover from './ContributorPopover'
 import PlayButton from './PlayButton'
 
 export default {
   components: {
     PlayButton,
-    Contributor
+    Contributor,
+    ContributorPopover
   },
 
   props: {
@@ -82,6 +90,7 @@ export default {
       default: () => ({
         id: null,
         title: null,
+        mnemonic: null,
         summary: null,
         publicationDate: null,
         poster: null,
@@ -96,6 +105,15 @@ export default {
   computed: {
     summary() {
       return truncate(pathOr('', ['episode', 'summary'], this), 400)
+    },
+    contributors() {
+      return pathOr([], ['episode', 'contributors'], this).map((contributor) => ({
+        id: path(['details', 'id'], contributor),
+        slug: path(['details', 'slug'], contributor),
+        name: path(['details', 'name'], contributor),
+        avatar: path(['details', 'avatar'], contributor),
+        role: path(['role', 'title'], contributor)
+      }))
     }
   },
 

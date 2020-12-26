@@ -16,6 +16,10 @@ export default {
 const resolver = (translations) => (path, args) => {
   const result = get(translations, path)
 
+  if (!result) {
+    return path
+  }
+
   if (typeof result === 'function') {
     return result.apply(translations, [].concat(args))
   }

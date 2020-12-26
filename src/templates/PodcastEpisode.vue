@@ -2,11 +2,11 @@
   <Layout>
     <episode-header
       :id="id"
-      :title="episode.title"
+      :title="`${episode.mnemonic} ${episode.title}`"
       :poster="episode.poster"
       :publication-date="episode.publicationDate"
       :duration="episode.duration"
-      :contributors="episode.contributors"
+      :contributors="contributors"
       ><episode-navigation
     /></episode-header>
     <div class="lg:w-full lg:flex lg:justify-center pt-20">
@@ -15,7 +15,7 @@
           <h2 class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-8 sm:mx-2">
             {{ $t('EPISODE.SUMMARY') }}
           </h2>
-          <div class="font-light border-gray-400 border-b mb-12 pt-6 pb-12 px-12">
+          <div class="font-light border-gray-400 border-b mb-12 pt-6 pb-12 px-6">
             {{ episode.summary }}
           </div>
         </section>
@@ -46,6 +46,13 @@
         </section>
       </div>
     </div>
+    <contributor-popover
+      v-for="contributor in contributors"
+      :key="`popover-${contributor.id}`"
+      :id="`popover-contributor-${contributor.id}`"
+      :name="contributor.name"
+      :role="contributor.role"
+    />
   </Layout>
 </template>
 
@@ -53,6 +60,7 @@
 query ($id: ID!) {
   podcastEpisode(id: $id) {
     id,
+    mnemonic,
     path,
     title,
     summary,
@@ -76,8 +84,16 @@ query ($id: ID!) {
     contributors {
       details {
         id,
-        name
+        slug,
+        name,
+        nickname,
         avatar
+      },
+      role {
+        title
+      },
+      group {
+        title
       }
     },
     timeline {
@@ -92,8 +108,11 @@ query ($id: ID!) {
         text
       },
       speaker {
+        id,
+        slug,
         avatar,
-        name
+        name,
+        nickname
       }
     }
   }
@@ -124,6 +143,7 @@ import Contributor from '~/components/Contributor'
 import Timeline from '~/components/Timeline'
 import Subscribe from '~/components/Subscribe'
 import EpisodeNavigation from '~/components/EpisodeNavigation'
+import ContributorPopover from '~/components/ContributorPopover'
 import EpisodeHeader from '~/components/EpisodeHeader'
 import Discuss from '~/components/Discuss'
 import Icon from '~/components/Externals'
@@ -136,7 +156,14 @@ export default {
     followContent: selectors.playbar.followContent
   }),
 
-  components: { Subscribe, Timeline, EpisodeHeader, EpisodeNavigation, Discuss },
+  components: {
+    Subscribe,
+    Timeline,
+    EpisodeHeader,
+    EpisodeNavigation,
+    Discuss,
+    ContributorPopover
+  },
 
   computed: {
     id() {
@@ -149,7 +176,17 @@ export default {
       return path(['podcastEpisode'], this.$page)
     },
     contributors() {
-      return pathOr([], ['contributors'], this.episode).map(({ details }) => details)
+      return pathOr([], ['contributors'], this.episode).map((contributor) => ({
+        ...propOr({}, 'details', contributor),
+        group: path(['group', 'title'], contributor),
+        role: path(['role', 'title'], contributor)
+      }))
+    }
+  },
+
+  mounted() {
+    if (this.followContent) {
+      this.scroll()
     }
   },
 
@@ -167,6 +204,7 @@ export default {
 
   methods: {
     ...mapActions('playEpisode'),
+
     scroll() {
       if (!this.follow) {
         return

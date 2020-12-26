@@ -24,10 +24,10 @@
           </div>
         </div>
         <div class="flex flex-col items-center md:block">
-          <div>
-            <span class="text-gray-500 font-mono text-sm">{{ date(publicationDate) }}</span>
-            <span class="text-gray-500 font-mono text-sm mx-2">・</span>
-            <span class="text-gray-500 font-mono text-sm">{{ toHumanTime(duration) }}</span>
+          <div class="text-gray-500 font-mono text-sm py-1">
+            <span>{{ date(publicationDate) }}</span>
+            <span class="mx-2">・</span>
+            <span>{{ toHumanTime(duration) }}</span>
           </div>
           <g-link :to="path" class="text-center md:text-left">
             <h1 v-if="title" class="text-gray-100 text-3xl mb-5" v-html="title" />
@@ -37,12 +37,14 @@
               class="text-center flex flex-col items-center mx-2 mb-2 w-16"
               :class="{ 'ml-0': index === 0 }"
               v-for="(contributor, index) in contributors"
-              :key="`contributor-${contributor.details.id}`"
+              :key="`contributor-${contributor.id}`"
             >
-              <contributor class="block w-12" :contributor="contributor" />
-              <span class="text-gray-300 truncate">{{
-                contributor.details.name.split(' ').shift()
-              }}</span>
+              <contributor
+                class="block w-12 mb-1"
+                :contributor="contributor"
+                :popover="`popover-contributor-${contributor.id}`"
+              />
+              <span class="text-gray-300 truncate">{{ contributor.nickname }}</span>
             </div>
           </div>
         </div>

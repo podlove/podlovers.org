@@ -1,14 +1,23 @@
 <template>
   <div class="p-2">
     <div class="flex items-center mb-2">
-      <bullet :top="true" :bottom="true" :time="start">
-        <g-image
-          v-if="speaker.avatar"
-          :src="require(`!!assets-loader?width=48&height=48!@images/${speaker.avatar}`)"
-        />
+      <bullet
+        :top="true"
+        :bottom="true"
+        :time="start"
+        v-popover="{ name: `popover-contributor-${speaker.id}` }"
+      >
+        <g-link :to="speaker.link">
+          <span v-if="speaker.avatar">
+            <g-image
+              v-if="speaker.avatar"
+              :src="require(`!!assets-loader?width=48&height=48!@images/${speaker.avatar}`)"
+            />
+          </span>
+        </g-link>
       </bullet>
       <a class="block uppercase font-normal cursor-pointer px-2">
-        {{ speaker.name }}
+        {{ speaker.nickname }}
       </a>
       <div class="ml-auto text-gray-500 font-mono">{{ toHumanTime(start) }}</div>
     </div>
@@ -38,7 +47,7 @@
 </template>
 
 <script>
-import { path, prop, propOr } from 'ramda'
+import { path, prop, propOr, join } from 'ramda'
 import { toHumanTime } from '@podlove/utils/time'
 import { mapActions, mapState } from 'redux-vuex'
 
@@ -69,8 +78,12 @@ export default {
   computed: {
     speaker() {
       return {
-        avatar: path(['speaker', 'avatar'], this.data),
-        name: path(['speaker', 'name'], this.data)
+        id: path(['data', 'speaker', 'id'], this),
+        slug: path(['data', 'speaker', 'slug'], this),
+        avatar: path(['data', 'speaker', 'avatar'], this),
+        name: path(['data', 'speaker', 'name'], this),
+        nickname: path(['data', 'speaker', 'nickname'], this),
+        link: join('/', ['contributor', path(['data', 'speaker', 'slug'], this)])
       }
     },
 

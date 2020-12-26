@@ -28,7 +28,6 @@
             </p>
           </div>
         </div>
-        <slot />
       </div>
     </div>
     <div class="flex justify-center">
@@ -55,6 +54,7 @@ query {
       node {
         title,
         id,
+        mnemonic,
         summary,
         poster,
         path,
@@ -63,8 +63,12 @@ query {
         contributors {
           details {
             id,
-            name
+            slug,
+            name,
             avatar
+          },
+          role {
+            title
           }
         }
       }
