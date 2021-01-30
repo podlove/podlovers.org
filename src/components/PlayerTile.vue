@@ -66,12 +66,20 @@
   </div>
 </template>
 
+<static-query>
+{
+  metadata {
+    contributors {
+      groups
+    }
+  }
+}
+</static-query>
+
 <script>
-import { compose, pathOr, path } from 'ramda'
+import { pathOr, path } from 'ramda'
 import { toHumanTime } from '@podlove/utils/time'
 import truncate from 'trunc-text'
-
-import { selectors } from '~/store/reducers'
 
 import Contributor from './Contributor'
 import ContributorPopover from './ContributorPopover'
@@ -107,13 +115,18 @@ export default {
       return truncate(pathOr('', ['episode', 'summary'], this), 400)
     },
     contributors() {
-      return pathOr([], ['episode', 'contributors'], this).map((contributor) => ({
-        id: path(['details', 'id'], contributor),
-        slug: path(['details', 'slug'], contributor),
-        name: path(['details', 'name'], contributor),
-        avatar: path(['details', 'avatar'], contributor),
-        role: path(['role', 'title'], contributor)
-      }))
+      return pathOr([], ['episode', 'contributors'], this)
+        .filter((contributor) => this.groups.includes(path(['group', 'slug'], contributor)))
+        .map((contributor) => ({
+          id: path(['details', 'id'], contributor),
+          slug: path(['details', 'slug'], contributor),
+          name: path(['details', 'name'], contributor),
+          avatar: path(['details', 'avatar'], contributor),
+          role: path(['role', 'title'], contributor)
+        }))
+    },
+    groups() {
+      return pathOr([], ['$static', 'metadata', 'contributors', 'groups'], this)
     }
   },
 

@@ -69,6 +69,9 @@ query {
           },
           role {
             title
+          },
+          group {
+            slug
           }
         }
       }

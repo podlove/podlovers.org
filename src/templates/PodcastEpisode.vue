@@ -93,7 +93,8 @@ query ($id: ID!) {
         title
       },
       group {
-        title
+        title,
+        slug
       }
     },
     timeline {
@@ -126,6 +127,9 @@ query {
     PodcastShow {
       title,
       poster
+    },
+    contributors {
+      groups
     }
   }
 }
@@ -139,14 +143,12 @@ import { compose, path, pathOr, propOr, prop, flatten } from 'ramda'
 import { toPlayerTime, toHumanTime } from '@podlove/utils/time'
 
 import { selectors } from '~/store/reducers'
-import Contributor from '~/components/Contributor'
 import Timeline from '~/components/Timeline'
 import Subscribe from '~/components/Subscribe'
 import EpisodeNavigation from '~/components/EpisodeNavigation'
 import ContributorPopover from '~/components/ContributorPopover'
 import EpisodeHeader from '~/components/EpisodeHeader'
 import Discuss from '~/components/Discuss'
-import Icon from '~/externals'
 
 export default {
   data: mapState({
@@ -176,11 +178,16 @@ export default {
       return path(['podcastEpisode'], this.$page)
     },
     contributors() {
-      return pathOr([], ['contributors'], this.episode).map((contributor) => ({
-        ...propOr({}, 'details', contributor),
-        group: path(['group', 'title'], contributor),
-        role: path(['role', 'title'], contributor)
-      }))
+      return pathOr([], ['contributors'], this.episode)
+        .filter((contributor) => this.groups.includes(path(['group', 'slug'], contributor)))
+        .map((contributor) => ({
+          ...propOr({}, 'details', contributor),
+          group: path(['group', 'title'], contributor),
+          role: path(['role', 'title'], contributor)
+        }))
+    },
+    groups() {
+      return pathOr([], ['$static', 'metadata', 'contributors', 'groups'], this)
     }
   },
 

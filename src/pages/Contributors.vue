@@ -9,13 +9,13 @@
     </div>
     <div class="flex justify-center">
       <div class="lg:w-app py-8 overflow-hidden">
-        <div class="mb-8" v-for="(group, index) in contributors" :key="`group-${index}`">
-          <h3 class="text-2xl text-center lg:text-left">{{ group.title }}</h3>
+        <div class="mb-8" v-for="(role, index) in contributors" :key="`role-${index}`">
+          <h3 class="text-2xl text-center lg:text-left">{{ role.title }}</h3>
           <div class="flex items-center justify-center lg:justify-between flex-wrap font-light">
             <g-link
               :to="`/contributor/${contributor.slug}`"
               class="w-9/12 md:w-5/12 lg:w-3/12 max-w-xs flex flex-col justify-center items-center m-3 lg:m-6 px-4 py-6 text-gray-900"
-              v-for="(contributor, index) in group.contributors"
+              v-for="(contributor, index) in role.contributors"
               :key="`contributor-${index}`"
             >
               <g-image
@@ -65,6 +65,7 @@ query {
         },
         episodes {
         	role {
+            slug,
             title
           }
         }
@@ -73,6 +74,16 @@ query {
   }
 }
 </page-query>
+
+<static-query>
+{
+  metadata {
+    contributors {
+      roles
+    }
+  }
+}
+</static-query>
 
 <script>
 import {
@@ -84,39 +95,42 @@ import {
   prop,
   uniq,
   reduce,
-  join,
   sortBy,
-  reverse,
   forEach,
   values
 } from 'ramda'
 
 export default {
   computed: {
+    roles() {
+      return pathOr([], ['$static', 'metadata', 'contributors', 'roles'], this)
+    },
+
     contributors() {
       return compose(
-        sortBy(prop('contributors')),
         reduce(
-          (result, group) => [
+          (result, role) => [
             ...result,
             {
-              ...group,
-              contributors: sortBy(prop('name'), group.contributors)
+              ...role,
+              contributors: sortBy(prop('name'), role.contributors)
             }
           ],
           []
         ),
         values,
+        (data) => this.roles.map((role) => prop(role, data)),
         reduce((result, contributor) => {
           forEach((role) => {
-            const insert = result[role]
-              ? result[role]
+            const insert = result[role.slug]
+              ? result[role.slug]
               : {
-                  title: role,
+                  title: role.title,
+                  slug: role.slug,
                   contributors: []
                 }
 
-            result[role] = {
+            result[role.slug] = {
               ...insert,
               contributors: [...insert.contributors, contributor]
             }
@@ -128,7 +142,7 @@ export default {
           episodes: propOr([], 'episodes', node).length,
           roles: compose(
             uniq,
-            reduce((result, item) => [...result, path(['role', 'title'], item)], []),
+            reduce((result, item) => [...result, path(['role'], item)], []),
             propOr([], 'episodes')
           )(node)
         })),
