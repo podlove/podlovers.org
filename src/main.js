@@ -11,6 +11,7 @@ require('typeface-roboto')
 export default async function (Vue, { isClient, router }) {
   await Popover().then((Popover) => Vue.use(Popover))
 
+  Vue.prototype.$isClient = process.isClient
   // Set default layout as a global component
   Vue.component('Layout', DefaultLayout)
 

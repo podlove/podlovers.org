@@ -30,6 +30,7 @@ module.exports = {
   },
   SEARCH: {
     PLACEHOLDER: 'Suchen',
+    NO_RESULTS: 'Es wurden keine Ergebnisse gefunden',
     CATEGORY: {
       EPISODE: 'Episoden',
       CONTRIBUTOR: 'Kontributoren',

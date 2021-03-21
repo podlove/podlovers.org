@@ -112,7 +112,7 @@
 <script>
 import { mapActions, mapState } from 'redux-vuex'
 
-import { Icon } from '../externals'
+import { Icon } from '~/externals'
 import Loader from './icon/Loader'
 import { selectors } from '~/store/reducers'
 

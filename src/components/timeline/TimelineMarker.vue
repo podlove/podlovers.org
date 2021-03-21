@@ -15,7 +15,6 @@ import { mapActions } from 'redux-vuex'
 import { compose, propOr, prop } from 'ramda'
 import { toPlayerTime, toHumanTime } from '@podlove/utils/time'
 
-import Icon from '~/externals'
 import HourGlass from '../icon/HourGlass'
 import Bullet from './Bullet'
 

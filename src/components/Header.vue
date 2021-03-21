@@ -14,10 +14,13 @@
       <a class="mt-2 mr-4 font-light cursor-pointer" @click="toggleSubscribeOverlay">{{
         $t('HEADER.SUBSCRIBE')
       }}</a>
-      <a class="mr-4 ml-auto font-light cursor-pointer" @click="showSearch"><icon type="search" /></a>
+      <ClientOnly>
+        <a class="mr-4 ml-auto font-light cursor-pointer" @click="showSearch"><icon type="search" /></a>
+      </ClientOnly>
     </nav>
-
-    <search />
+    <ClientOnly>
+      <search />
+    </ClientOnly>
   </header>
 </template>
 
@@ -31,9 +34,10 @@ query {
 
 <script>
 import { mapActions } from 'redux-vuex'
+
+import { Icon } from '~/externals'
 import Search from './Search'
 import Logo from './icon/PodloversLogo'
-import { Icon } from '../externals'
 
 export default {
   components: {
