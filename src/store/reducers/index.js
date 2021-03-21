@@ -18,6 +18,7 @@ import selectors from './selectors'
 
 import * as action from './action'
 import * as episodes from './episodes'
+import * as search from './search'
 import * as player from './player'
 import * as playbar from './playbar'
 import * as subscribeButton from './subscribe-button'
@@ -25,6 +26,7 @@ import * as router from './router'
 
 const reducers = combineReducers({
   action: action.reducer,
+  search: search.reducer,
   episodes: episodes.reducer,
   player: combineReducers({
     quantiles,
@@ -50,6 +52,7 @@ const actions = {
   ...playbar.actions,
   ...subscribeButton.actions,
   ...router.actions,
+  ...search.actions,
   setVolume,
   setRate,
   simulatePlaytime,

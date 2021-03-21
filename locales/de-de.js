@@ -27,5 +27,13 @@ module.exports = {
   CONTRIBUTOR_LIST: {
     TITLE: 'Kontributoren',
     EPISODES_COUNT: ({ count }) => (count <= 1 ? `${count} Episode` : `${count} Episoden`)
+  },
+  SEARCH: {
+    PLACEHOLDER: 'Suchen',
+    CATEGORY: {
+      EPISODE: 'Episoden',
+      CONTRIBUTOR: 'Kontributoren',
+      TRANSCRIPT: 'Transkripte'
+    }
   }
 }

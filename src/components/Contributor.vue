@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { path, pathOr, join } from 'ramda'
+import { path, join } from 'ramda'
 import ContributorPopover from './ContributorPopover'
 
 export default {

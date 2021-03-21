@@ -97,7 +97,8 @@ import {
   reduce,
   sortBy,
   forEach,
-  values
+  values,
+  filter
 } from 'ramda'
 
 export default {
@@ -137,6 +138,7 @@ export default {
           }, contributor.roles)
           return result
         }, {}),
+        filter(({ name }) => Boolean(name)),
         map((node) => ({
           ...propOr({}, 'contributor', node),
           episodes: propOr([], 'episodes', node).length,

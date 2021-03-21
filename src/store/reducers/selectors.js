@@ -17,11 +17,13 @@ import { selectors as player, selectors } from './player'
 import { selectors as playbar } from './playbar'
 import { selectors as subscribeButton } from './subscribe-button'
 import { selectors as router } from './router'
+import { selectors as search } from './search'
 
 const slices = {
   player: propOr({}, 'player'),
   playbar: propOr({}, 'playbar'),
-  router: propOr({}, 'router')
+  router: propOr({}, 'router'),
+  search: propOr({}, 'search')
 }
 
 const playtime = compose(timepiece.playtime, propOr({}, 'timepiece'), slices.player)
@@ -35,7 +37,6 @@ const episodeTitle = compose(episode.title, propOr({}, 'episode'), slices.player
 const episodePoster = compose(episode.poster, propOr({}, 'episode'), slices.player)
 const playing = compose(driver.playing, propOr({}, 'driver'), slices.player)
 const currentEpisode = compose(player.episode, propOr({}, 'current'), slices.player)
-const episodePath = compose(propOr('', 'path'), slices.player)
 
 const volume = compose(audio.volume, propOr({}, 'audio'), slices.player)
 const muted = compose(audio.muted, propOr({}, 'audio'), slices.player)
@@ -153,5 +154,17 @@ export default {
   router: {
     id: compose(router.id, slices.router),
     path: compose(router.path, slices.router)
+  },
+  search: {
+    query: compose(search.query, slices.search),
+    visible: compose(search.visible, slices.search),
+    initialized: compose(search.initialized, slices.search),
+    loading: compose(search.loading, slices.search),
+    contributors: compose(search.contributors, slices.search),
+    episodes: compose(search.episodes, slices.search),
+    transcripts: compose(search.transcripts, slices.search),
+    results: compose(search.results, slices.search),
+    hasResults: compose(search.hasResults, slices.search),
+    selectedResult: compose(search.selectedResult, slices.search)
   }
 }

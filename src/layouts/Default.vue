@@ -11,10 +11,6 @@
 </template>
 
 <script>
-import { pathOr } from 'ramda'
-import { mapState } from 'redux-vuex'
-
-import { selectors } from '~/store/reducers'
 import PageHeader from '~/components/Header'
 import PageFooter from '~/components/Footer'
 import Subscribe from '~/components/Subscribe'

@@ -8,6 +8,7 @@ import { stepperSaga } from '@podlove/player-sagas/stepper'
 import episodeSaga from './sagas/episode'
 import playbarSaga from './sagas/playbar'
 import routerSaga from './sagas/router'
+import searchSaga from './sagas/search'
 
 import { reducers, actions, selectors } from './reducers'
 
@@ -69,6 +70,17 @@ export function createStore(Vue, { isClient, router }) {
         selectCurrentId: selectors.router.id,
         selectPlaybarActive: selectors.playbar.active,
         selectFollowContent: selectors.playbar.followContent,
+        router
+      })
+    )
+
+    sagas.push(
+      searchSaga({
+        selectVisible: selectors.search.visible,
+        selectResults: selectors.search.results,
+        selectInitialized: selectors.search.initialized,
+        selectSelectedResult: selectors.search.selectedResult,
+        Vue,
         router
       })
     )
