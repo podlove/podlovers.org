@@ -26,11 +26,14 @@
             :value="query"
             :disabled="!initialized"
           />
-          <button class="text-gray-500 mt-2 -ml-5" @click="search('')">
+          <button class="text-gray-500 -ml-5" @click="search('')">
             <icon v-if="query && query.length > 0" type="search-clear" color="white" :size="35" />
           </button>
         </div>
         <transition name="fadeHeight" mode="out-in">
+          <div class="border-t border-gray-300 px-6 py-6 text-gray-600 text-center" v-if="!hasResults && query && query.length > 0">
+            {{ $t('SEARCH.NO_RESULTS') }}
+          </div>
           <div class="results border-t border-gray-300 px-3 py-3 overflow-y-auto" v-if="hasResults" ref="results">
             <div class="text-gray-800 tracking-wide" v-if="contributors.length > 0">
               <span class="font-normal px-3 mt-3 text-podlove-blue-700 opacity-75">
