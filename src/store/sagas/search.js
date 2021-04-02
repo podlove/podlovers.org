@@ -1,7 +1,7 @@
 import scrollIntoView from 'scroll-into-view-if-needed'
 import { types, actions } from '~/store/reducers/search'
 import { channel } from '@podlove/player-sagas/helper'
-import { call, put, select, takeEvery, throttle } from '@redux-saga/core/effects'
+import { call, delay, put, select, takeEvery, throttle } from '@redux-saga/core/effects'
 
 const focusSearch = () => {
   setTimeout(() => {
@@ -105,24 +105,21 @@ function* initSearch({ loadSearch, selectInitialized }) {
 
 function selectTranscript(router) {
   return function* ({ payload }) {
-    yield router
-    .push({ path: payload.node.episode.path })
-    .catch((err) => {})
-    .finally(() => {
-      const result = document.evaluate(
-        `//span[contains(., "${payload.text}")]`,
-        document,
-        null,
-        XPathResult.ANY_TYPE,
-        null
-      )
+    yield router.push({ path: payload.node.episode.path }).catch((err) => {})
 
-      if (result) {
-        const node = result.iterateNext()
-        scrollIntoView(node, { behavior: 'auto', scrollMode: 'always', block: 'center' })
-        node.classList.add('bg-podlove-orange-400')
-      }
-    })
+    const result = document.evaluate(
+      `//span[contains(., "${payload.text}")]`,
+      document,
+      null,
+      XPathResult.ANY_TYPE,
+      null
+    )
+
+    if (result) {
+      const node = result.iterateNext()
+      scrollIntoView(node, { behavior: 'auto', scrollMode: 'always', block: 'center' })
+      node.style.background = 'yellow'
+    }
     yield put(actions.hideSearch())
   }
 }
@@ -149,7 +146,14 @@ function* enableOverflow() {
   document.body.classList.remove('overflow-hidden')
 }
 
-export default ({ selectVisible, selectResults, selectInitialized, selectSelectedResult, Vue, router }) => {
+export default ({
+  selectVisible,
+  selectResults,
+  selectInitialized,
+  selectSelectedResult,
+  Vue,
+  router
+}) => {
   return function* () {
     const keyboardEvents = yield call(channel, (cb) => document.addEventListener('keydown', cb))
 
