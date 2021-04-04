@@ -4,8 +4,10 @@
     <main class="main">
       <slot />
     </main>
-    <play-bar />
-    <subscribe />
+    <ClientOnly>
+      <play-bar />
+      <subscribe />
+    </ClientOnly>
     <page-footer />
   </div>
 </template>

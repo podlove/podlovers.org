@@ -29,11 +29,7 @@
         <div class="px-4 py-2 pt-8">
           <div class="flex w-full h-16">
             <div class="flex w-3/4 sm:w-1/2 md:w-1/3">
-              <g-image
-                v-if="poster"
-                :src="require(`!!assets-loader?width=100&height=100!@images/${poster}`)"
-                class="w-16 h-16 mr-2 rounded shadow-md"
-              />
+              <res-image :src="poster" :width="100" :height="100" class="w-16 h-16 mr-2 rounded shadow-md" />
               <div class="overflow-hidden">
                 <g-link :to="episodeLink">
                   <h4 class="text-lg text-gray-100 uppercase truncate">{{ title }}</h4>
@@ -146,11 +142,9 @@
 </template>
 
 <script>
-import { path, max, is } from 'ramda'
+import { max, is } from 'ramda'
 import { throttle } from 'throttle-debounce'
-import queryString from 'query-string'
-import urlify from 'lodash.kebabcase'
-import { mapState, mapActions } from 'redux-vuex'
+import { mapActions } from 'redux-vuex'
 import { toHumanTime } from '@podlove/utils/time'
 
 import {
@@ -169,6 +163,7 @@ import CustomTransition from './CustomTransition'
 import LockIcon from './icon/Lock'
 import ChapterIcon from './icon/Chapter'
 import Chapter from './Chapter'
+import ResImage from './ResImage'
 
 export default {
   data() {
@@ -211,7 +206,8 @@ export default {
     Icon,
     LockIcon,
     ChapterIcon,
-    CustomTransition
+    CustomTransition,
+    ResImage
   },
   methods: {
     ...mapActions(

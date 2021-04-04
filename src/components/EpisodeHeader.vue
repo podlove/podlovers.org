@@ -7,20 +7,18 @@
     <div class="w-app flex font-light items-center flex-col mt-6">
       <div class="flex flex-col items-center md:items-start md:flex-row">
         <div class="episode-poster relative mb-4 md:mb-0 md:mr-8">
-          <g-image
-            v-if="poster"
-            :src="require(`!!assets-loader?width=180&height=180!@images/${poster}`)"
-            class="rounded shadow-lg border border-podlove-blue-700"
-          />
+          <res-image :src="poster" :width="180" :height="180" class="rounded shadow-lg border border-podlove-blue-700" />
           <div
             class="absolute w-full h-full inset-0 flex items-center justify-center opacity-75 hover:opacity-100 transition ease-in duration-100"
           >
-            <play-button
-              :size="150"
-              color="rgba(255, 255, 255)"
-              background="rgba(44, 82, 130, 0.5)"
-              :id="id"
-            />
+            <ClientOnly>
+              <play-button
+                :size="150"
+                color="rgba(255, 255, 255)"
+                background="rgba(44, 82, 130, 0.5)"
+                :id="id"
+              />
+            </ClientOnly>
           </div>
         </div>
         <div class="flex flex-col items-center md:block">
@@ -42,7 +40,6 @@
               <contributor
                 class="block w-12 mb-1"
                 :contributor="contributor"
-                :popover="`popover-contributor-${contributor.id}`"
               />
               <span class="text-gray-300 truncate">{{ contributor.nickname }}</span>
             </div>
@@ -59,9 +56,10 @@ import { toHumanTime } from '@podlove/utils/time'
 
 import PlayButton from './PlayButton'
 import Contributor from './Contributor'
+import ResImage from './ResImage'
 
 export default {
-  components: { PlayButton, Contributor },
+  components: { PlayButton, Contributor, ResImage },
 
   props: {
     id: {

@@ -22,7 +22,6 @@ query ($id: ID!) {
 
 <script>
 import { pathOr } from 'ramda'
-import { Icon } from '~/externals'
 
 export default {
   computed: {

@@ -19,7 +19,6 @@
             {{ episode.summary }}
           </div>
         </section>
-
         <section id="shownotes">
           <h2 class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-8 sm:mx-2">
             {{ $t('EPISODE.SHOWNOTES') }}
@@ -29,7 +28,6 @@
             v-html="episode.content"
           ></div>
         </section>
-
         <section id="timeline">
           <h2 class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-8 sm:mx-2">
             {{ $t('EPISODE.TIMELINE') }}
@@ -40,19 +38,11 @@
             :timeline="episode.timeline"
           />
         </section>
-
         <section id="discuss">
           <discuss class="mb-12 px-2" />
         </section>
       </div>
     </div>
-    <contributor-popover
-      v-for="contributor in contributors"
-      :key="`popover-${contributor.id}`"
-      :id="`popover-contributor-${contributor.id}`"
-      :name="contributor.name"
-      :role="contributor.role"
-    />
   </Layout>
 </template>
 
@@ -146,7 +136,6 @@ import { selectors } from '~/store/reducers'
 import Timeline from '~/components/Timeline'
 import Subscribe from '~/components/Subscribe'
 import EpisodeNavigation from '~/components/EpisodeNavigation'
-import ContributorPopover from '~/components/ContributorPopover'
 import EpisodeHeader from '~/components/EpisodeHeader'
 import Discuss from '~/components/Discuss'
 
@@ -163,8 +152,7 @@ export default {
     Timeline,
     EpisodeHeader,
     EpisodeNavigation,
-    Discuss,
-    ContributorPopover
+    Discuss
   },
 
   computed: {
@@ -281,7 +269,7 @@ export default {
               {
                 property: 'og:image',
                 content:
-                  prop('siteUrl', metadata) + require(`!!assets-loader!@images/${poster}`).src
+                  prop('siteUrl', metadata) + '/assets/images/' + poster
               }
             ]
           : []),

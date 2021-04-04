@@ -30,10 +30,8 @@
 </template>
 
 <script>
-import { mapActions } from 'redux-vuex'
 import { setChapter } from '@podlove/player-actions/chapters'
 import { requestPlay, requestPause } from '@podlove/player-actions/play'
-import { toHumanTime } from '@podlove/utils/time'
 
 import { selectors } from '~/store/reducers'
 import { ChapterProgress, Icon } from '~/externals'

@@ -31,7 +31,8 @@ module.exports = {
       options: {
         baseUrl: 'https://backend.podlovers.org', // required
         apiBase: 'wp-json',
-        typeName: 'Podcast'
+        typeName: 'Podcast',
+        imageCache: 'static/images'
       }
     },
     {
@@ -118,7 +119,7 @@ module.exports = {
       options: {
         extensions: ['css', 'html', 'js', 'svg', 'json']
       }
-    },
+    }
   ],
   templates: {
     PodcastEpisode: '/episode/:id',
@@ -129,8 +130,5 @@ module.exports = {
       }
     ],
     PodcastContributor: '/contributor/:slug'
-  },
-  chainWebpack: (config) => {
-    config.resolve.alias.set('@images', '@/assets/images')
   }
 }

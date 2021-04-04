@@ -1,21 +1,24 @@
 <template>
   <g-link :to="link">
-    <span v-if="avatar" v-popover="{ name: popover, event: 'hover' }">
-      <g-image
-        class="rounded"
-        :src="require(`!!assets-loader?width=48&height=48!@images/${avatar}`)"
-      />
+    <span v-if="avatar" class="relative">
+      <res-image :src="avatar" :width="48" :height="48" class="rounded" />
+      <popover>
+        <div class="text-sm text-gray-800 p-1 text-center whitespace-no-wrap">
+          <h3 class="font-bold">{{ name }}</h3>
+          {{ role }}
+        </div>
+      </popover>
     </span>
   </g-link>
 </template>
 
 <script>
 import { path, join } from 'ramda'
-import ContributorPopover from './ContributorPopover'
+import ResImage from './ResImage'
+import Popover from './Popover'
 
 export default {
-  components: { ContributorPopover },
-
+  components: { ResImage, Popover },
   props: {
     contributor: {
       type: Object,
@@ -26,9 +29,6 @@ export default {
         avatar: null,
         role: null
       })
-    },
-    popover: {
-      type: String
     }
   },
   computed: {

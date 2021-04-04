@@ -1,23 +1,9 @@
 <template>
-  <!-- <div class="relative" :style="style">
-    <doughnut-chart
-      :percent="value"
-      :width="size"
-      :height="size"
-      :foregroundColor="color"
-      :backgroundColor="background"
-    ></doughnut-chart>
-    <div class="absolute w-full h-full inset-0 flex justify-center doughnuts-center flex-col">
-      <span v-if="label" class="text-gray-600 font-mono text-lg font-bold">{{ label }}</span>
-      <span v-if="description" class="text-gray-500 font-light">{{ description }}</span>
-    </div>
-  </div> -->
   <div class="relative">
     <div
       class="absolute w-full h-full flex flex-col justify-center content-center z-10 text-center"
     >
-      <span v-if="label" class="text-gray-600 font-mono text-lg font-bold">{{ label }}</span>
-      <span v-if="description" class="text-gray-500 font-light">{{ description }}</span>
+      <slot></slot>
     </div>
     <svg width="100%" height="100%" viewBox="0 0 42 42" class="donut">
       <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
@@ -52,12 +38,6 @@ export default {
     value: {
       type: Number,
       default: 0
-    },
-    label: {
-      type: [String, Number]
-    },
-    description: {
-      type: String
     },
     color: {
       type: String,

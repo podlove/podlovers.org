@@ -10,7 +10,10 @@
         class="relative w-11/12 lg:w-7/12 max-w-4xl mt-16 mb-16 bg-gray-100 border-gray-400 rounded shadow-lg mx-auto"
         @mouseleave="selectSearchResult(null)"
       >
-        <button class="absolute top-0 right-0 -mt-12 lg:-mr-10 lg:-mt-10 text-gray-100" @click="hideSearch">
+        <button
+          class="absolute top-0 right-0 -mt-12 lg:-mr-10 lg:-mt-10 text-gray-100"
+          @click="hideSearch"
+        >
           <icon type="close" :size="35" />
         </button>
         <div class="w-full flex px-5 py-2">
@@ -31,10 +34,17 @@
           </button>
         </div>
         <transition name="fadeHeight" mode="out-in">
-          <div class="border-t border-gray-300 px-6 py-6 text-gray-600 text-center" v-if="!hasResults && query && query.length > 0">
+          <div
+            class="border-t border-gray-300 px-6 py-6 text-gray-600 text-center"
+            v-if="!hasResults && query && query.length > 0"
+          >
             {{ $t('SEARCH.NO_RESULTS') }}
           </div>
-          <div class="results border-t border-gray-300 px-3 py-3 overflow-y-auto" v-if="hasResults" ref="results">
+          <div
+            class="results border-t border-gray-300 px-3 py-3 overflow-y-auto"
+            v-if="hasResults"
+            ref="results"
+          >
             <div class="text-gray-800 tracking-wide" v-if="contributors.length > 0">
               <span class="font-normal px-3 mt-3 text-podlove-blue-700 opacity-75">
                 {{ $t(`SEARCH.CATEGORY.CONTRIBUTOR`) }}
@@ -49,9 +59,11 @@
                 @mouseover="selectSearchResult(result.node.id)"
                 @focus="selectSearchResult(result.node.id)"
               >
-                <g-image
+                <res-image
+                  :src="result.node.avatar"
+                  :width="30"
+                  :height="30"
                   class="rounded-full mr-2"
-                  :src="require(`!!assets-loader?width=30&height=30!@images/${result.node.avatar}`)"
                 />
 
                 {{ result.node.name }}
@@ -91,12 +103,7 @@
                 @mouseover="selectSearchResult(result.node.id)"
                 @focus="selectSearchResult(result.node.id)"
               >
-                <g-image
-                  class="rounded-full mr-2"
-                  :src="
-                    require(`!!assets-loader?width=30&height=30!@images/${result.node.speaker.avatar}`)
-                  "
-                />
+              <res-image :src="result.node.speaker.avatar" :width="30" :height="30" class="rounded-full mr-2" />
                 <div class="truncate leading-tight">
                   <div class="italic truncate">{{ result.node.text }}</div>
                   <div class="text-sm text-gray-400 font-light">
@@ -116,8 +123,9 @@
 import { mapActions, mapState } from 'redux-vuex'
 
 import { Icon } from '~/externals'
-import Loader from './icon/Loader'
 import { selectors } from '~/store/reducers'
+import Loader from './icon/Loader'
+import ResImage from './ResImage'
 
 export default {
   data: mapState({
@@ -133,7 +141,8 @@ export default {
   }),
   components: {
     Icon,
-    Loader
+    Loader,
+    ResImage
   },
   methods: {
     ...mapActions(

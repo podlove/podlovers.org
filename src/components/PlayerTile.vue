@@ -2,20 +2,23 @@
   <div>
     <div class="flex">
       <div class="player-tile-button w-20 h-20 mr-4 relative flex-shrink-0 mt-1">
-        <g-image
-          v-if="episode.poster"
-          :src="require(`!!assets-loader?width=100&height=100!@images/${episode.poster}`)"
+        <res-image
+          :src="episode.poster"
+          :width="100"
+          :height="100"
           class="rounded w-20 h-20 shadow-xs"
         />
         <div
           class="absolute flex opacity-50 hover:opacity-100 items-center justify-center w-20 h-20 inset-0"
         >
-          <play-button
-            color="rgba(255, 255, 255)"
-            background="rgba(44, 82, 130)"
-            :size="50"
-            :id="episode.id"
-          />
+          <ClientOnly>
+            <play-button
+              color="rgba(255, 255, 255)"
+              background="rgba(44, 82, 130)"
+              :size="50"
+              :id="episode.id"
+            />
+          </ClientOnly>
         </div>
       </div>
       <div class="flex flex-col overflow-hidden">
@@ -33,14 +36,6 @@
                 v-for="contributor in contributors"
                 :contributor="contributor"
                 :key="`contributor-${contributor.id}`"
-                :popover="`popover-contributor-${episode.id}-${contributor.id}`"
-              />
-              <contributor-popover
-                v-for="contributor in contributors"
-                :key="`popover-contributor-${contributor.id}`"
-                :name="contributor.name"
-                :role="contributor.role"
-                :id="`popover-contributor-${episode.id}-${contributor.id}`"
               />
             </div>
             <div class="flex">
@@ -82,14 +77,14 @@ import { toHumanTime } from '@podlove/utils/time'
 import truncate from 'trunc-text'
 
 import Contributor from './Contributor'
-import ContributorPopover from './ContributorPopover'
 import PlayButton from './PlayButton'
+import ResImage from './ResImage'
 
 export default {
   components: {
     PlayButton,
     Contributor,
-    ContributorPopover
+    ResImage
   },
 
   props: {

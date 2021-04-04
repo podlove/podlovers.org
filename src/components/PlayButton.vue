@@ -1,13 +1,11 @@
 <template>
-  <ClientOnly>
-    <play-button
-      :size="size"
-      :color="color"
-      :background="background"
-      @click="play"
-      :type="playing ? 'pause' : 'play'"
-    />
-  </ClientOnly>
+  <play-button
+    :size="size"
+    :color="color"
+    :background="background"
+    @click="play"
+    :type="playing ? 'pause' : 'play'"
+  />
 </template>
 
 <script>

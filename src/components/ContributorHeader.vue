@@ -5,11 +5,7 @@
     <div class="w-app flex font-light items-center flex-col mt-6">
       <div class="flex flex-col items-center md:items-start md:flex-row">
         <div class="contributor-poster relative mb-4 md:mb-0 md:mr-8">
-          <g-image
-            v-if="avatar"
-            :src="require(`!!assets-loader?width=180&height=180!@images/${avatar}`)"
-            class="rounded shadow-lg border border-podlove-blue-700"
-          />
+          <res-image :src="avatar" :width="180" :height="180" class="rounded shadow-lg border border-podlove-blue-700" />
         </div>
         <div class="flex flex-col items-center md:block mb-5">
           <h1 v-if="name" class="text-gray-100 text-3xl" v-html="name" />
@@ -25,10 +21,7 @@
                 rel="noopener noreferrer"
                 class="mr-2"
               >
-                <g-image
-                  :src="require(`!!assets-loader?width=60&height=60!@images/${service.logo}`)"
-                  class="rounded shadow-lg w-8 h-8"
-                />
+                <res-image :src="service.logo" :width="60" :height="60" class="rounded shadow-lg w-8 h-8" />
               </a>
             </div>
           </div>
@@ -44,10 +37,7 @@
                 rel="noopener noreferrer"
                 class="mr-2"
               >
-                <g-image
-                  :src="require(`!!assets-loader?width=60&height=60!@images/${service.logo}`)"
-                  class="rounded shadow-lg w-8 h-8"
-                />
+                <res-image :src="service.logo" :width="60" :height="60" class="rounded shadow-lg w-8 h-8" />
               </a>
             </div>
           </div>
@@ -59,8 +49,10 @@
 
 <script>
 import { toHumanTime } from '@podlove/utils/time'
+import ResImage from './ResImage'
 
 export default {
+  components: { ResImage },
   props: {
     avatar: {
       type: String

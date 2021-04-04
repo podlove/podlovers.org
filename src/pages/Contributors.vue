@@ -18,12 +18,7 @@
               v-for="(contributor, index) in role.contributors"
               :key="`contributor-${index}`"
             >
-              <g-image
-                v-if="contributor.avatar"
-                :src="require(`!!assets-loader?width=200&height=200!@images/${contributor.avatar}`)"
-                class="rounded-full w-24 h-24 mb-4"
-              ></g-image>
-
+              <res-image :src="contributor.avatar" :width="200" :height="200" class="rounded-full w-24 h-24 mb-4" />
               <h3 class="text-lg font-normal">{{ contributor.name }}</h3>
 
               <p class="text-sm italic mb-2">
@@ -101,6 +96,8 @@ import {
   filter
 } from 'ramda'
 
+import ResImage from '~/components/ResImage'
+
 export default {
   computed: {
     roles() {
@@ -152,6 +149,9 @@ export default {
         pathOr([], ['$page', 'allPodcastContributorStatistics', 'edges'])
       )(this)
     }
+  },
+  components: {
+    ResImage
   }
 }
 </script>

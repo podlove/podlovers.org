@@ -25,10 +25,16 @@
                   :href="client.link"
                   target="_blank"
                   rel="noopener noreferrer"
-                  ><g-image :src="client.icon" class="w-8 mb-0 sm:w-10 sm:mb-2" /><span
-                    class="font-light text-lg truncate px-2 text-blue-800"
-                    >{{ client.title }}</span
-                  ></a
+                >
+                  <res-image
+                    :src="client.icon"
+                    :width="40"
+                    :height="40"
+                    class="w-8 mb-0 sm:w-10 sm:mb-2"
+                  />
+                  <span class="font-light text-lg truncate px-2 text-blue-800">{{
+                    client.title
+                  }}</span></a
                 >
               </div>
             </div>

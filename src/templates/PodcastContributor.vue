@@ -20,62 +20,75 @@
               class="cursor-pointer mb-4"
               :value="episodesRelative"
               :size="200"
-              :label="episodesCount"
-              :description="$t('CONTRIBUTOR.EPISODES_TOTAL')"
               :color="colors.orange[600]"
               :background="colors.orange[200]"
-              v-popover:episodesOverlay
-            ></doughnut-chart>
+            >
+              <div>
+                <div class="text-gray-600 font-mono text-lg font-bold">{{ episodesCount }}</div>
+                <div class="text-gray-500 font-light">{{ $t('CONTRIBUTOR.EPISODES_TOTAL') }}</div>
+                <popover>
+                  <div class="text-sm text-gray-500 text-center">
+                    {{
+                      $t('CONTRIBUTOR.EPISODES_TOTAL_TOOLTIP', {
+                        relative: episodesRelative,
+                        total: showEpisodesCount
+                      })
+                    }}
+                  </div>
+                </popover>
+              </div>
+            </doughnut-chart>
 
             <doughnut-chart
               class="cursor-pointer mb-4"
               :value="talkTimeRelative"
               :size="200"
-              :label="toHumanTime(talkTime)"
-              :description="$t('CONTRIBUTOR.TALK_TIME_TOTAL')"
               :color="colors.green[600]"
               :background="colors.green[200]"
-              v-popover:talkTimeOverlay
-            ></doughnut-chart>
+            >
+              <div>
+                <div class="text-gray-600 font-mono text-lg font-bold">
+                  {{ toHumanTime(talkTime) }}
+                </div>
+                <div class="text-gray-500 font-light">{{ $t('CONTRIBUTOR.TALK_TIME_TOTAL') }}</div>
+                <popover>
+                  <div class="text-sm text-gray-500 text-center">
+                    {{
+                      $t('CONTRIBUTOR.TALK_TIME_TOTAL_TOOLTIP', {
+                        relative: talkTimeRelative,
+                        total: toHumanTime(showTalkTime)
+                      })
+                    }}
+                  </div>
+                </popover>
+              </div>
+            </doughnut-chart>
 
             <doughnut-chart
               class="cursor-pointer mb-4"
               :value="wordsRelative"
               :size="200"
-              :label="words"
-              :description="$t('CONTRIBUTOR.WORDS_TOTAL')"
               :color="colors.blue[600]"
               :background="colors.blue[200]"
-              v-popover:wordsOverlay
-            ></doughnut-chart>
+            >
+              <div>
+                <div class="text-gray-600 font-mono text-lg font-bold">
+                  {{ words }}
+                </div>
+                <div class="text-gray-500 font-light">{{ $t('CONTRIBUTOR.WORDS_TOTAL') }}</div>
+                <popover>
+                  <div class="text-sm text-gray-500 text-center">
+                    {{
+                      $t('CONTRIBUTOR.WORDS_TOTAL_TOOLTIP', {
+                        relative: wordsRelative,
+                        total: showWords
+                      })
+                    }}
+                  </div>
+                </popover>
+              </div>
+            </doughnut-chart>
           </div>
-          <popover name="wordsOverlay" event="hover">
-            <div class="text-sm text-gray-500 text-center">
-              {{
-                $t('CONTRIBUTOR.WORDS_TOTAL_TOOLTIP', { relative: wordsRelative, total: showWords })
-              }}
-            </div>
-          </popover>
-          <popover name="talkTimeOverlay" event="hover">
-            <div class="text-sm text-gray-500 text-center">
-              {{
-                $t('CONTRIBUTOR.TALK_TIME_TOTAL_TOOLTIP', {
-                  relative: talkTimeRelative,
-                  total: toHumanTime(showTalkTime)
-                })
-              }}
-            </div>
-          </popover>
-          <popover name="episodesOverlay" event="hover">
-            <div class="text-sm text-gray-500 text-center">
-              {{
-                $t('CONTRIBUTOR.EPISODES_TOTAL_TOOLTIP', {
-                  relative: episodesRelative,
-                  total: showEpisodesCount
-                })
-              }}
-            </div>
-          </popover>
         </section>
 
         <section id="episodes" class="mb-20">
@@ -91,25 +104,44 @@
             <div v-for="(stats, index) in episodeStatistics" :key="stats.episode.id">
               <div class="flex leading-6">
                 <div class="w-1/12 font-semibold mr-4">
-                  <g-link
-                    :to="stats.episode.path"
-                    v-popover="{ name: `popover-episode-${stats.episode.id}` }"
-                    >{{ stats.episode.mnemonic }}</g-link
-                  >
+                  <g-link :to="stats.episode.path">{{ stats.episode.mnemonic }}</g-link>
+                  <popover direction="right">
+                    <div class="text-sm text-gray-500 text-center p-2">
+                      <h3 class="font-bold">{{ stats.episode.title }}</h3>
+                    </div>
+                  </popover>
                 </div>
                 <div class="w-10/12 mr-1">
                   <div
                     class="w-full h-6 border-gray-400 bg-gray-200 border rounded mr-2 relative overflow-hidden"
                   >
-                    <button
-                      class="absolute border-gray-400 border-r h-10 opacity-75 hover:opacity-100"
-                      :to="{ path: stats.episode.path, query: { t: toHumanTime(chapter.start) } }"
-                      @click="playEpisode({ id: stats.episode.id, playtime: chapter.start })"
-                      :style="chapterStyle(stats.episode, chapter)"
+                    <div
                       v-for="(chapter, index) in episodeTimeline(stats.episode.timeline)"
                       :key="`timeline-${stats.episode.id}-${index}`"
-                      v-popover="{ name: `popover-episode-${stats.episode.id}-chapter-${index}` }"
-                    ></button>
+                    >
+                      <button
+                        class="absolute border-gray-400 border-r h-10 opacity-75 hover:opacity-100"
+                        :to="{ path: stats.episode.path, query: { t: toHumanTime(chapter.start) } }"
+                        @click="playEpisode({ id: stats.episode.id, playtime: chapter.start })"
+                        :style="chapterStyle(stats.episode, chapter)"
+                      >
+                        <popover direction="bottom">
+                          <div class="text-sm text-gray-500 text-center">
+                            <h3 class="font-bold">{{ chapter.title }}</h3>
+                            <div class="flex justify-center space-x-2">
+                              <div class="flex">
+                                <duration :size="11" class="mr-1 mt-1" />
+                                <span class="block">{{ toHumanTime(chapter.duration) }}</span>
+                              </div>
+                              <div class="flex">
+                                <speak :size="16" class="mr-1 mt-1" />
+                                <span class="block">{{ toHumanTime(chapter.speaking) }}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </popover>
+                      </button>
+                    </div>
                   </div>
                 </div>
                 <div class="w-1/12 text-right font-mono pr-4 text-sm hidden md:block">
@@ -120,33 +152,6 @@
                 class="w-full border-b border-gray-300 my-3 -mx-2"
                 v-if="index != episodeStatistics.length - 1"
               ></div>
-              <popover :name="`popover-episode-${stats.episode.id}`" event="hover" :width="300">
-                <div class="text-sm text-gray-500 text-center p-2">
-                  <h3 class="font-bold">{{ stats.episode.title }}</h3>
-                </div>
-              </popover>
-
-              <popover
-                v-for="(chapter, index) in episodeTimeline(stats.episode.timeline)"
-                :name="`popover-episode-${stats.episode.id}-chapter-${index}`"
-                :key="`popover-episode-${stats.episode.id}-chapter-${index}`"
-                event="hover"
-                :width="300"
-              >
-                <div class="text-sm text-gray-500 text-center">
-                  <h3 class="font-bold">{{ chapter.title }}</h3>
-                  <div class="flex justify-center space-x-2">
-                    <div class="flex">
-                      <duration :size="11" class="mr-1 mt-1" />
-                      <span class="block">{{ toHumanTime(chapter.duration) }}</span>
-                    </div>
-                    <div class="flex">
-                      <speak :size="16" class="mr-1 mt-1" />
-                      <span class="block">{{ toHumanTime(chapter.speaking) }}</span>
-                    </div>
-                  </div>
-                </div>
-              </popover>
             </div>
           </div>
         </section>
@@ -237,6 +242,7 @@ import ContributorHeader from '~/components/ContributorHeader'
 import DoughnutChart from '~/components/DoughnutChart'
 import Duration from '~/components/icon/HourGlass'
 import Speak from '~/components/icon/Speak'
+import Popover from '~/components/Popover'
 import colors from '~/colors'
 
 export default {
@@ -244,11 +250,14 @@ export default {
     ContributorHeader,
     DoughnutChart,
     Duration,
-    Speak
+    Speak,
+    Popover
   },
 
   data() {
-    return { colors }
+    return {
+      colors
+    }
   },
 
   computed: {

@@ -9,12 +9,7 @@
           <div
             class="flex landing-poster items-center justify-center sm:items-start mb-4 md:mb-0 md:mr-8 w-1/5"
           >
-            <g-image
-              v-if="poster"
-              :title="title"
-              :src="require(`!!assets-loader?width=150&height=150!@images/${poster}`)"
-              class="rounded block shadow-lg border border-podlove-blue-700"
-            />
+            <res-image :src="poster" :title="title" :width="150" :height="150" class="rounded block shadow-lg border border-podlove-blue-700" />
           </div>
           <div class="flex flex-col items-center md:block w-4/5">
             <h1
@@ -96,13 +91,14 @@ query {
 </static-query>
 
 <script>
-import { path, pathOr, slice, head, prop, propOr } from 'ramda'
+import { path, pathOr, head, prop, propOr } from 'ramda'
 
 import PlayerTile from '~/components/PlayerTile'
 import EpisodeHeader from '~/components/EpisodeHeader'
+import ResImage from '~/components/ResImage'
 
 export default {
-  components: { PlayerTile, EpisodeHeader },
+  components: { PlayerTile, EpisodeHeader, ResImage },
 
   computed: {
     episodes() {
@@ -164,7 +160,7 @@ export default {
         },
         {
           property: 'og:image',
-          content: prop('siteUrl', metadata) + require(`!!assets-loader!@images/${this.poster}`).src
+          content: prop('siteUrl', metadata) + '/assets/images/' + this.poster
         }
       ]
     }

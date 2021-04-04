@@ -1,20 +1,17 @@
 <template>
   <div class="p-2">
     <div class="flex items-center mb-2">
-      <bullet
-        :top="true"
-        :bottom="true"
-        :time="start"
-        v-popover="{ name: `popover-contributor-${speaker.id}` }"
-      >
+      <bullet :top="true" :bottom="true" :time="start">
         <g-link :to="speaker.link">
-          <span v-if="speaker.avatar">
-            <g-image
-              v-if="speaker.avatar"
-              :src="require(`!!assets-loader?width=48&height=48!@images/${speaker.avatar}`)"
-            />
+          <span v-if="speaker.avatar" @mouseover="showPopover" @mouseleave="hidePopover">
+            <res-image :src="speaker.avatar" :width="48" :height="48" class="mr-2" />
           </span>
         </g-link>
+        <popover direction="right">
+          <div class="text-sm text-gray-800 p-1 text-center whitespace-no-wrap">
+            <h3 class="font-bold">{{ speaker.name }}</h3>
+          </div>
+        </popover>
       </bullet>
       <a class="block uppercase font-normal cursor-pointer px-2">
         {{ speaker.nickname }}
@@ -53,17 +50,18 @@ import { mapActions, mapState } from 'redux-vuex'
 
 import { selectors } from '~/store/reducers'
 import Bullet from './Bullet'
+import ResImage from '../ResImage'
+import Popover from '../Popover'
 
 export default {
-  components: { Bullet },
+  components: { Bullet, ResImage, Popover },
 
   data: mapState({
-    ghost: selectors.player.ghost.time,
-    hovered: selectors.player.ghost.active,
-    current: selectors.current.episode,
-    playtime: selectors.player.playtime
-  }),
-
+        ghost: selectors.player.ghost.time,
+        hovered: selectors.player.ghost.active,
+        current: selectors.current.episode,
+        playtime: selectors.player.playtime
+      }),
   props: {
     id: {
       type: String,
@@ -86,7 +84,6 @@ export default {
         link: join('/', ['contributor', path(['data', 'speaker', 'slug'], this)])
       }
     },
-
     start() {
       return prop('start', this.data)
     },
@@ -136,6 +133,12 @@ export default {
       }
 
       return null
+    },
+    showPopover() {
+      this.popoverVisible = true
+    },
+    hidePopover() {
+      this.popoverVisible = false
     }
   }
 }
