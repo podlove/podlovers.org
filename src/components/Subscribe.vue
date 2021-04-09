@@ -27,7 +27,7 @@
                   rel="noopener noreferrer"
                 >
                   <res-image
-                    :src="client.icon"
+                    :data="client.icon"
                     :width="40"
                     :height="40"
                     class="w-8 mb-0 sm:w-10 sm:mb-2"
@@ -82,10 +82,11 @@ import { getPlatform } from '@podlove/utils/useragent'
 import { Icon } from '~/externals'
 
 import CustomTransition from '~/components/CustomTransition'
+import ResImage from '~/components/ResImage'
 import { selectors } from '~/store/reducers'
 
 export default {
-  components: { Icon, CustomTransition },
+  components: { Icon, CustomTransition, ResImage },
 
   data: mapState({
     visible: selectors.subscribeButton.visible

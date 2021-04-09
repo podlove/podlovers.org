@@ -1,7 +1,7 @@
 <template>
   <img
-    v-if="src"
-    :src="`/images/${src}?width=${width}&height=${height}`"
+    v-if="imagePath"
+    :src="imagePath"
     :width="width"
     :height="height"
     :title="title"
@@ -12,6 +12,10 @@
 export default {
   props: {
     src: {
+      type: String,
+      default: null
+    },
+    data: {
       type: String,
       default: null
     },
@@ -26,6 +30,11 @@ export default {
     title: {
       type: String,
       default: null
+    }
+  },
+  computed: {
+    imagePath () {
+      return this.src ? `/images/${this.src}?width=${this.width}&height=${this.height}` : this.data
     }
   }
 }
