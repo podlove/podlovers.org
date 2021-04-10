@@ -3,7 +3,7 @@
     <span v-if="avatar" class="relative">
       <res-image :src="avatar" :width="48" :height="48" class="rounded" />
       <popover>
-        <div class="text-sm text-gray-800 p-1 text-center whitespace-no-wrap">
+        <div class="text-sm text-gray-800 p-1 text-center whitespace-nowrap">
           <h3 class="font-bold">{{ name }}</h3>
           {{ role }}
         </div>

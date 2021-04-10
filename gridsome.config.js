@@ -11,12 +11,6 @@ module.exports = {
   siteUrl: 'https://podlovers.org',
   plugins: [
     {
-      use: 'gridsome-plugin-tailwindcss',
-      options: {
-        config: './tailwind.config.js'
-      }
-    },
-    {
       use: '@gridsome/source-wordpress',
       options: {
         baseUrl: 'https://backend.podlovers.org', // required

@@ -23,7 +23,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="postcss">
 .main {
   min-height: calc(110vh - 100px);
 }

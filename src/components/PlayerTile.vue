@@ -6,7 +6,7 @@
           :src="episode.poster"
           :width="100"
           :height="100"
-          class="rounded w-20 h-20 shadow-xs"
+          class="rounded w-20 h-20 ring-1 ring-black ring-opacity-5"
         />
         <div
           class="absolute flex opacity-50 hover:opacity-100 items-center justify-center w-20 h-20 inset-0"
@@ -26,7 +26,7 @@
           <g-link
             :to="episode.path"
             v-if="episode.title"
-            class="leading-tight sm:leading block text-xl mb-1 uppercase whitespace-no-wrap truncate"
+            class="leading-tight sm:leading block text-xl mb-1 uppercase whitespace-nowrap truncate"
             >{{ episode.mnemonic }} {{ episode.title }}</g-link
           >
           <div class="block md:flex mb-2">

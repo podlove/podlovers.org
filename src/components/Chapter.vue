@@ -15,7 +15,7 @@
     </span>
 
     <chapter-progress
-      class="w-full whitespace-no-wrap"
+      class="w-full whitespace-nowrap"
       :chapter="chapter"
       :playtime="playtime"
       :ghost="ghost"

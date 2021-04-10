@@ -7,7 +7,7 @@
       <div class="lg:w-app flex font-light items-center flex-col mt-6">
         <div class="flex flex-col items-center md:items-start md:flex-row">
           <div
-            class="flex landing-poster items-center justify-center sm:items-start mb-4 md:mb-0 md:mr-8 w-1/5"
+            class="flex landing-poster items-center justify-center sm:items-start mb-4 md:mb-0 md:mr-8 w-1/5 -mt-2"
           >
             <res-image :src="poster" :title="title" :width="150" :height="150" class="rounded block shadow-lg border border-podlove-blue-700" />
           </div>
@@ -18,7 +18,7 @@
             >
               {{ subtitle }}
             </h1>
-            <p class="text-gray-200 hidden md:block lg:text-xl w-10/12 md:text-lg font-thin">
+            <p class="text-gray-200 hidden md:block lg:text-xl w-10/12 md:text-lg font-extralight">
               {{ summary }}
             </p>
           </div>
@@ -36,7 +36,7 @@
         />
       </div>
       <div class="lg:w-app py-32 flex justify-center items-center" v-else>
-        <span class="italic font-thin text-xl"> here be dragons </span>
+        <span class="italic font-extralight text-xl"> here be dragons </span>
       </div>
     </div>
   </Layout>

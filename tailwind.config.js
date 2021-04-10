@@ -1,32 +1,9 @@
 const colors = require('./src/colors')
 
 module.exports = {
-  purge: ['./src/**/*.vue'],
+  purge: ['./src/**/*.{js,jsx,ts,tsx,vue}', './dist/**/*.html'],
   theme: {
-    colors: {
-      blue: {
-        100: '#DCE4EB',
-        200: '#C8D3DF',
-        300: '#A2B5C8',
-        400: '#738FAA',
-        500: '#4C6780',
-        600: '#2C4A66',
-        700: '#1B3854',
-        800: '#102A43',
-        900: '#051729'
-      },
-      gray: {
-        100: '#FFFFFF',
-        200: '#EDEFF2',
-        300: '#CAD1D7',
-        400: '#9EA5AC',
-        500: '#767F87',
-        600: '#56616A',
-        700: '#3D464D',
-        800: '#22282C',
-        900: '#070809'
-      }
-    },
+    colors,
     screens: {
       sm: '640px',
       md: '768px',
@@ -58,12 +35,6 @@ module.exports = {
         '"Courier New"',
         'monospace'
       ]
-    },
-    borderWidth: {
-      default: '1px',
-      0: '0',
-      2: '2px',
-      4: '4px'
     },
     inset: {
       0: 0,

@@ -8,7 +8,7 @@
           </span>
         </g-link>
         <popover direction="right">
-          <div class="text-sm text-gray-800 p-1 text-center whitespace-no-wrap">
+          <div class="text-sm text-gray-800 p-1 text-center whitespace-nowrap">
             <h3 class="font-bold">{{ speaker.name }}</h3>
           </div>
         </popover>

@@ -1,3 +1,5 @@
+import './tailwind.css';
+
 import localePlugin from '../locales'
 
 import { createStore } from './store'

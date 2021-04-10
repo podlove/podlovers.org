@@ -11,7 +11,7 @@
               ><icon color="rgba(255, 255, 255, 0.8)" :size="40" type="close"
             /></ClientOnly>
           </button>
-          <h2 class="absolute font-thin text-3xl text-gray-100 top-0 left-0 ml-5 -mt-16">
+          <h2 class="absolute font-extralight text-3xl text-gray-100 top-0 left-0 ml-5 -mt-16">
             Subscribe
           </h2>
           <div class="overflow-y-auto">
@@ -21,7 +21,7 @@
             >
               <div class="w-full mb-4 sm:w-40" v-for="client in items" :key="client.id">
                 <a
-                  class="flex items-center flex-row sm:flex-col border-2 rounded p-4 sm:pt-5 whitespace-no-wrap border-gray-400 mx-2 overflow-hidden hover:border-blue-800 hover:shadow hover:bg-podlove-blue-200 bg-podlove-blue-100"
+                  class="flex items-center flex-row sm:flex-col border-2 rounded p-4 sm:pt-5 whitespace-nowrap border-gray-400 mx-2 overflow-hidden hover:border-blue-800 hover:shadow hover:bg-podlove-blue-200 bg-podlove-blue-100"
                   :href="client.link"
                   target="_blank"
                   rel="noopener noreferrer"
