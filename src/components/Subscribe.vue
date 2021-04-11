@@ -21,7 +21,7 @@
             >
               <div class="w-full mb-4 sm:w-40" v-for="client in items" :key="client.id">
                 <a
-                  class="flex items-center flex-row sm:flex-col border-2 rounded p-4 sm:pt-5 whitespace-nowrap border-gray-400 mx-2 overflow-hidden hover:border-blue-800 hover:shadow hover:bg-podlove-blue-200 bg-podlove-blue-100"
+                  class="flex items-center flex-row sm:flex-col border-2 rounded p-4 sm:pt-5 whitespace-nowrap border-gray-400 mx-2 overflow-hidden hover:border-primary-800 hover:shadow hover:bg-primary-200 bg-primary-100"
                   :href="client.link"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -32,7 +32,7 @@
                     :height="40"
                     class="w-8 mb-0 sm:w-10 sm:mb-2"
                   />
-                  <span class="font-light text-lg truncate px-2 text-blue-800">{{
+                  <span class="font-light text-lg truncate px-2 text-primary-800">{{
                     client.title
                   }}</span></a
                 >
@@ -42,7 +42,7 @@
             <div class="mx-2 mb-4">
               <div
                 ref="feed"
-                class="rounded p-2 w-full border-gray-400 border-2 text-blue-800 hover:border-blue-800 focus:border-blue-800 px-2 font-light cursor-pointer truncate hover:bg-podlove-blue-200 bg-podlove-blue-100 appearance-none"
+                class="rounded p-2 w-full border-gray-400 border-2 text-primary-800 hover:border-primary-800 focus:border-primary-800 px-2 font-light cursor-pointer truncate hover:bg-primary-200 bg-primary-100 appearance-none"
                 @click="selectText"
               >
                 {{ feed }}

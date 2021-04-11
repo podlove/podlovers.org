@@ -46,7 +46,7 @@
             ref="results"
           >
             <div class="text-gray-800 tracking-wide" v-if="contributors.length > 0">
-              <span class="font-normal px-3 mt-3 text-podlove-blue-700 opacity-75">
+              <span class="font-normal px-3 mt-3 text-primary-700 opacity-75">
                 {{ $t(`SEARCH.CATEGORY.CONTRIBUTOR`) }}
               </span>
               <button
@@ -70,7 +70,7 @@
               </button>
             </div>
             <div class="text-gray-800 tracking-wide" v-if="episodes.length > 0">
-              <span class="font-normal px-3 mt-3 text-podlove-blue-700 opacity-75">
+              <span class="font-normal px-3 mt-3 text-primary-700 opacity-75">
                 {{ $t(`SEARCH.CATEGORY.EPISODE`) }}
               </span>
               <button
@@ -83,14 +83,14 @@
                 @mouseover="selectSearchResult(result.node.id)"
                 @focus="selectSearchResult(result.node.id)"
               >
-                <span class="rounded-lg bg-podlove-blue-600 text-gray-100 px-2 p-1 mr-2 text-sm">{{
+                <span class="rounded-lg bg-primary-600 text-gray-100 px-2 p-1 mr-2 text-sm">{{
                   result.node.mnemonic
                 }}</span>
                 {{ result.node.title }}
               </button>
             </div>
             <div class="text-gray-800 tracking-wide" v-if="transcripts.length > 0">
-              <span class="font-normal px-3 mt-3 text-podlove-blue-700 opacity-75">
+              <span class="font-normal px-3 mt-3 text-primary-700 opacity-75">
                 {{ $t(`SEARCH.CATEGORY.TRANSCRIPT`) }}
               </span>
               <button

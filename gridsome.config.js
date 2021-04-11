@@ -1,3 +1,4 @@
+const config = require('config')
 const { get } = require('lodash')
 
 // This is where project configuration and plugin options are located.
@@ -7,13 +8,13 @@ const { get } = require('lodash')
 // To restart press CTRL + C in terminal and run `gridsome develop`
 
 module.exports = {
-  siteName: 'Podlovers',
-  siteUrl: 'https://podlovers.org',
+  siteName: config.get('siteName'),
+  siteUrl: config.get('siteUrl'),
   plugins: [
     {
       use: '@gridsome/source-wordpress',
       options: {
-        baseUrl: 'https://backend.podlovers.org', // required
+        baseUrl: config.get('api'), // required
         apiBase: 'wp-json',
         typeName: 'WordPress',
         perPage: 100,
@@ -23,7 +24,7 @@ module.exports = {
     {
       use: '@podlove/source-publisher',
       options: {
-        baseUrl: 'https://backend.podlovers.org', // required
+        baseUrl: config.get('api'), // required
         apiBase: 'wp-json',
         typeName: 'Podcast',
         imageCache: 'static/images'

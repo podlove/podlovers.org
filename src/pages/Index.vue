@@ -2,14 +2,21 @@
   <Layout>
     <div
       id="header"
-      class="landing-header w-full px-8 py-20 bg-podlove-blue-900 flex items-center justify-center relative shadow"
+      class="w-full px-8 py-20 bg-primary-900 flex items-center justify-center relative shadow"
+      :style="style"
     >
       <div class="lg:w-app flex font-light items-center flex-col mt-6">
         <div class="flex flex-col items-center md:items-start md:flex-row">
           <div
             class="flex landing-poster items-center justify-center sm:items-start mb-4 md:mb-0 md:mr-8 w-1/5 -mt-2"
           >
-            <res-image :src="poster" :title="title" :width="150" :height="150" class="rounded block shadow-lg border border-podlove-blue-700" />
+            <res-image
+              :src="poster"
+              :title="title"
+              :width="150"
+              :height="150"
+              class="rounded block shadow-lg border border-primary-700"
+            />
           </div>
           <div class="flex flex-col items-center md:block w-4/5">
             <h1
@@ -85,6 +92,9 @@ query {
       subtitle,
       summary,
       poster
+    },
+    header {
+      background
     }
   }
 }
@@ -123,6 +133,19 @@ export default {
 
     subtitle() {
       return path(['$static', 'metadata', 'PodcastShow', 'subtitle'], this)
+    },
+
+    background() {
+      return path(['$static', 'metadata', 'header', 'background'], this)
+    },
+
+    style() {
+      if (this.background) {
+        return {
+          'background-image': `url(${this.background})`
+        }
+      }
+      return {}
     }
   },
 
@@ -169,10 +192,6 @@ export default {
 </script>
 
 <style>
-.landing-header {
-  background-image: url('/bg-pattern.png');
-}
-
 .landing-poster {
   width: 150px;
   height: 150px;

@@ -38,8 +38,8 @@
             :timeline="episode.timeline"
           />
         </section>
-        <section id="discuss">
-          <discuss class="mb-12 px-2" />
+        <section id="discuss" v-if="hasComments">
+          <discourse class="mb-12 px-2" />
         </section>
       </div>
     </div>
@@ -120,6 +120,9 @@ query {
     },
     contributors {
       groups
+    },
+    comments {
+      discourse
     }
   }
 }
@@ -137,7 +140,7 @@ import Timeline from '~/components/Timeline'
 import Subscribe from '~/components/Subscribe'
 import EpisodeNavigation from '~/components/EpisodeNavigation'
 import EpisodeHeader from '~/components/EpisodeHeader'
-import Discuss from '~/components/Discuss'
+import Discourse from '~/components/Discourse'
 
 export default {
   data: mapState({
@@ -152,7 +155,7 @@ export default {
     Timeline,
     EpisodeHeader,
     EpisodeNavigation,
-    Discuss
+    Discourse
   },
 
   computed: {
@@ -176,6 +179,10 @@ export default {
     },
     groups() {
       return pathOr([], ['$static', 'metadata', 'contributors', 'groups'], this)
+    },
+    hasComments() {
+      const discourse = path(['$static', 'metadata', 'comments', 'discourse'], this)
+      return !!discourse;
     }
   },
 

@@ -2,8 +2,8 @@
   "name": "podlove-frontend",
   "private": true,
   "scripts": {
-    "build": "npm run clean && gridsome build",
-    "dev": "npm run clean && gridsome develop",
+    "build": "npm run clean && env NODE_APP_INSTANCE=podlovers gridsome build",
+    "dev": "npm run clean && env NODE_APP_INSTANCE=podlovers gridsome develop",
     "explore": "gridsome explore",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
@@ -17,7 +17,7 @@
     "@podlove/player-state": "5.4.0",
     "@podlove/utils": "5.4.0",
     "gridsome": "0.7.23",
-    "lodash.kebabcase": "4.1.1",
+    "lodash": "4.17.21",
     "no-scroll": "2.1.1",
     "normalize-url": "^4.5.0",
     "query-string": "6.14.0",
@@ -48,7 +48,8 @@
     "prettier": "2.2.1",
     "pretty-quick": "3.1.0",
     "promise-sequential": "1.1.1",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.1.0"
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.1.0",
+    "config": "3.3.6"
   },
   "husky": {
     "hooks": {

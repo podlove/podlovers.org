@@ -1,12 +1,8 @@
-const path = require('path')
-const feed = require('./src/plugins/feed')
-const contributors = require('./src/plugins/contributors')
-
+const config = require('./plugins/config')
 
 module.exports = function (api) {
   api.loadSource(async (actions) => {
-    await feed(actions)
-    await contributors(actions)
+    await config(actions)
   })
 
   api.chainWebpack((config) => {

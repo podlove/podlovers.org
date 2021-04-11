@@ -1,13 +1,19 @@
 <template>
   <div
     id="header"
-    class="episode-header w-full px-8 pt-20 pb-32 bg-podlove-blue-900 flex items-center justify-center relative shadow"
+    class="w-full px-8 pt-20 pb-32 bg-primary-900 flex items-center justify-center relative shadow"
     :class="{ 'pb-40': expanded }"
+    :style="style"
   >
     <div class="w-app flex font-light items-center flex-col mt-6">
       <div class="flex flex-col items-center md:items-start md:flex-row">
         <div class="episode-poster relative mb-4 md:mb-0 md:mr-8">
-          <res-image :src="poster" :width="180" :height="180" class="rounded shadow-lg border border-podlove-blue-700" />
+          <res-image
+            :src="poster"
+            :width="180"
+            :height="180"
+            class="rounded shadow-lg border border-primary-700"
+          />
           <div
             class="absolute w-full h-full inset-0 flex items-center justify-center opacity-75 hover:opacity-100 transition ease-in duration-100"
           >
@@ -37,10 +43,7 @@
               v-for="(contributor, index) in contributors"
               :key="`contributor-${contributor.id}`"
             >
-              <contributor
-                class="block w-12 mb-1"
-                :contributor="contributor"
-              />
+              <contributor class="block w-12 mb-1" :contributor="contributor" />
               <span class="text-gray-300 truncate">{{ contributor.nickname }}</span>
             </div>
           </div>
@@ -51,7 +54,19 @@
   </div>
 </template>
 
+
+<static-query>
+query {
+  metadata {
+    header {
+      background
+    }
+  }
+}
+</static-query>
+
 <script>
+import { path } from 'ramda'
 import { toHumanTime } from '@podlove/utils/time'
 
 import PlayButton from './PlayButton'
@@ -102,16 +117,23 @@ export default {
   computed: {
     expanded() {
       return !!this.$slots.default
+    },
+    background() {
+      return path(['$static', 'metadata', 'header', 'background'], this)
+    },
+    style() {
+      if (this.background) {
+        return {
+          'background-image': `url(${this.background})`
+        }
+      }
+      return {}
     }
   }
 }
 </script>
 
 <style scoped>
-.episode-header {
-  background-image: url('/bg-pattern.png');
-}
-
 .episode-poster {
   width: 180px;
   height: 180px;

@@ -1,5 +1,5 @@
 module.exports = {
-  blue: {
+  primary: {
     100: '#F2F8FB',
     200: '#D9EBF8',
     300: '#B0D7F4',
@@ -11,7 +11,7 @@ module.exports = {
     900: '#042944'
   },
 
-  green: {
+  secondary: {
     100: '#F5FDF5',
     200: '#E2F4E0',
     300: '#B7E0B3',
@@ -23,7 +23,7 @@ module.exports = {
     900: '#072804'
   },
 
-  orange: {
+  complementary: {
     100: '#FFF8F6',
     200: '#FEE5DE',
     300: '#FFBFAD',

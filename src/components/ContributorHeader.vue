@@ -1,11 +1,11 @@
 <template>
   <div
-    class="contributor-header w-full px-8 pt-20 pb-32 bg-podlove-blue-900 flex items-center justify-center relative shadow"
+    class="contributor-header w-full px-8 pt-20 pb-32 bg-primary-900 flex items-center justify-center relative shadow"
   >
     <div class="w-app flex font-light items-center flex-col mt-6">
       <div class="flex flex-col items-center md:items-start md:flex-row">
         <div class="contributor-poster relative mb-4 md:mb-0 md:mr-8">
-          <res-image :src="avatar" :width="180" :height="180" class="rounded shadow-lg border border-podlove-blue-700" />
+          <res-image :src="avatar" :width="180" :height="180" class="rounded shadow-lg border border-primary-700" />
         </div>
         <div class="flex flex-col items-center md:block mb-5">
           <h1 v-if="name" class="text-gray-100 text-3xl" v-html="name" />

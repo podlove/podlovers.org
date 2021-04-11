@@ -1,7 +1,7 @@
 <template>
   <Layout>
     <div
-      class="contributors-header w-full px-8 py-20 bg-podlove-blue-900 flex items-center justify-center relative shadow mb-5"
+      class="contributors-header w-full px-8 py-20 bg-primary-900 flex items-center justify-center relative shadow mb-5"
     >
       <div class="lg:w-app mt-6">
         <h1 class="text-3xl text-gray-100">{{ $t('CONTRIBUTOR_LIST.TITLE') }}</h1>

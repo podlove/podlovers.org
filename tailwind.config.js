@@ -1,9 +1,9 @@
-const colors = require('./src/colors')
+const config = require('config')
 
 module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx,vue}', './dist/**/*.html'],
   theme: {
-    colors,
+    colors: config.get('theme.colors'),
     screens: {
       sm: '640px',
       md: '768px',
@@ -43,9 +43,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        'podlove-blue': colors.blue,
-        'podlove-green': colors.green,
-        'podlove-orange': colors.orange
+        'primary': config.get('theme.colors.primary')
       },
       spacing: {
         96: '24rem',

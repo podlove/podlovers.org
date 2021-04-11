@@ -1,0 +1,78 @@
+{
+  "siteName": "Podlovers",
+  "siteTitle": "Podlovers",
+  "siteUrl": "https://podlovers.org",
+  "api": "https://backend.podlovers.org",
+  "feed": "https://feeds.podlovers.org/mp3",
+  "comments": {
+    "discourse": "https://community.podlove.org/"
+  },
+  "header": {
+    "logo": "/logo.svg",
+    "background": "/bg-pattern.png"
+  },
+  "subscribe-button": [
+    {
+      "id": "apple-podcasts",
+      "service": "id1523714548"
+    },
+    {
+      "id": "antenna-pod"
+    },
+    {
+      "id": "beyond-pod"
+    },
+    {
+      "id": "castbox",
+      "service": "Podlovers-id3117097"
+    },
+    {
+      "id": "castro",
+      "service": "id1523714548"
+    },
+    {
+      "id": "clementine"
+    },
+    {
+      "id": "downcast"
+    },
+    {
+      "id": "google-podcasts",
+      "service": "https://feeds.podlovers.org/mp3"
+    },
+    {
+      "id": "itunes"
+    },
+    {
+      "id": "i-catcher"
+    },
+    {
+      "id": "overcast"
+    },
+    {
+      "id": "player-fm"
+    },
+    {
+      "id": "pocket-casts",
+      "service": "194w03r3"
+    },
+    {
+      "id": "pod-grasp"
+    },
+    {
+      "id": "podcast-addict"
+    },
+    {
+      "id": "podcast-republic"
+    },
+    {
+      "id": "podcat"
+    },
+    {
+      "id": "podscout"
+    },
+    {
+      "id": "rss-radio"
+    }
+  ]
+}

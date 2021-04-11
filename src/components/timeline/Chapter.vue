@@ -6,8 +6,8 @@
     <div
       class="flex items-center space-between p-2 -mx-2 rounded w-full overflow-hidden"
       :class="{
-        'bg-podlove-blue-300': ghostChapter,
-        'bg-podlove-blue-700 text-gray-100': activeChapter
+        'bg-primary-300': ghostChapter,
+        'bg-primary-700 text-gray-100': activeChapter
       }"
     >
       <a

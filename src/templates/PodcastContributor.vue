@@ -20,8 +20,8 @@
               class="cursor-pointer mb-4"
               :value="episodesRelative"
               :size="200"
-              :color="colors.orange[600]"
-              :background="colors.orange[200]"
+              :color="colors.complementary[600]"
+              :background="colors.complementary[200]"
             >
               <div>
                 <div class="text-gray-600 font-mono text-lg font-bold">{{ episodesCount }}</div>
@@ -43,8 +43,8 @@
               class="cursor-pointer mb-4"
               :value="talkTimeRelative"
               :size="200"
-              :color="colors.green[600]"
-              :background="colors.green[200]"
+              :color="colors.secondary[600]"
+              :background="colors.secondary[200]"
             >
               <div>
                 <div class="text-gray-600 font-mono text-lg font-bold">

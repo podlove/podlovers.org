@@ -12,7 +12,7 @@
 
     <div
       class="text-gray-100 h-16 flex justify-center items-center py-4 px-8 w-full"
-      :class="{ 'bg-podlove-blue-900 shadow rounded-b docked-bg': docked }"
+      :class="{ 'bg-primary-900 shadow rounded-b docked-bg': docked }"
     >
       <!-- Discuss -->
       <button
@@ -38,8 +38,9 @@
         <timeline-icon class="mr-3" />
         <span class="uppercase hidden md:block">{{ $t('EPISODE.TIMELINE') }}</span>
       </button>
-      <!-- Discuss -->
+      <!-- Comments -->
       <button
+        v-if="hasComments"
         class="mx-4 font-light flex items-center overflow-visible"
         @click="scrollTo('discuss')"
       >
@@ -54,11 +55,21 @@
   </div>
 </template>
 
+<static-query>
+query {
+  metadata {
+    comments {
+      discourse
+    }
+  }
+}
+</static-query>
+
 <script>
 import { throttle } from 'throttle-debounce'
 import scrollIntoView from 'scroll-into-view-if-needed'
+import { path } from 'ramda'
 
-import { selectors } from '~/store/reducers'
 import { Icon } from '~/externals'
 import DiscussIcon from '~/components/icon/Discuss'
 import TimelineIcon from '~/components/icon/Timeline'
@@ -72,6 +83,12 @@ export default {
     }
   },
   components: { Icon, DiscussIcon, TimelineIcon, SummaryIcon, ShownotesIcon },
+  computed: {
+    hasComments() {
+      const discourse = path(['$static', 'metadata', 'comments', 'discourse'], this)
+      return !!discourse;
+    }
+  },
   mounted() {
     this.handleScroll()
     window && window.addEventListener('scroll', throttle(100, this.handleScroll.bind(this)))
