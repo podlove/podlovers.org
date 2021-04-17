@@ -68,8 +68,8 @@
               class="cursor-pointer mb-4"
               :value="wordsRelative"
               :size="200"
-              :color="colors.blue[600]"
-              :background="colors.blue[200]"
+              :color="colors.primary[600]"
+              :background="colors.primary[200]"
             >
               <div>
                 <div class="text-gray-600 font-mono text-lg font-bold">
@@ -243,7 +243,6 @@ import DoughnutChart from '~/components/DoughnutChart'
 import Duration from '~/components/icon/HourGlass'
 import Speak from '~/components/icon/Speak'
 import Popover from '~/components/Popover'
-import colors from '~/colors'
 
 export default {
   components: {
@@ -256,7 +255,7 @@ export default {
 
   data() {
     return {
-      colors
+      colors: CONFIG.theme.colors
     }
   },
 
@@ -373,7 +372,7 @@ export default {
       return {
         left: `${left}%`,
         width: `${width}%`,
-        background: colors.green[speaking]
+        background: this.colors.secondary[speaking]
       }
     }
   }

@@ -15,9 +15,9 @@
             @input="store.dispatch"
             @simulate="store.dispatch"
             @ghost="store.dispatch"
-            :progressColor="colors.blue[100]"
+            :progressColor="progressColor"
             thumbColor="rgba(255, 255, 255)"
-            :highlightColor="colors.blue[700]"
+            :highlightColor="highlightColor"
             :duration="duration"
             :time="playtime"
             :ghost="ghost"
@@ -61,7 +61,7 @@
                 @click="store.dispatch"
               />
               <play-button
-                :color="colors.blue[700]"
+                :color="highlightColor"
                 background="rgba(255, 255, 255)"
                 class="mx-2 rounded-full shadow-none hover:shadow-md"
                 :type="buttonType"
@@ -231,8 +231,14 @@ export default {
   computed: {
     playbarStyle() {
       return {
-        background: `${colors.blue[700]}E6`
+        background: `${this.highlightColor}E6`
       }
+    },
+    highlightColor() {
+      return CONFIG.theme.colors.primary[700]
+    },
+    progressColor() {
+      return CONFIG.theme.colors.primary[100]
     }
   },
   mounted() {

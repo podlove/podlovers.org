@@ -1,7 +1,7 @@
 <template>
   <div
     class="popover bg-gray-100 z-50 shadow-md p-2 rounded"
-    :class="{ [direction]: true, hidden: !visible, block: visible }"
+    :class="{ [direction]: true, hidden: !visible, block: visible, 'opacity-0': !located, 'opacity-100': located }"
     :style="style"
   >
     <slot />
@@ -19,6 +19,7 @@ export default {
   data() {
     return {
       visible: false,
+      located: false,
       width: 0,
       height: 0,
       parent: {
@@ -36,6 +37,7 @@ export default {
         this.width = this.$el.clientWidth
         this.height = this.$el.clientHeight
         this.parent = this.$el.parentElement.getBoundingClientRect()
+        this.located = true
       })
     }
   },
@@ -71,9 +73,11 @@ export default {
   },
   methods: {
     showPopover() {
+      this.located = false
       this.visible = true
     },
     hidePopover() {
+      this.located = false
       this.visible = false
     }
   }

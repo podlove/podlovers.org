@@ -7,7 +7,7 @@
       :publication-date="episode.publicationDate"
       :duration="episode.duration"
       :contributors="contributors"
-      ><episode-navigation
+      ><episode-navigation :comments="hasComments" :shownotes="!!episode.content"
     /></episode-header>
     <div class="lg:w-full lg:flex lg:justify-center pt-20">
       <div class="lg:w-app">
@@ -19,7 +19,7 @@
             {{ episode.summary }}
           </div>
         </section>
-        <section id="shownotes">
+        <section id="shownotes" v-if="episode.content">
           <h2 class="font-mono inline-block border-gray-400 border-b-2 mb-6 mx-8 sm:mx-2">
             {{ $t('EPISODE.SHOWNOTES') }}
           </h2>
@@ -117,12 +117,6 @@ query {
     PodcastShow {
       title,
       poster
-    },
-    contributors {
-      groups
-    },
-    comments {
-      discourse
     }
   }
 }
@@ -181,8 +175,8 @@ export default {
       return pathOr([], ['$static', 'metadata', 'contributors', 'groups'], this)
     },
     hasComments() {
-      const discourse = path(['$static', 'metadata', 'comments', 'discourse'], this)
-      return !!discourse;
+      const discourse = CONFIG.comments.discourse
+      return !!discourse
     }
   },
 
@@ -275,8 +269,7 @@ export default {
           ? [
               {
                 property: 'og:image',
-                content:
-                  prop('siteUrl', metadata) + '/assets/images/' + poster
+                content: prop('siteUrl', metadata) + '/assets/images/' + poster
               }
             ]
           : []),

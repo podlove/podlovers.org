@@ -13,8 +13,6 @@
         >
           <ClientOnly>
             <play-button
-              color="rgba(255, 255, 255)"
-              background="rgba(44, 82, 130)"
               :size="50"
               :id="episode.id"
             />
@@ -60,16 +58,6 @@
     <div class="summary font-light block md:hidden" v-if="summary" v-html="summary"></div>
   </div>
 </template>
-
-<static-query>
-{
-  metadata {
-    contributors {
-      groups
-    }
-  }
-}
-</static-query>
 
 <script>
 import { pathOr, path } from 'ramda'
@@ -121,7 +109,7 @@ export default {
         }))
     },
     groups() {
-      return pathOr([], ['$static', 'metadata', 'contributors', 'groups'], this)
+      return Object.values(CONFIG.contributors.groups) || []
     }
   },
 

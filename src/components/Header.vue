@@ -28,10 +28,7 @@
 <static-query>
 query {
   metadata {
-    siteName,
-    header {
-      logo
-    }
+    siteName
   }
 }
 </static-query>
@@ -55,7 +52,7 @@ export default {
       return path(['$static', 'metadata', 'siteName'], this)
     },
     logo() {
-      return path(['$static', 'metadata', 'header', 'logo'], this)
+      return path(['header', 'logo'], CONFIG)
     }
   },
 

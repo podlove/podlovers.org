@@ -1,6 +1,6 @@
 <template>
   <custom-transition type="fade">
-    <div v-if="visible" class="fixed inset-0 w-screen h-screen bg-gray-900 bg-opacity-75 p-4">
+    <div v-if="visible" class="fixed inset-0 w-screen h-screen bg-gray-900 bg-opacity-75 p-4 z-50">
       <div
         class="flex w-full h-full items-center justify-center"
         v-click-outside="toggleSubscribeOverlay"
@@ -15,7 +15,7 @@
             Subscribe
           </h2>
           <div class="overflow-y-auto">
-            <h3 class="font-mono inline-block border-gray-400 border-b-2 mb-6">Podcast Clients</h3>
+            <h3 class="font-mono inline-block border-gray-400 border-b-2 mb-6">{{ $t('SUBSCRIBE_BUTTON.CLIENTS') }}</h3>
             <div
               class="subscribe-clients flex justify-between flex-col mb-4 sm:flex-wrap sm:flex-row"
             >
@@ -38,7 +38,7 @@
                 >
               </div>
             </div>
-            <h3 class="font-mono inline-block border-gray-400 border-b-2 mb-6">RSS Feed</h3>
+            <h3 class="font-mono inline-block border-gray-400 border-b-2 mb-6">{{ $t('SUBSCRIBE_BUTTON.FEED') }}</h3>
             <div class="mx-2 mb-4">
               <div
                 ref="feed"
@@ -55,27 +55,9 @@
   </custom-transition>
 </template>
 
-<static-query>
-{
-  metadata {
-    feed
-  },
-
-  clients:allClient {
-    edges {
-      node {
-        id,
-        service
-      }
-    }
-  }
-}
-</static-query>
-
 <script>
 import noScroll from 'no-scroll'
 import { mapState, mapActions } from 'redux-vuex'
-import { pathOr, path, prop } from 'ramda'
 import getClients from '@podlove/clients'
 import { type, platform } from '@podlove/clients/types'
 import { getPlatform } from '@podlove/utils/useragent'
@@ -108,16 +90,15 @@ export default {
 
   computed: {
     feed() {
-      return path(['$static', 'metadata', 'feed'], this)
+      return CONFIG.feed
     },
 
     clients() {
-      return pathOr([], ['$static', 'clients', 'edges'], this)
+      return Object.values(CONFIG['subscribe-button']) || []
     },
 
     items() {
       return this.clients
-        .map(prop('node'))
         .map((client) =>
           getClients({ id: client.id, platform: [getPlatform(), platform.web] })
             .filter((item) => (item.type === type.service ? !!client.service : true))

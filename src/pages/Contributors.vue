@@ -1,7 +1,8 @@
 <template>
   <Layout>
     <div
-      class="contributors-header w-full px-8 py-20 bg-primary-900 flex items-center justify-center relative shadow mb-5"
+      class="w-full px-8 py-20 bg-primary-900 flex items-center justify-center relative shadow mb-5"
+      :style="style"
     >
       <div class="lg:w-app mt-6">
         <h1 class="text-3xl text-gray-100">{{ $t('CONTRIBUTOR_LIST.TITLE') }}</h1>
@@ -70,16 +71,6 @@ query {
 }
 </page-query>
 
-<static-query>
-{
-  metadata {
-    contributors {
-      roles
-    }
-  }
-}
-</static-query>
-
 <script>
 import {
   compose,
@@ -101,7 +92,7 @@ import ResImage from '~/components/ResImage'
 export default {
   computed: {
     roles() {
-      return pathOr([], ['$static', 'metadata', 'contributors', 'roles'], this)
+      return Object.values(CONFIG.contributors.roles) || []
     },
 
     contributors() {
@@ -148,6 +139,17 @@ export default {
         map(propOr({}, 'node')),
         pathOr([], ['$page', 'allPodcastContributorStatistics', 'edges'])
       )(this)
+    },
+    background() {
+      return CONFIG.header.background
+    },
+    style() {
+      if (this.background) {
+        return {
+          'background-image': `url(${this.background})`
+        }
+      }
+      return {}
     }
   },
   components: {
@@ -157,7 +159,4 @@ export default {
 </script>
 
 <style>
-.contributors-header {
-  background-image: url('/bg-pattern.png');
-}
 </style>

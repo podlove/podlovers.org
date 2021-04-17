@@ -92,9 +92,6 @@ query {
       subtitle,
       summary,
       poster
-    },
-    header {
-      background
     }
   }
 }
@@ -136,7 +133,7 @@ export default {
     },
 
     background() {
-      return path(['$static', 'metadata', 'header', 'background'], this)
+      return path(['header', 'background'], CONFIG)
     },
 
     style() {

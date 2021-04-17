@@ -20,8 +20,6 @@
             <ClientOnly>
               <play-button
                 :size="150"
-                color="rgba(255, 255, 255)"
-                background="rgba(44, 82, 130, 0.5)"
                 :id="id"
               />
             </ClientOnly>
@@ -54,19 +52,7 @@
   </div>
 </template>
 
-
-<static-query>
-query {
-  metadata {
-    header {
-      background
-    }
-  }
-}
-</static-query>
-
 <script>
-import { path } from 'ramda'
 import { toHumanTime } from '@podlove/utils/time'
 
 import PlayButton from './PlayButton'
@@ -119,7 +105,7 @@ export default {
       return !!this.$slots.default
     },
     background() {
-      return path(['$static', 'metadata', 'header', 'background'], this)
+      return CONFIG.header.background
     },
     style() {
       if (this.background) {

@@ -49,7 +49,8 @@
     "pretty-quick": "3.1.0",
     "promise-sequential": "1.1.1",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.1.0",
-    "config": "3.3.6"
+    "config": "3.3.6",
+    "config-webpack": "1.0.5"
   },
   "husky": {
     "hooks": {

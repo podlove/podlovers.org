@@ -1,4 +1,4 @@
-import './tailwind.css';
+import './tailwind.css'
 
 import localePlugin from '../locales'
 
@@ -9,7 +9,7 @@ import DefaultLayout from './layouts/Default'
 // Roboto font
 require('typeface-roboto')
 
-export default function (Vue, { isClient, router }) {
+export default function (Vue, { isClient, router, head }) {
   const store = createStore(Vue, { isClient, router })
 
   // Set default layout as a global component

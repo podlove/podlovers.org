@@ -21,17 +21,6 @@ export default {
       type: String,
       default: null
     },
-
-    color: {
-      type: String,
-      default: null
-    },
-
-    background: {
-      type: String,
-      default: null
-    },
-
     size: {
       type: Number,
       default: null
@@ -42,6 +31,16 @@ export default {
     return this.mapState({
       playing: selectors.episode.playing(this.id)
     })
+  },
+
+  computed: {
+    color() {
+      return CONFIG.theme.colors.primary[200]
+    },
+
+    background() {
+      return CONFIG.theme.colors.primary[800]
+    },
   },
 
   components: {

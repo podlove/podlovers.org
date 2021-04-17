@@ -31,10 +31,15 @@ module.exports = {
   SEARCH: {
     PLACEHOLDER: 'Suchen',
     NO_RESULTS: 'Es wurden keine Ergebnisse gefunden',
+    INDEXING: 'Suchindex wird erstellt',
     CATEGORY: {
       EPISODE: 'Episoden',
       CONTRIBUTOR: 'Kontributoren',
       TRANSCRIPT: 'Transkripte'
     }
+  },
+  SUBSCRIBE_BUTTON: {
+    CLIENTS: 'Podcast Clients',
+    FEED: 'RSS Feed'
   }
 }

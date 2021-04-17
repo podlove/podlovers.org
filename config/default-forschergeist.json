@@ -1,0 +1,129 @@
+{
+  "siteName": "Forschergeist",
+  "siteTitle": "Forschergeist",
+  "siteUrl": "https://forschergeist.surge.sh/",
+  "api": "https://forschergeist.de",
+  "feed": "https://forschergeist.de/feed/m4a/",
+  "comments": {
+    "discourse": false
+  },
+  "header": {
+    "logo": false,
+    "background": false
+  },
+  "contributors": {
+    "groups": ["onair"],
+    "roles": ["moderation", "guest"]
+  },
+  "subscribe-button": [
+    {
+      "id": "apple-podcasts",
+      "service": "id1523714548"
+    },
+    {
+      "id": "antenna-pod"
+    },
+    {
+      "id": "beyond-pod"
+    },
+    {
+      "id": "castbox",
+      "service": "Podlovers-id934797989"
+    },
+    {
+      "id": "castro",
+      "service": "id1523714548"
+    },
+    {
+      "id": "clementine"
+    },
+    {
+      "id": "downcast"
+    },
+    {
+      "id": "google-podcasts",
+      "service": "https://forschergeist.de/feed/m4a/"
+    },
+    {
+      "id": "itunes"
+    },
+    {
+      "id": "i-catcher"
+    },
+    {
+      "id": "overcast"
+    },
+    {
+      "id": "player-fm"
+    },
+    {
+      "id": "pod-grasp"
+    },
+    {
+      "id": "podcast-addict"
+    },
+    {
+      "id": "podcast-republic"
+    },
+    {
+      "id": "podcat"
+    },
+    {
+      "id": "podscout"
+    },
+    {
+      "id": "rss-radio"
+    }
+  ],
+  "theme": {
+    "colors": {
+      "primary": {
+        "50": "#f2f7f6",
+        "100": "#d9f1f3",
+        "200": "#abe5e3",
+        "300": "#71cac1",
+        "400": "#33a997",
+        "500": "#248c6f",
+        "600": "#1f7455",
+        "700": "#12584b",
+        "800": "#143c31",
+        "900": "#0e2424"
+      },
+      "secondary": {
+        "50": "#f8fafa",
+        "100": "#ecf1f8",
+        "200": "#d4ddf0",
+        "300": "#acbadc",
+        "400": "#8092c2",
+        "500": "#646fa7",
+        "600": "#51538a",
+        "700": "#3e3e69",
+        "800": "#2a2a48",
+        "900": "#18192c"
+      },
+      "complementary": {
+        "50": "#fcfbfa",
+        "100": "#f8f1f3",
+        "200": "#f0d5e6",
+        "300": "#deacc8",
+        "400": "#d17ea4",
+        "500": "#bb5983",
+        "600": "#9e3e63",
+        "700": "#772f48",
+        "800": "#522030",
+        "900": "#2f131b"
+      },
+      "gray": {
+        "100": "#FFFFFF",
+        "200": "#EDEFF2",
+        "300": "#CAD1D7",
+        "400": "#9EA5AC",
+        "500": "#767F87",
+        "600": "#56616A",
+        "700": "#3D464D",
+        "800": "#22282C",
+        "900": "#070809"
+      }
+    }
+  }
+}

@@ -1,10 +1,6 @@
-const config = require('./plugins/config')
+const ConfigWebpackPlugin = require('config-webpack')
 
 module.exports = function (api) {
-  api.loadSource(async (actions) => {
-    await config(actions)
-  })
-
   api.chainWebpack((config) => {
     ["css", "scss", "sass", "less", "stylus", "postcss"].forEach((lang) => {
       config.module
@@ -16,5 +12,7 @@ module.exports = function (api) {
             plugins: [require('tailwindcss'), require('autoprefixer')]
         }))
     });
+
+    config.plugin('config-webpack').use(ConfigWebpackPlugin, [])
   });
 }

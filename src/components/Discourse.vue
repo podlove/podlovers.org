@@ -2,16 +2,6 @@
   <div id="discourse-comments" v-if="discourseUrl"></div>
 </template>
 
-<static-query>
-query {
-  metadata {
-    comments {
-      discourse
-    }
-  }
-}
-</static-query>
-
 <script>
 import { path } from 'ramda'
 import normalize from 'normalize-url'
@@ -38,8 +28,7 @@ export default {
 
   computed: {
     discourseUrl() {
-      return path(['$static', 'metadata', 'comments', 'discourse'], this)
-
+      return path(['comments', 'discourse'], CONFIG)
     }
   }
 }

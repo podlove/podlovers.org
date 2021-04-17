@@ -1,7 +1,8 @@
 <template>
   <div
     class="w-full bottom-0 h-16 flex mt-0"
-    :class="{ 'fixed top-0 z-40 docked': docked, absolute: !docked }"
+    :class="{ 'fixed top-0 z-40': docked, absolute: !docked }"
+    :style="style"
   >
     <div
       class="h-20 relative w-full flex items-center justify-center"
@@ -26,6 +27,7 @@
       <button
         class="mx-4 font-light flex items-center overflow-visible"
         @click="scrollTo('shownotes')"
+        v-if="shownotes"
       >
         <shownotes-icon class="mr-3" />
         <span class="uppercase hidden md:block">{{ $t('EPISODE.SHOWNOTES') }}</span>
@@ -40,7 +42,7 @@
       </button>
       <!-- Comments -->
       <button
-        v-if="hasComments"
+        v-if="comments"
         class="mx-4 font-light flex items-center overflow-visible"
         @click="scrollTo('discuss')"
       >
@@ -55,20 +57,9 @@
   </div>
 </template>
 
-<static-query>
-query {
-  metadata {
-    comments {
-      discourse
-    }
-  }
-}
-</static-query>
-
 <script>
 import { throttle } from 'throttle-debounce'
 import scrollIntoView from 'scroll-into-view-if-needed'
-import { path } from 'ramda'
 
 import { Icon } from '~/externals'
 import DiscussIcon from '~/components/icon/Discuss'
@@ -77,18 +68,22 @@ import SummaryIcon from '~/components/icon/Summary'
 import ShownotesIcon from '~/components/icon/Shownotes'
 
 export default {
+  props: {
+    comments: {
+      type: Boolean,
+      default: false
+    },
+    shownotes: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       docked: false
     }
   },
   components: { Icon, DiscussIcon, TimelineIcon, SummaryIcon, ShownotesIcon },
-  computed: {
-    hasComments() {
-      const discourse = path(['$static', 'metadata', 'comments', 'discourse'], this)
-      return !!discourse;
-    }
-  },
   mounted() {
     this.handleScroll()
     window && window.addEventListener('scroll', throttle(100, this.handleScroll.bind(this)))
@@ -105,6 +100,19 @@ export default {
     scrollTo(id) {
       const node = document.getElementById(id)
       node && scrollIntoView(node, { behavior: 'smooth', scrollMode: 'always', block: 'start' })
+    }
+  },
+  computed: {
+    background() {
+      return CONFIG.header.background
+    },
+    style() {
+      if (this.background && this.docked) {
+        return {
+          'background-image': `url(${this.background})`
+        }
+      }
+      return {}
     }
   }
 }
@@ -125,9 +133,5 @@ export default {
 
 .docked {
   transition: z-index 300ms;
-}
-
-.docked-bg {
-  background-image: url('/bg-pattern.png');
 }
 </style>

@@ -17,9 +17,10 @@
           <icon type="close" :size="35" />
         </button>
         <div class="w-full flex px-5 py-2">
-          <loader class="text-gray-500 mt-3" :size="35" v-if="loading" />
-          <icon type="search" class="text-gray-500 mt-2" :size="35" v-else />
+          <loader class="text-gray-500 mt-2" :size="35" v-if="loading" />
+          <icon type="search" class="text-gray-500 mt-1" :size="35" v-else />
           <input
+            v-if="initialized"
             type="text"
             class="font-light text-2xl text-gray-500 w-full p-2 focus:outline-none"
             @input="search($event.target.value)"
@@ -27,8 +28,8 @@
             id="search-input"
             :placeholder="$t(`SEARCH.PLACEHOLDER`)"
             :value="query"
-            :disabled="!initialized"
           />
+          <span v-else class="font-light text-2xl text-gray-500 w-full p-2">{{ $t(`SEARCH.INDEXING`) }}</span>
           <button class="text-gray-500 -ml-5" @click="search('')">
             <icon v-if="query && query.length > 0" type="search-clear" color="white" :size="35" />
           </button>

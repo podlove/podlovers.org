@@ -14,7 +14,7 @@
         </popover>
       </bullet>
       <a class="block uppercase font-normal cursor-pointer px-2">
-        {{ speaker.nickname }}
+        {{ speaker.nickname || speaker.name }}
       </a>
       <div class="ml-auto text-gray-500 font-mono">{{ toHumanTime(start) }}</div>
     </div>

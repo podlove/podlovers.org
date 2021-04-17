@@ -1,6 +1,7 @@
 <template>
   <div
-    class="contributor-header w-full px-8 pt-20 pb-32 bg-primary-900 flex items-center justify-center relative shadow"
+    class="w-full px-8 pt-20 pb-32 bg-primary-900 flex items-center justify-center relative shadow"
+    :style="style"
   >
     <div class="w-app flex font-light items-center flex-col mt-6">
       <div class="flex flex-col items-center md:items-start md:flex-row">
@@ -69,6 +70,19 @@ export default {
       default: () => []
     }
   },
+  computed: {
+    background() {
+      return CONFIG.header.background
+    },
+    style() {
+      if (this.background) {
+        return {
+          'background-image': `url(${this.background})`
+        }
+      }
+      return {}
+    }
+  },
   methods: {
     toHumanTime
   }
@@ -76,10 +90,6 @@ export default {
 </script>
 
 <style>
-.contributor-header {
-  background-image: url('/bg-pattern.png');
-}
-
 .contributor-poster {
   width: 180px;
   height: 180px;
