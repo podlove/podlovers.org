@@ -2,7 +2,6 @@
   <div
     class="w-full bottom-0 h-16 flex mt-0"
     :class="{ 'fixed top-0 z-40': docked, absolute: !docked }"
-    :style="style"
   >
     <div
       class="h-20 relative w-full flex items-center justify-center"
@@ -13,7 +12,8 @@
 
     <div
       class="text-gray-100 h-16 flex justify-center items-center py-4 px-8 w-full"
-      :class="{ 'bg-primary-900 shadow rounded-b docked-bg': docked }"
+      :class="{ 'bg-primary-900 shadow rounded-b': docked }"
+      :style="style"
     >
       <!-- Discuss -->
       <button

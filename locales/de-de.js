@@ -8,7 +8,10 @@ module.exports = {
     SUMMARY: 'Info',
     SHOWNOTES: 'Shownotes',
     TIMELINE: 'Timeline',
-    DISCUSS: 'Kommentare'
+    DISCUSS: 'Kommentare',
+  },
+  PLAYBAR: {
+    CHAPTERS: 'Kapitel'
   },
   CONTRIBUTOR: {
     SOCIAL: 'Social',

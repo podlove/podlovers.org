@@ -6,7 +6,7 @@
         :style="playbarStyle"
         class="w-screen fixed bottom-0 play-bar mb-0 z-50"
       >
-        <div class="w-full absolute progress px-4">
+        <div class="w-full absolute progress pl-4 pr-6">
           <div class="font-shadow flex justify-between text-xs -mt-4 font-bold">
             <timer :time="isNumber(ghost) ? ghost : playtime" />
             <timer :time="duration - (ghost ? ghost : playtime)" :remaining="true" />
@@ -123,7 +123,7 @@
         :style="playbarStyle"
       >
         <div class="w-full px-4 py-3 border-b border-gray-100 flex justify-between items-center">
-          <h3 class="uppercase text-lg font-normal leading-none">Chapters</h3>
+          <h3 class="uppercase text-lg font-normal leading-none">{{ $t('PLAYBAR.CHAPTERS') }}</h3>
           <button @click="toggleChaptersOverlay">
             <icon type="close" color="rgba(255, 255, 255)" />
           </button>
