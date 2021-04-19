@@ -63,6 +63,7 @@
 import { pathOr, path } from 'ramda'
 import { toHumanTime } from '@podlove/utils/time'
 import truncate from 'trunc-text'
+import { contributors } from '~/config';
 
 import Contributor from './Contributor'
 import PlayButton from './PlayButton'
@@ -99,7 +100,7 @@ export default {
     },
     contributors() {
       return pathOr([], ['episode', 'contributors'], this)
-        .filter((contributor) => this.groups.includes(path(['group', 'slug'], contributor)))
+        .filter((contributor) => contributors.groups.includes(path(['group', 'slug'], contributor)))
         .map((contributor) => ({
           id: path(['details', 'id'], contributor),
           slug: path(['details', 'slug'], contributor),
@@ -107,9 +108,6 @@ export default {
           avatar: path(['details', 'avatar'], contributor),
           role: path(['role', 'title'], contributor)
         }))
-    },
-    groups() {
-      return Object.values(CONFIG.contributors.groups) || []
     }
   },
 

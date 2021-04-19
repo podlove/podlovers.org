@@ -7,19 +7,21 @@
     <ClientOnly>
       <play-bar />
       <subscribe />
+      <search />
     </ClientOnly>
     <page-footer />
   </div>
 </template>
 
 <script>
-import PageHeader from '~/components/Header'
-import PageFooter from '~/components/Footer'
-import Subscribe from '~/components/Subscribe'
-import PlayBar from '~/components/PlayBar'
+import PageFooter from '~/features/page-footer/PageFooter'
+import PageHeader from '~/features/page-header/PageHeader'
+import Search from '~/features/search/Search'
+import PlayBar from '~/features/playbar/PlayBar'
+import Subscribe from '~/features/subscribe/Subscribe'
 
 export default {
-  components: { PageHeader, PageFooter, PlayBar, Subscribe }
+  components: { PageHeader, PageFooter, PlayBar, Subscribe, Search }
 }
 </script>
 

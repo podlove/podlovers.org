@@ -62,6 +62,7 @@ import getClients from '@podlove/clients'
 import { type, platform } from '@podlove/clients/types'
 import { getPlatform } from '@podlove/utils/useragent'
 import { Icon } from '~/externals'
+import { feed } from '~/config'
 
 import CustomTransition from '~/components/CustomTransition'
 import ResImage from '~/components/ResImage'
@@ -90,7 +91,7 @@ export default {
 
   computed: {
     feed() {
-      return CONFIG.feed
+      return feed
     },
 
     clients() {

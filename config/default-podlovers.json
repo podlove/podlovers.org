@@ -2,6 +2,7 @@
   "siteName": "Podlovers",
   "siteTitle": "Podlovers",
   "siteUrl": "https://podlovers.org",
+  "icon": "./static/favicon.png",
   "api": "https://backend.podlovers.org",
   "feed": "https://feeds.podlovers.org/mp3",
   "comments": {

@@ -4,6 +4,7 @@
   "siteUrl": null,
   "api": null,
   "feed": null,
+  "icon": null,
   "contributors": {
     "groups": ["on-air"],
     "roles": ["team", "guest"]

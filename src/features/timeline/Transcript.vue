@@ -50,8 +50,8 @@ import { mapActions, mapState } from 'redux-vuex'
 
 import { selectors } from '~/store/reducers'
 import Bullet from './Bullet'
-import ResImage from '../ResImage'
-import Popover from '../Popover'
+import ResImage from '~/components/ResImage'
+import Popover from '~/components/Popover'
 
 export default {
   components: { Bullet, ResImage, Popover },

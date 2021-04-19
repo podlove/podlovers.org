@@ -125,8 +125,8 @@ import { mapActions, mapState } from 'redux-vuex'
 
 import { Icon } from '~/externals'
 import { selectors } from '~/store/reducers'
-import Loader from './icon/Loader'
-import ResImage from './ResImage'
+import Loader from '~/components/icon/Loader'
+import ResImage from '~/components/ResImage'
 
 export default {
   data: mapState({

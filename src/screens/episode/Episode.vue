@@ -130,11 +130,12 @@ import { compose, path, pathOr, propOr, prop, flatten } from 'ramda'
 import { toPlayerTime, toHumanTime } from '@podlove/utils/time'
 
 import { selectors } from '~/store/reducers'
-import Timeline from '~/components/Timeline'
-import Subscribe from '~/components/Subscribe'
-import EpisodeNavigation from '~/components/EpisodeNavigation'
-import EpisodeHeader from '~/components/EpisodeHeader'
-import Discourse from '~/components/Discourse'
+import Timeline from '~/features/timeline/Timeline'
+import Discourse from '~/features/comments/Discourse'
+import { contributors, comments } from '~/config'
+
+import EpisodeHeader from './Header'
+import EpisodeNavigation from './Navigation'
 
 export default {
   data: mapState({
@@ -145,7 +146,6 @@ export default {
   }),
 
   components: {
-    Subscribe,
     Timeline,
     EpisodeHeader,
     EpisodeNavigation,
@@ -164,19 +164,15 @@ export default {
     },
     contributors() {
       return pathOr([], ['contributors'], this.episode)
-        .filter((contributor) => this.groups.includes(path(['group', 'slug'], contributor)))
+        .filter((contributor) => contributors.groups.includes(path(['group', 'slug'], contributor)))
         .map((contributor) => ({
           ...propOr({}, 'details', contributor),
           group: path(['group', 'title'], contributor),
           role: path(['role', 'title'], contributor)
         }))
     },
-    groups() {
-      return pathOr([], ['$static', 'metadata', 'contributors', 'groups'], this)
-    },
     hasComments() {
-      const discourse = CONFIG.comments.discourse
-      return !!discourse
+      return !!comments.discourse
     }
   },
 

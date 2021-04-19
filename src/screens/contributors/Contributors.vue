@@ -1,13 +1,6 @@
 <template>
   <Layout>
-    <div
-      class="w-full px-8 py-20 bg-primary-900 flex items-center justify-center relative shadow mb-5"
-      :style="style"
-    >
-      <div class="lg:w-app mt-6">
-        <h1 class="text-3xl text-gray-100">{{ $t('CONTRIBUTOR_LIST.TITLE') }}</h1>
-      </div>
-    </div>
+    <contributors-header />
     <div class="flex justify-center">
       <div class="lg:w-app py-8 overflow-hidden">
         <div class="mb-8" v-for="(role, index) in contributors" :key="`role-${index}`">
@@ -88,13 +81,12 @@ import {
 } from 'ramda'
 
 import ResImage from '~/components/ResImage'
+import { contributors } from '~/config'
+
+import ContributorsHeader from './Header'
 
 export default {
   computed: {
-    roles() {
-      return Object.values(CONFIG.contributors.roles) || []
-    },
-
     contributors() {
       return compose(
         reduce(
@@ -108,7 +100,7 @@ export default {
           []
         ),
         values,
-        (data) => this.roles.map((role) => prop(role, data)),
+        (data) => contributors.roles.map((role) => prop(role, data)),
         reduce((result, contributor) => {
           forEach((role) => {
             const insert = result[role.slug]
@@ -140,19 +132,9 @@ export default {
         pathOr([], ['$page', 'allPodcastContributorStatistics', 'edges'])
       )(this)
     },
-    background() {
-      return CONFIG.header.background
-    },
-    style() {
-      if (this.background) {
-        return {
-          'background-image': `url(${this.background})`
-        }
-      }
-      return {}
-    }
   },
   components: {
+    ContributorsHeader,
     ResImage
   }
 }

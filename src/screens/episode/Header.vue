@@ -1,10 +1,5 @@
 <template>
-  <div
-    id="header"
-    class="w-full px-8 pt-20 pb-32 bg-primary-900 flex items-center justify-center relative shadow"
-    :class="{ 'pb-40': expanded }"
-    :style="style"
-  >
+  <header-container :class="{ 'pb-40': expanded }">
     <div class="w-app flex font-light items-center flex-col mt-6">
       <div class="flex flex-col items-center md:items-start md:flex-row">
         <div class="episode-poster relative mb-4 md:mb-0 md:mr-8">
@@ -49,18 +44,19 @@
       </div>
       <slot />
     </div>
-  </div>
+  </header-container>
 </template>
 
 <script>
 import { toHumanTime } from '@podlove/utils/time'
 
-import PlayButton from './PlayButton'
-import Contributor from './Contributor'
-import ResImage from './ResImage'
+import HeaderContainer from '~/components/Header';
+import PlayButton from '~/components/PlayButton'
+import Contributor from '~/components/Contributor'
+import ResImage from '~/components/ResImage'
 
 export default {
-  components: { PlayButton, Contributor, ResImage },
+  components: { HeaderContainer, PlayButton, Contributor, ResImage },
 
   props: {
     id: {
@@ -103,17 +99,6 @@ export default {
   computed: {
     expanded() {
       return !!this.$slots.default
-    },
-    background() {
-      return CONFIG.header.background
-    },
-    style() {
-      if (this.background) {
-        return {
-          'background-image': `url(${this.background})`
-        }
-      }
-      return {}
     }
   }
 }

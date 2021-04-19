@@ -12,6 +12,7 @@
 import { mapActions } from 'redux-vuex'
 import { REQUEST_PLAY, REQUEST_PAUSE } from '@podlove/player-actions/types'
 
+import { colors } from '~/config'
 import { PlayButton } from '~/externals'
 import { selectors } from '~/store/reducers'
 
@@ -35,11 +36,11 @@ export default {
 
   computed: {
     color() {
-      return CONFIG.theme.colors.primary[200]
+      return colors.primary[200]
     },
 
     background() {
-      return CONFIG.theme.colors.primary[800]
+      return colors.primary[800]
     },
   },
 

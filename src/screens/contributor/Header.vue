@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="w-full px-8 pt-20 pb-32 bg-primary-900 flex items-center justify-center relative shadow"
-    :style="style"
-  >
+  <header-container>
     <div class="w-app flex font-light items-center flex-col mt-6">
       <div class="flex flex-col items-center md:items-start md:flex-row">
         <div class="contributor-poster relative mb-4 md:mb-0 md:mr-8">
@@ -45,15 +42,16 @@
         </div>
       </div>
     </div>
-  </div>
+  </header-container>
 </template>
 
 <script>
 import { toHumanTime } from '@podlove/utils/time'
-import ResImage from './ResImage'
+import HeaderContainer from '~/components/Header'
+import ResImage from '~/components/ResImage'
 
 export default {
-  components: { ResImage },
+  components: { HeaderContainer, ResImage },
   props: {
     avatar: {
       type: String
@@ -68,19 +66,6 @@ export default {
     donation: {
       type: Array,
       default: () => []
-    }
-  },
-  computed: {
-    background() {
-      return CONFIG.header.background
-    },
-    style() {
-      if (this.background) {
-        return {
-          'background-image': `url(${this.background})`
-        }
-      }
-      return {}
     }
   },
   methods: {

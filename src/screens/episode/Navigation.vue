@@ -62,6 +62,7 @@ import { throttle } from 'throttle-debounce'
 import scrollIntoView from 'scroll-into-view-if-needed'
 
 import { Icon } from '~/externals'
+import { background } from '~/config'
 import DiscussIcon from '~/components/icon/Discuss'
 import TimelineIcon from '~/components/icon/Timeline'
 import SummaryIcon from '~/components/icon/Summary'
@@ -103,13 +104,10 @@ export default {
     }
   },
   computed: {
-    background() {
-      return CONFIG.header.background
-    },
     style() {
-      if (this.background && this.docked) {
+      if (background && this.docked) {
         return {
-          'background-image': `url(${this.background})`
+          'background-image': `url(${background})`
         }
       }
       return {}

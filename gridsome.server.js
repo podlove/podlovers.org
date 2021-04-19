@@ -15,4 +15,16 @@ module.exports = function (api) {
 
     config.plugin('config-webpack').use(ConfigWebpackPlugin, [])
   });
+
+  api.createPages(({ createPage }) => {
+    createPage({
+      path: '/',
+      component: './src/screens/archive/Archive.vue'
+    })
+
+    createPage({
+      path: '/contributors',
+      component: './src/screens/contributors/Contributors.vue'
+    })
+  })
 }

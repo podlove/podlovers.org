@@ -156,20 +156,21 @@ import {
   InputSlider,
   Timer
 } from '~/externals'
+
+import { colors } from '~/config'
 import { selectors } from '~/store/reducers'
 
-import colors from '~/colors'
-import CustomTransition from './CustomTransition'
-import LockIcon from './icon/Lock'
-import ChapterIcon from './icon/Chapter'
+import CustomTransition from '~/components/CustomTransition'
+import LockIcon from '~/components/icon/Lock'
+import ChapterIcon from '~/components/icon/Chapter'
+import ResImage from '~/components/ResImage'
+
 import Chapter from './Chapter'
-import ResImage from './ResImage'
 
 export default {
   data() {
     return {
       scrolledToBottom: false,
-      colors,
       ...this.mapState({
         active: selectors.playbar.active,
         episode: selectors.current.episode,
@@ -235,10 +236,10 @@ export default {
       }
     },
     highlightColor() {
-      return CONFIG.theme.colors.primary[700]
+      return colors.primary[700]
     },
     progressColor() {
-      return CONFIG.theme.colors.primary[100]
+      return colors.primary[100]
     }
   },
   mounted() {

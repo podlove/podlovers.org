@@ -238,11 +238,13 @@ import { prop, propOr, pathOr, last } from 'ramda'
 import { toHumanTime } from '@podlove/utils/time'
 import { mapActions } from 'redux-vuex'
 
-import ContributorHeader from '~/components/ContributorHeader'
 import DoughnutChart from '~/components/DoughnutChart'
 import Duration from '~/components/icon/HourGlass'
 import Speak from '~/components/icon/Speak'
 import Popover from '~/components/Popover'
+import { colors } from '~/config'
+
+import ContributorHeader from './Header'
 
 export default {
   components: {
@@ -255,7 +257,7 @@ export default {
 
   data() {
     return {
-      colors: CONFIG.theme.colors
+      colors
     }
   },
 

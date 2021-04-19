@@ -10,6 +10,7 @@ const { get } = require('lodash')
 module.exports = {
   siteName: config.get('siteName'),
   siteUrl: config.get('siteUrl'),
+  icon: config.get('icon'),
   plugins: [
     {
       use: '@gridsome/source-wordpress',
@@ -117,13 +118,19 @@ module.exports = {
     }
   ],
   templates: {
-    PodcastEpisode: '/episode/:id',
+    PodcastEpisode: [{
+      path: '/episode/:id',
+      component: './src/screens/episode/Episode.vue'
+    }],
     WordPressPage: [
       {
         path: '/page/:slug',
-        component: './src/templates/Page.vue'
+        component: './src/screens/wordpress-page/WordpressPage.vue'
       }
     ],
-    PodcastContributor: '/contributor/:slug'
+    PodcastContributor: [{
+      path: '/contributor/:slug',
+      component: './src/screens/contributor/Contributor.vue'
+    }]
   }
 }
