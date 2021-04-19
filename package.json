@@ -2,8 +2,8 @@
   "name": "podlove-frontend",
   "private": true,
   "scripts": {
-    "build": "npm run clean && env NODE_APP_INSTANCE=podlovers gridsome build",
-    "dev": "npm run clean && env NODE_APP_INSTANCE=podlovers gridsome develop",
+    "build": "npm run clean && gridsome build",
+    "dev": "npm run clean && gridsome develop",
     "explore": "gridsome explore",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",

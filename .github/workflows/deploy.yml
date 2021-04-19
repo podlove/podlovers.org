@@ -22,6 +22,8 @@ jobs:
       - name: Install
         run: npm ci
       - name: Build
+        env:
+          NODE_APP_INSTANCE: podlovers
         run: npm run build
       - name: Deploy
         uses: FirebaseExtended/action-hosting-deploy@v0
