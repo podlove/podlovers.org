@@ -94,7 +94,7 @@ export default {
             ...result,
             {
               ...role,
-              contributors: sortBy(prop('name'), role.contributors)
+              contributors: sortBy(prop('name'), propOr([], 'contributors', role))
             }
           ],
           []
