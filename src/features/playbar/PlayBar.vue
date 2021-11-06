@@ -74,6 +74,7 @@
                 class="mx-2 rounded-full shadow-none hover:shadow-md"
                 :type="buttonType"
                 @click="store.dispatch"
+                :title="playButtonA11y"
               />
               <stepper-button
                 type="forward"
@@ -211,7 +212,12 @@ export default {
         a11yChapterPrevious: selectors.a11y.chapterPrevious,
         a11yProgressBar: selectors.a11y.progressBar,
         a11yStepperBackwards: selectors.a11y.stepperBackwards,
-        a11yStepperForward: selectors.a11y.stepperForward
+        a11yStepperForward: selectors.a11y.stepperForward,
+        a11yPlayButtonPause: selectors.a11y.playButtonPause,
+        a11yPlayButtonDuration: selectors.a11y.playButtonDuration,
+        a11yPlayButtonReplay: selectors.a11y.playButtonReplay,
+        a11yPlayButtonPlay: selectors.a11y.playButtonPlay,
+        a11yPlayButtonError: selectors.a11y.playButtonError,
       })
     }
   },
@@ -259,6 +265,18 @@ export default {
     },
     progressColor() {
       return colors.primary[100]
+    },
+    playButtonA11y() {
+      switch(this.buttonType) {
+        case 'play':
+          return this.$t(this.a11yPlayButtonPlay.key, this.a11yPlayButtonPlay.attr);
+        case 'pause':
+          return this.$t(this.a11yPlayButtonPause.key, this.a11yPlayButtonPause.attr);
+        case 'restart':
+          return this.$t(this.a11yPlayButtonReplay.key, this.a11yPlayButtonReplay.attr);
+        default:
+          return ''
+      }
     }
   },
   mounted() {

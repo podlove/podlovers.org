@@ -1,4 +1,5 @@
 import { compose, either, propOr } from 'ramda'
+import { calcHours, calcMinutes, calcSeconds } from '@podlove/utils/time'
 import { selectors as driver } from '@podlove/player-state/driver'
 import { selectors as show } from '@podlove/player-state/show'
 import { selectors as media } from '@podlove/player-state/media'
@@ -13,7 +14,7 @@ import { selectors as quantiles } from '@podlove/player-state/quantiles'
 import { currentChapterByPlaytime } from '@podlove/utils/chapters'
 
 import { selectors as episodes } from './episodes'
-import { selectors as player, selectors } from './player'
+import { selectors as player } from './player'
 import { selectors as playbar } from './playbar'
 import { selectors as subscribeButton } from './subscribe-button'
 import { selectors as router } from './router'
@@ -207,6 +208,30 @@ export default {
     },
     stepperForward: () => {
       return translation('A11Y.PLAYER_STEPPER_FORWARD', { seconds: 30 })
+    },
+    playButtonPause: (state) => {
+      return translation('A11Y.PLAYER_PAUSE', chapters.current(state))
+    },
+    playButtonDuration: (state) => {
+      const time = {
+        duration: duration(state),
+        playtime: playtime(state)
+      }
+
+      return translation('A11Y.PLAYER_START', {
+        hours: calcHours(time.playtime > 0 ? time.playtime : time.duration),
+        minutes: calcMinutes(time.playtime > 0 ? time.playtime : time.duration),
+        seconds: calcSeconds(time.playtime > 0 ? playtime : time.duration)
+      })
+    },
+    playButtonReplay: () => {
+      return translation('A11Y.PLAYER_LOADING')
+    },
+    playButtonPlay: () => {
+      return translation('A11Y.PLAYER_PLAY')
+    },
+    playButtonError: () => {
+      return translation('A11Y.PLAYER_ERROR')
     },
   }
 }

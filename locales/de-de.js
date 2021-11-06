@@ -55,6 +55,12 @@ module.exports = {
     PLAYER_CHAPTER_CURRENT: 'Zum Anfang des aktiven Kapitels springen: {index} - {title}',
     PLAYER_STEPPER_BACK: '{seconds} Sekunden zurückspringen',
     PLAYER_STEPPER_FORWARD: '{seconds} Sekunden vorspringen',
-    PROGRESSBAR_INPUT: 'Spielzeit in Prozent ändern'
+    PROGRESSBAR_INPUT: 'Spielzeit in Prozent ändern',
+    PLAYER_PLAY: 'Episode abspielen',
+    PLAYER_START: 'Starte Episode - Dauer: {hours} Stunden {minutes} Minuten {seconds} Sekunden',
+    PLAYER_RESTART: 'Episode neustarten',
+    PLAYER_ERROR: 'Nochmals versuchen Episode abzuspielen',
+    PLAYER_PAUSE: 'Episode pausieren',
+    PLAYER_LOADING: 'Episode lädt'
   }
 }
