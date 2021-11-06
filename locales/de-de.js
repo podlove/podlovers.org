@@ -8,7 +8,7 @@ module.exports = {
     SUMMARY: 'Info',
     SHOWNOTES: 'Shownotes',
     TIMELINE: 'Timeline',
-    DISCUSS: 'Kommentare',
+    DISCUSS: 'Kommentare'
   },
   PLAYBAR: {
     CHAPTERS: 'Kapitel'
@@ -44,5 +44,17 @@ module.exports = {
   SUBSCRIBE_BUTTON: {
     CLIENTS: 'Podcast Clients',
     FEED: 'RSS Feed'
+  },
+  A11Y: {
+    PLAYER_CHAPTER_END: 'Zum Ende der Episode springen',
+    PLAYER_CHAPTER_NEXT: 'Zum nächsten Kapitel: {index} - {title}',
+    PLAYER_CHAPTER_NEXT: 'Zum nächsten Kapitel: {index} - {title}',
+    PLAYER_CHAPTER_END: 'Zum Ende der Episode springen',
+    PLAYER_CHAPTER_START: 'Zum Start der Episode springen',
+    PLAYER_CHAPTER_PREVIOUS: 'Zum vorhergehenden Kapitel: {index} - {title}',
+    PLAYER_CHAPTER_CURRENT: 'Zum Anfang des aktiven Kapitels springen: {index} - {title}',
+    PLAYER_STEPPER_BACK: '{seconds} Sekunden zurückspringen',
+    PLAYER_STEPPER_FORWARD: '{seconds} Sekunden vorspringen',
+    PROGRESSBAR_INPUT: 'Spielzeit in Prozent ändern'
   }
 }

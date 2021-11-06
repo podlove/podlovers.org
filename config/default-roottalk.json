@@ -1,0 +1,14 @@
+  {
+    "siteName": "ROOT Talk",
+    "siteTitle": "ROOT Talk",
+    "siteUrl": "https://roottalk.de",
+    "api": "https://backend.roottalk.de",
+    "feed": "https://backend.roottalk.de/feed/mp3/",
+    "comments": {
+      "discourse": false
+    },
+    "header": {
+      "logo": false,
+      "background": false
+    }
+  }

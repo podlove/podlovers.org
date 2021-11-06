@@ -43,8 +43,16 @@ const muted = compose(audio.muted, propOr({}, 'audio'), slices.player)
 const rate = compose(audio.rate, propOr({}, 'audio'), slices.player)
 
 const playerChaptersList = compose(chapters.list, propOr({}, 'chapters'), slices.player)
-
 const playerGhostTime = compose(ghost.time, propOr({}, 'ghost'), slices.player)
+
+// chapters
+const chaptersNext = compose(chapters.next, propOr({}, 'chapters'), slices.player)
+const chaptersPrevious = compose(chapters.previous, propOr({}, 'chapters'), slices.player)
+const chaptersCurrent = compose(chapters.current, propOr({}, 'chapters'), slices.player)
+const chaptersTitle = compose(chapters.title, propOr({}, 'chapters'), slices.player)
+const chaptersImage = compose(chapters.image, propOr({}, 'chapters'), slices.player)
+
+const translation = (key, attr = {}) => ({ key, attr })
 
 export default {
   current: {
@@ -87,11 +95,11 @@ export default {
     },
     chapters: {
       list: playerChaptersList,
-      next: compose(chapters.next, propOr({}, 'chapters'), slices.player),
-      previous: compose(chapters.previous, propOr({}, 'chapters'), slices.player),
-      current: compose(chapters.current, propOr({}, 'chapters'), slices.player),
-      title: compose(chapters.title, propOr({}, 'chapters'), slices.player),
-      image: compose(chapters.image, propOr({}, 'chapters'), slices.player)
+      next: chaptersNext,
+      previous: chaptersPrevious,
+      current: chaptersCurrent,
+      title: chaptersTitle,
+      image: chaptersImage
     }
   },
   playbar: {
@@ -166,5 +174,39 @@ export default {
     results: compose(search.results, slices.search),
     hasResults: compose(search.hasResults, slices.search),
     selectedResult: compose(search.selectedResult, slices.search)
+  },
+  a11y: {
+    chapterNext: (state) => {
+      const next = chaptersNext(state)
+
+      if (!next) {
+        return translation('A11Y.PLAYER_CHAPTER_END')
+      }
+
+      return translation('A11Y.PLAYER_CHAPTER_NEXT', next)
+    },
+    chapterPrevious: (state) => {
+      const previous = chaptersPrevious(state)
+      const current = chaptersCurrent(state)
+
+      if (!previous) {
+        return translation('A11Y.PLAYER_CHAPTER_START')
+      }
+
+      if (current.start + 2000 > playtime(state)) {
+        return translation('A11Y.PLAYER_CHAPTER_CURRENT', current)
+      }
+
+      return translation('A11Y.PLAYER_CHAPTER_PREVIOUS', previous)
+    },
+    progressBar: () => {
+      return translation('A11Y.PROGRESSBAR_INPUT')
+    },
+    stepperBackwards: () => {
+      return translation('A11Y.PLAYER_STEPPER_BACK', { seconds: 15 })
+    },
+    stepperForward: () => {
+      return translation('A11Y.PLAYER_STEPPER_FORWARD', { seconds: 30 })
+    },
   }
 }

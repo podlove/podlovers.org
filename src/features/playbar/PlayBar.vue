@@ -24,12 +24,18 @@
             :buffer="buffer"
             :chapters="chapters"
             :quantiles="quantiles"
+            :title="$t(a11yProgressBar.key, a11yProgressBar.attr)"
           />
         </div>
         <div class="px-4 py-2 pt-8">
           <div class="flex w-full h-16">
             <div class="flex w-3/4 sm:w-1/2 md:w-1/3">
-              <res-image :src="poster" :width="100" :height="100" class="w-16 h-16 mr-2 rounded shadow-md" />
+              <res-image
+                :src="poster"
+                :width="100"
+                :height="100"
+                class="w-16 h-16 mr-2 rounded shadow-md"
+              />
               <div class="overflow-hidden">
                 <g-link :to="episodeLink">
                   <h4 class="text-lg text-gray-100 uppercase truncate">{{ title }}</h4>
@@ -54,11 +60,13 @@
                 color="rgba(255, 255, 255)"
                 class="mx-2 hidden sm:block"
                 @click="store.dispatch"
+                :title="$t(a11yChapterPrevious.key, a11yChapterPrevious.attr)"
               />
               <stepper-button
                 type="backwards"
                 class="mx-2 hidden sm:block"
                 @click="store.dispatch"
+                :title="$t(a11yStepperBackwards.key, a11yStepperBackwards.attr)"
               />
               <play-button
                 :color="highlightColor"
@@ -67,13 +75,19 @@
                 :type="buttonType"
                 @click="store.dispatch"
               />
-              <stepper-button type="forward" class="mx-2 hidden sm:block" @click="store.dispatch" />
+              <stepper-button
+                type="forward"
+                class="mx-2 hidden sm:block"
+                @click="store.dispatch"
+                :title="$t(a11yStepperForward.key, a11yStepperForward.attr)"
+              />
               <chapter-button
                 v-if="chapters.length > 0"
                 type="next"
                 color="rgba(255, 255, 255)"
                 class="mx-2 hidden sm:block"
                 @click="store.dispatch"
+                :title="$t(a11yChapterNext.key, a11yChapterNext.attr)"
               />
             </div>
             <div class="justify-center items-end w-1/3 flex-col hidden md:flex">
@@ -192,7 +206,12 @@ export default {
         episodeLink: selectors.playbar.path,
         chaptersOverlay: selectors.playbar.chapters,
         ghostChapter: selectors.player.ghost.chapter,
-        ghostActive: selectors.player.ghost.active
+        ghostActive: selectors.player.ghost.active,
+        a11yChapterNext: selectors.a11y.chapterNext,
+        a11yChapterPrevious: selectors.a11y.chapterPrevious,
+        a11yProgressBar: selectors.a11y.progressBar,
+        a11yStepperBackwards: selectors.a11y.stepperBackwards,
+        a11yStepperForward: selectors.a11y.stepperForward
       })
     }
   },
