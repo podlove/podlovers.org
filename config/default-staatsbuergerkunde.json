@@ -1,0 +1,134 @@
+{
+  "siteName": "Forschergeist",
+  "siteTitle": "Forschergeist",
+  "siteUrl": "https://forschergeist.surge.sh/",
+  "api": "https://www.staatsbuergerkunde-podcast.de/",
+  "feed": "https://www.staatsbuergerkunde-podcast.de/feed/aac-rss/",
+  "header": {
+    "logo": false,
+    "background": false
+  },
+  "contributors": {
+    "groups": ["team"],
+    "roles": ["moderator", "guest"]
+  },
+  "subscribe-button": [
+    {
+      "id": "apple-podcasts",
+      "service": "id507846242"
+    },
+    {
+      "id": "antenna-pod"
+    },
+    {
+      "id": "beyond-pod"
+    },
+    {
+      "id": "castbox",
+      "service": "id1134737"
+    },
+    {
+      "id": "castro",
+      "service": "73b865a3-6bba-4683-98d3-9f3685e6b710"
+    },
+    {
+      "id": "pocket-casts",
+      "service": "7b66faa0-986b-012f-3957-525400c11844"
+    },
+    {
+      "id": "clementine"
+    },
+    {
+      "id": "downcast"
+    },
+    {
+      "id": "google-podcasts",
+      "service": "https://www.staatsbuergerkunde-podcast.de/feed/aac-rss/"
+    },
+    {
+      "id": "itunes"
+    },
+    {
+      "id": "i-catcher"
+    },
+    {
+      "id": "overcast"
+    },
+    {
+      "id": "player-fm"
+    },
+    {
+      "id": "pod-grasp"
+    },
+    {
+      "id": "podcast-addict"
+    },
+    {
+      "id": "podcast-republic"
+    },
+    {
+      "id": "podcat"
+    },
+    {
+      "id": "podscout"
+    },
+    {
+      "id": "rss-radio"
+    },
+    {
+      "id": "spotify",
+      "service": "5KG8fONRHB4eX2pcfs23gn"
+    }
+  ],
+  "theme": {
+    "colors": {
+      "primary": {
+        "50": "#f4f8f9",
+        "100": "#dcf1fa",
+        "200": "#b4e0f5",
+        "300": "#81c1e6",
+        "400": "#4c9dd2",
+        "500": "#397bbe",
+        "600": "#2f60a7",
+        "700": "#274884",
+        "800": "#1c315e",
+        "900": "#111e3d"
+      },
+      "secondary": {
+        "50": "#fcfbfb",
+        "100": "#f8f0f4",
+        "200": "#f1d3e9",
+        "300": "#e1a8cf",
+        "400": "#d77aaf",
+        "500": "#c45693",
+        "600": "#a83b72",
+        "700": "#812c54",
+        "800": "#5a1e37",
+        "900": "#34131e"
+      },
+      "complementary": {
+        "50": "#fcfbf7",
+        "100": "#f9f0da",
+        "200": "#f2d9b2",
+        "300": "#e0b27f",
+        "400": "#cc8650",
+        "500": "#b2642f",
+        "600": "#94491f",
+        "700": "#703719",
+        "800": "#4d2513",
+        "900": "#30170d"
+      },
+      "gray": {
+        "100": "#FFFFFF",
+        "200": "#EDEFF2",
+        "300": "#CAD1D7",
+        "400": "#9EA5AC",
+        "500": "#767F87",
+        "600": "#56616A",
+        "700": "#3D464D",
+        "800": "#22282C",
+        "900": "#070809"
+      }
+    }
+  }
+}

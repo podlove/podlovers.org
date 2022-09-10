@@ -17,6 +17,11 @@ export default function (Vue, { isClient, router, head }) {
 
   Vue.use(localePlugin, { locale: 'de-de' })
 
+  head.meta.push({
+    name: 'robots',
+    content: 'noindex,follow'
+  })
+
   router.beforeEach((to, _, next) => {
     store.dispatch(
       actions.routeTo({

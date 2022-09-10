@@ -319,7 +319,8 @@ export default {
       return parseInt((this.episodesCount / this.showEpisodesCount) * 100, 10)
     },
     episodeStatistics() {
-      return pathOr([], ['episodes'], this.statistics)
+      console.log(this.statistics.episodes)
+      return pathOr([], ['episodes'], this.statistics).filter(({ episode }) => episode)
     },
     episodesCount() {
       return this.episodeStatistics.length

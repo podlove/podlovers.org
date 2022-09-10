@@ -103,6 +103,10 @@ export default {
         (data) => contributors.roles.map((role) => prop(role, data)),
         reduce((result, contributor) => {
           forEach((role) => {
+            if (!role?.slug) {
+              return;
+            }
+
             const insert = result[role.slug]
               ? result[role.slug]
               : {
