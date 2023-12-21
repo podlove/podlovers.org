@@ -24,7 +24,7 @@ jobs:
       - name: Build
         env:
           NODE_APP_INSTANCE: podlovers
-          NODE_OPTIONS: --unhandled-rejections=none
+          NODE_OPTIONS: --unhandled-rejections=none --max-old-space-size=4096
         run: npm run build
       - name: Use Node.js
         uses: actions/setup-node@v1
