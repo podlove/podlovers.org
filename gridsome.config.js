@@ -109,12 +109,6 @@ module.exports = {
           }
         ]
       }
-    },
-    {
-      use: 'gridsome-plugin-brotli',
-      options: {
-        extensions: ['css', 'html', 'js', 'svg', 'json']
-      }
     }
   ],
   templates: {
