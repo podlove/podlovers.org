@@ -24,6 +24,7 @@ jobs:
       - name: Build
         env:
           NODE_APP_INSTANCE: podlovers
+          NODE_OPTIONS: --unhandled-rejections=none
         run: npm run build
       - name: Use Node.js
         uses: actions/setup-node@v1
