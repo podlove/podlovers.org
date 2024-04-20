@@ -32,11 +32,13 @@
     "trunc-text": "1.0.2",
     "typeface-roboto": "1.1.13",
     "vue-observe-visibility": "1.0.0",
-    "vue-scroll": "2.1.13"
+    "vue-scroll": "2.1.13",
+    "axios": "0.21.1",
+    "camelcase": "5.0.0",
+    "p-map": "1.2.0"
   },
   "devDependencies": {
     "@gridsome/cli": "0.3.4",
-    "@gridsome/source-wordpress": "0.5.3",
     "@podlove/source-publisher": "0.4.2",
     "@tailwindcss/postcss7-compat": "^2.1.0",
     "autoprefixer": "^9.8.6",

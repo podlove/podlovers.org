@@ -13,7 +13,7 @@ module.exports = {
   icon: config.get('icon'),
   plugins: [
     {
-      use: '@gridsome/source-wordpress',
+      use: '~/src/plugins/source-wordpress',
       options: {
         baseUrl: config.get('api'), // required
         apiBase: 'wp-json',
